@@ -10,6 +10,7 @@ import java.util.Objects;
 public final class Empire {
 
 	private final EmpireId empireId;
+	private final PlayerInstruction playerInstruction;
 	private final Round round;
 	private final Long population;
 	private final Long gold;
@@ -17,11 +18,12 @@ public final class Empire {
 	private final Stock stock;
 
 	public static Empire newInstance(EmpireId empireId) {
-		return new Empire(empireId, Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
+		return new Empire(empireId, PlayerInstruction.newEmpty(), Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
 	}
 
-	public Empire(EmpireId empireId, Round round, Long population, Long gold, Long tax, Stock stock) {
+	Empire(EmpireId empireId, PlayerInstruction playerInstruction, Round round, Long population, Long gold, Long tax, Stock stock) {
 		this.empireId = Objects.requireNonNull(empireId);
+		this.playerInstruction = Objects.requireNonNull(playerInstruction);
 		this.round = Objects.requireNonNull(round);
 		this.population = Objects.requireNonNull(population);
 		this.gold = Objects.requireNonNull(gold);
@@ -31,6 +33,10 @@ public final class Empire {
 
 	public EmpireId getEmpireId() {
 		return empireId;
+	}
+
+	public PlayerInstruction getPlayerInstruction() {
+		return playerInstruction;
 	}
 
 	public Round getRound() {
@@ -59,6 +65,7 @@ public final class Empire {
 
 	public static class Builder {
 		private EmpireId empireId;
+		private PlayerInstruction playerInstruction;
 		private Round round;
 		private Long population;
 		private Long gold;
@@ -67,6 +74,7 @@ public final class Empire {
 
 		Builder(Empire empire) {
 			this.empireId = empire.empireId;
+			this.playerInstruction = empire.playerInstruction;
 			this.round = empire.round;
 			this.population = empire.population;
 			this.gold = empire.gold;
@@ -75,55 +83,37 @@ public final class Empire {
 		}
 
 		public Empire build() {
-			return new Empire(empireId, round, population, gold, tax, stock);
+			return new Empire(empireId, playerInstruction, round, population, gold, tax, stock);
 		}
 
-		public EmpireId getEmpireId() {
-			return empireId;
+		public Builder playerInstruction(PlayerInstruction playerInstruction) {
+			this.playerInstruction = playerInstruction;
+			return this;
 		}
 
-		public void setEmpireId(EmpireId empireId) {
-			this.empireId = empireId;
-		}
-
-		public Round getRound() {
-			return round;
-		}
-
-		public void setRound(Round round) {
+		public Builder round(Round round) {
 			this.round = round;
+			return this;
 		}
 
-		public Long getPopulation() {
-			return population;
-		}
-
-		public void setPopulation(Long population) {
+		public Builder population(Long population) {
 			this.population = population;
+			return this;
 		}
 
-		public Long getGold() {
-			return gold;
-		}
-
-		public void setGold(Long gold) {
+		public Builder gold(Long gold) {
 			this.gold = gold;
+			return this;
 		}
 
-		public Long getTax() {
-			return tax;
-		}
-
-		public void setTax(Long tax) {
+		public Builder tax(Long tax) {
 			this.tax = tax;
+			return this;
 		}
 
-		public Stock getStock() {
-			return stock;
-		}
-
-		public void setStock(Stock stock) {
+		public Builder stock(Stock stock) {
 			this.stock = stock;
+			return this;
 		}
 	}
 }

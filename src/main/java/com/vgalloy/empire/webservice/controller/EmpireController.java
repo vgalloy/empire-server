@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vgalloy.empire.dao.EmpireDao;
 import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
@@ -28,11 +29,13 @@ public class EmpireController {
 	private final EmpireMapper empireMapper;
 	private final EmpireIdMapper empireIdMapper;
 	private final EmpireService empireService;
+	private final EmpireDao empireDao;
 
-	public EmpireController(EmpireMapper empireMapper, EmpireIdMapper empireIdMapper, EmpireService empireService) {
+	public EmpireController(EmpireMapper empireMapper, EmpireIdMapper empireIdMapper, EmpireService empireService, EmpireDao empireDao) {
 		this.empireMapper = Objects.requireNonNull(empireMapper);
 		this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
 		this.empireService = Objects.requireNonNull(empireService);
+		this.empireDao = Objects.requireNonNull(empireDao);
 	}
 
 	@GetMapping("/{empireId}")
@@ -43,6 +46,16 @@ public class EmpireController {
 		Empire empire = empireService.getEmpireById(id);
 		// MAP
 		return empireMapper.map(empire);
+	}
+
+	@PutMapping("/{empireId}/nextRound")
+	public void nextRound(@PathVariable String empireId) {
+		// EXTRACT
+		EmpireId id = this.empireIdMapper.unmap(empireId);
+		// DO
+		Empire empire = empireService.getEmpireById(id);
+		Empire newEmpire = empireService.computeNextRound(empire);
+		this.empireDao.update(newEmpire);
 	}
 
 	@PutMapping("/{empireId}/tax")

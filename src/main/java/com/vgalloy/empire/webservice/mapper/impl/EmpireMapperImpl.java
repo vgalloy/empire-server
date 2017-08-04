@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
+import com.vgalloy.empire.webservice.mapper.PlayerInstructionMapper;
 import com.vgalloy.empire.webservice.mapper.RoundMapper;
 import com.vgalloy.empire.webservice.mapper.StockMapper;
 
@@ -19,16 +20,19 @@ final class EmpireMapperImpl implements EmpireMapper {
 
 	private final RoundMapper roundMapper;
 	private final StockMapper stockMapper;
+	private final PlayerInstructionMapper playerInstructionMapper;
 
-	public EmpireMapperImpl(RoundMapper roundMapper, StockMapper stockMapper) {
+	public EmpireMapperImpl(RoundMapper roundMapper, StockMapper stockMapper, PlayerInstructionMapper playerInstructionMapper) {
 		this.roundMapper = Objects.requireNonNull(roundMapper);
 		this.stockMapper = Objects.requireNonNull(stockMapper);
+		this.playerInstructionMapper = Objects.requireNonNull(playerInstructionMapper);
 	}
 
 	@Override
 	public EmpireDto map(Empire empire) {
 		EmpireDto result = new EmpireDto();
 		result.setEmpireId(empire.getEmpireId().getId());
+		result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstruction()));
 		result.setRound(roundMapper.map(empire.getRound()));
 		result.setGold(empire.getGold());
 		result.setPopulation(empire.getPopulation());

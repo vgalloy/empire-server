@@ -28,7 +28,7 @@ class TimerServiceImpl {
 		this.empireDao = Objects.requireNonNull(empireDao);
 	}
 
-	@Scheduled(fixedDelay = 15_000)
+	// @Scheduled(fixedDelay = 15_000)
 	public void pulse() {
 		LOGGER.info("Update empire");
 		this.empireDao.getAll().stream()

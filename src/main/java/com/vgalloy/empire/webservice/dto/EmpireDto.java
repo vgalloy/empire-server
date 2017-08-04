@@ -10,6 +10,7 @@ public class EmpireDto implements Dto {
 	private static final long serialVersionUID = 7102663990613057803L;
 
 	private String empireId;
+	private PlayerInstructionDto playerInstruction;
 	private RoundDto round;
 	private Long population;
 	private Long gold;
@@ -22,6 +23,14 @@ public class EmpireDto implements Dto {
 
 	public void setEmpireId(String empireId) {
 		this.empireId = empireId;
+	}
+
+	public PlayerInstructionDto getPlayerInstruction() {
+		return playerInstruction;
+	}
+
+	public void setPlayerInstruction(PlayerInstructionDto playerInstruction) {
+		this.playerInstruction = playerInstruction;
 	}
 
 	public RoundDto getRound() {

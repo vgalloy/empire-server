@@ -12,10 +12,7 @@ public enum HarvestStep implements Step {
 
 	@Override
 	public Empire apply(Empire empire) {
-		Empire.Builder builder = empire.builder();
-
 		int value;
-
 		switch (empire.getRound().getCurrentDate().getMonth()) {
 			case JULY:
 				value = 4;
@@ -29,11 +26,10 @@ public enum HarvestStep implements Step {
 			default:
 				value = 0;
 		}
-
 		int newStock = value * Math.toIntExact(empire.getPopulation());
 
-		builder.setStock(empire.getStock().add(newStock));
-
-		return builder.build();
+		return empire.builder()
+			.stock(empire.getStock().add(newStock))
+			.build();
 	}
 }

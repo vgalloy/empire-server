@@ -47,12 +47,10 @@ final class EmpireServiceImpl implements EmpireService {
 
 	@Override
 	public Empire updateTax(Empire empire, long taxAmount) {
-		Empire.Builder builder = empire.builder();
-		builder.setTax(taxAmount);
-
-		Empire newEmpire = builder.build();
+		Empire newEmpire = empire.builder()
+			.playerInstruction(empire.getPlayerInstruction().tax(taxAmount))
+			.build();
 		empireDao.update(newEmpire);
-
-		return empire;
+		return newEmpire;
 	}
 }

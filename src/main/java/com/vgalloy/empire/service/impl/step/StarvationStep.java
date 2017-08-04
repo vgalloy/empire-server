@@ -17,11 +17,11 @@ public enum StarvationStep implements Step {
 		Long remainingStock = empire.getStock().getCurrent() - empire.getPopulation();
 
 		if (remainingStock >= 0) {
-			builder.setStock(Stock.of(remainingStock, empire.getStock().getMax()));
+			builder.stock(Stock.of(remainingStock, empire.getStock().getMax()));
 		} else {
 			long starvingPeople = remainingStock * 20 / 100;
-			builder.setStock(Stock.of(0, empire.getStock().getMax()));
-			builder.setPopulation(empire.getPopulation() + starvingPeople);
+			builder.stock(Stock.of(0, empire.getStock().getMax()))
+				.population(empire.getPopulation() + starvingPeople);
 		}
 
 		return builder.build();
