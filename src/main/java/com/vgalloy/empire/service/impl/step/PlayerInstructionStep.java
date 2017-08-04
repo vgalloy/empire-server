@@ -15,7 +15,7 @@ public enum PlayerInstructionStep implements Step {
 	public Empire apply(Empire empire) {
 
 		return empire.getPlayerInstructions()
-			.apply(empire)
-			.playerInstructions(PlayerInstructions.newEmpty());
+			.apply(empire);
+			// .playerInstructions(PlayerInstructions.newEmpty());
 	}
 }
