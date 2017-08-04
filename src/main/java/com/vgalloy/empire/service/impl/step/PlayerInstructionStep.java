@@ -1,7 +1,7 @@
 package com.vgalloy.empire.service.impl.step;
 
 import com.vgalloy.empire.service.model.Empire;
-import com.vgalloy.empire.service.model.PlayerInstruction;
+import com.vgalloy.empire.service.model.PlayerInstructions;
 
 /**
  * Create by Vincent Galloy on 04/08/2017.
@@ -14,10 +14,8 @@ public enum PlayerInstructionStep implements Step {
 	@Override
 	public Empire apply(Empire empire) {
 
-		return empire.getPlayerInstruction()
+		return empire.getPlayerInstructions()
 			.apply(empire)
-			.builder()
-			.playerInstruction(PlayerInstruction.newEmpty())
-			.build();
+			.playerInstructions(PlayerInstructions.newEmpty());
 	}
 }

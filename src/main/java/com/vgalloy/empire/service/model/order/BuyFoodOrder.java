@@ -11,7 +11,7 @@ final class BuyFoodOrder implements Order {
 
 	private final long amount;
 
-	BuyFoodOrder( long amount) {
+	BuyFoodOrder(long amount) {
 		this.amount = amount;
 	}
 
@@ -19,9 +19,7 @@ final class BuyFoodOrder implements Order {
 	public Empire apply(Empire empire) {
 		long price = (amount + 9) / 10;
 
-		return empire.builder()
-			.gold(empire.getGold() - price)
-			.stock(empire.getStock().add(amount))
-			.build();
+		return empire.gold(empire.getGold() - price)
+			.stock(empire.getStock().add(amount));
 	}
 }

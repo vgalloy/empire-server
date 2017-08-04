@@ -13,8 +13,6 @@ public enum PopulationStep implements Step {
 	@Override
 	public Empire apply(Empire empire) {
 		long newPopulation = empire.getPopulation() * (500 - empire.getTax()) / 5000;
-		return empire.builder()
-			.population(empire.getPopulation() + newPopulation)
-			.build();
+		return empire.population(empire.getPopulation() + newPopulation);
 	}
 }

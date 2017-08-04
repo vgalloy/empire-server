@@ -12,8 +12,6 @@ public enum  RoundStep implements Step {
 
 	@Override
 	public Empire apply(Empire empire) {
-		return empire.builder()
-			.round(empire.getRound().nextRound())
-			.build();
+		return empire.round(empire.getRound().nextRound());
 	}
 }

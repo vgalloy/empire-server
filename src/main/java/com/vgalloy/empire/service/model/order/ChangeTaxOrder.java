@@ -17,8 +17,6 @@ final class ChangeTaxOrder implements Order {
 
 	@Override
 	public Empire apply(Empire empire) {
-		return empire.builder()
-			.tax(amount)
-			.build();
+		return empire.tax(amount);
 	}
 }

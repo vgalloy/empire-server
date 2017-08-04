@@ -1,6 +1,6 @@
 package com.vgalloy.empire.webservice.mapper;
 
-import com.vgalloy.empire.service.model.PlayerInstruction;
+import com.vgalloy.empire.service.model.PlayerInstructions;
 import com.vgalloy.empire.webservice.dto.PlayerInstructionDto;
 
 /**
@@ -8,5 +8,5 @@ import com.vgalloy.empire.webservice.dto.PlayerInstructionDto;
  *
  * @author Vincent Galloy
  */
-public interface PlayerInstructionMapper extends Mapper<PlayerInstruction, PlayerInstructionDto> {
+public interface PlayerInstructionMapper extends Mapper<PlayerInstructions, PlayerInstructionDto> {
 }

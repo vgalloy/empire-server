@@ -2,7 +2,7 @@ package com.vgalloy.empire.webservice.mapper.impl;
 
 import org.springframework.stereotype.Component;
 
-import com.vgalloy.empire.service.model.PlayerInstruction;
+import com.vgalloy.empire.service.model.PlayerInstructions;
 import com.vgalloy.empire.webservice.dto.PlayerInstructionDto;
 import com.vgalloy.empire.webservice.mapper.PlayerInstructionMapper;
 
@@ -15,9 +15,9 @@ import com.vgalloy.empire.webservice.mapper.PlayerInstructionMapper;
 final class PlayerInstructionMapperImpl implements PlayerInstructionMapper {
 
 	@Override
-	public PlayerInstructionDto map(PlayerInstruction playerInstruction) {
+	public PlayerInstructionDto map(PlayerInstructions playerInstructions) {
 		PlayerInstructionDto result = new PlayerInstructionDto();
-		result.setOrders(playerInstruction.getOrders());
+		result.setOrders(playerInstructions.getOrders());
 		return result;
 	}
 }

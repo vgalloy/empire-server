@@ -11,16 +11,16 @@ import com.vgalloy.empire.service.model.order.OrderType;
  *
  * @author Vincent Galloy
  */
-public final class PlayerInstruction {
+public final class PlayerInstructions {
 
 	private final Map<OrderType, Long> orders;
 
-	private PlayerInstruction(Map<OrderType, Long> orders) {
+	private PlayerInstructions(Map<OrderType, Long> orders) {
 		this.orders = Collections.unmodifiableMap(orders);
 	}
 
-	public static PlayerInstruction newEmpty() {
-		return new PlayerInstruction(new HashMap<>());
+	public static PlayerInstructions newEmpty() {
+		return new PlayerInstructions(new HashMap<>());
 	}
 
 	public Empire apply(Empire empire) {
@@ -33,21 +33,21 @@ public final class PlayerInstruction {
 		return tmp;
 	}
 
-	public PlayerInstruction addOrder(OrderType orderType, Long value) {
+	public PlayerInstructions addOrder(OrderType orderType, Long value) {
 		Map<OrderType, Long> newOrders = new HashMap<>(orders);
 		newOrders.put(orderType, value);
-		return new PlayerInstruction(newOrders);
+		return new PlayerInstructions(newOrders);
 	}
 
 	public Map<OrderType, Long> getOrders() {
 		return orders;
 	}
 
-	public PlayerInstruction addOrders(Map<OrderType, Long> orders) {
+	public PlayerInstructions addOrders(Map<OrderType, Long> orders) {
 		Map<OrderType, Long> newOrders = new HashMap<>(orders);
 		for (Map.Entry<OrderType, Long> order : orders.entrySet()) {
 			newOrders.put(order.getKey(), order.getValue());
 		}
-		return new PlayerInstruction(newOrders);
+		return new PlayerInstructions(newOrders);
 	}
 }

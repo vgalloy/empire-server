@@ -32,7 +32,7 @@ final class EmpireMapperImpl implements EmpireMapper {
 	public EmpireDto map(Empire empire) {
 		EmpireDto result = new EmpireDto();
 		result.setEmpireId(empire.getEmpireId().getId());
-		result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstruction()));
+		result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstructions()));
 		result.setRound(roundMapper.map(empire.getRound()));
 		result.setGold(empire.getGold());
 		result.setPopulation(empire.getPopulation());

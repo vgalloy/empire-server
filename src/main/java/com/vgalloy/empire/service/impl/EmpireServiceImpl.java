@@ -15,8 +15,6 @@ import com.vgalloy.empire.service.impl.step.StepManager;
 import com.vgalloy.empire.service.impl.step.TaxStep;
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
-import com.vgalloy.empire.service.model.PlayerInstruction;
-import com.vgalloy.empire.service.model.Round;
 import com.vgalloy.empire.service.model.order.OrderType;
 
 /**
@@ -52,9 +50,7 @@ final class EmpireServiceImpl implements EmpireService {
 
 	@Override
 	public Empire updateOrders(Empire empire, Map<OrderType, Long> orders) {
-		Empire newEmpire = empire.builder()
-			.playerInstruction(empire.getPlayerInstruction().addOrders(orders))
-			.build();
+		Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
 		empireDao.update(newEmpire);
 		return newEmpire;
 	}
