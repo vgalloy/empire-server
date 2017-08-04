@@ -26,7 +26,7 @@ public enum HarvestStep implements Step {
 			default:
 				value = 0;
 		}
-		int newStock = value * Math.toIntExact(empire.getPopulation());
+		long newStock = value * empire.getPopulation();
 
 		return empire.builder()
 			.stock(empire.getStock().add(newStock))

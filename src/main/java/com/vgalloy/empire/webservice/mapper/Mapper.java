@@ -8,10 +8,4 @@ package com.vgalloy.empire.webservice.mapper;
 public interface Mapper<BUSINESS, DTO /* extends Dto */> {
 
 	DTO map(BUSINESS business);
-
-//	default List<DTO> map(List<BUSINESS> businessList) {
-//		return businessList.stream()
-//			.map(this::map)
-//			.collect(Collectors.toList());
-//	}
 }

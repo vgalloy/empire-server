@@ -1,6 +1,8 @@
 package com.vgalloy.empire.webservice.dto;
 
-import com.vgalloy.empire.webservice.dto.Dto;
+import java.util.Map;
+
+import com.vgalloy.empire.service.model.order.OrderType;
 
 /**
  * Create by Vincent Galloy on 03/08/2017.
@@ -11,13 +13,13 @@ public class PlayerInstructionDto implements Dto {
 
 	private static final long serialVersionUID = -5119911425089528228L;
 
-	private Long tax;
+	private Map<OrderType, Long> orders;
 
-	public Long getTax() {
-		return tax;
+	public Map<OrderType, Long> getOrders() {
+		return orders;
 	}
 
-	public void setTax(Long tax) {
-		this.tax = tax;
+	public void setOrders(Map<OrderType, Long> orders) {
+		this.orders = orders;
 	}
 }

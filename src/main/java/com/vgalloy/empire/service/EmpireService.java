@@ -1,7 +1,10 @@
 package com.vgalloy.empire.service;
 
+import java.util.Map;
+
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.service.model.order.OrderType;
 
 public interface EmpireService {
 
@@ -9,5 +12,5 @@ public interface EmpireService {
 
 	Empire computeNextRound(Empire empire);
 
-	Empire updateTax(Empire empire, long taxAmount);
+	Empire updateOrders(Empire empire, Map<OrderType, Long> taxAmount);
 }

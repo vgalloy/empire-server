@@ -37,7 +37,7 @@ public final class Stock {
 		return of(1000, 1000);
 	}
 
-	public Stock add(int resources) {
+	public Stock add(long resources) {
 		return of(Math.min(resources + current, max), max);
 	}
 }
