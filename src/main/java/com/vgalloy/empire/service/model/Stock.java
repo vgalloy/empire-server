@@ -42,11 +42,11 @@ public final class Stock {
 	}
 
 	public Stock addResource(long resources) {
-		return of(Math.min(resources + current, getMax()), getMax());
+		return of(Math.min(resources + current, getMax()), granary);
 	}
 
-	public Stock addGranary(long amount) {
-		return of(current, granary + amount);
+	public Stock addGranary(long newGranary) {
+		return of(current, granary + newGranary);
 	}
 
 	public long getGranary() {
