@@ -7,18 +7,18 @@ import com.vgalloy.empire.service.model.Empire;
  *
  * @author Vincent Galloy
  */
-final class BuyFoodOrder implements Order {
+final class BuyGranaryOrder implements Order {
 
 	private final long amount;
 
-	BuyFoodOrder(long amount) {
+	BuyGranaryOrder(long amount) {
 		this.amount = amount;
 	}
 
 	@Override
 	public Empire apply(Empire empire) {
-		long price = Math.round(Math.ceil(1.0 * amount / 10));
+		long price = Math.round(Math.ceil(1.0 * amount / 200));
 		return empire.gold(empire.getGold() - price)
-			.stock(empire.getStock().addResource(amount));
+			.stock(empire.getStock().addGranary(amount));
 	}
 }

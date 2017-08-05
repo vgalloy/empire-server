@@ -10,6 +10,7 @@ public class StockDto implements Dto {
 	private static final long serialVersionUID = 5891980627889366133L;
 
 	private long current;
+	private long granary;
 	private long max;
 
 	public long getCurrent() {
@@ -18,6 +19,14 @@ public class StockDto implements Dto {
 
 	public void setCurrent(long current) {
 		this.current = current;
+	}
+
+	public long getGranary() {
+		return granary;
+	}
+
+	public void setGranary(long granary) {
+		this.granary = granary;
 	}
 
 	public long getMax() {

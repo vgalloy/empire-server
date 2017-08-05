@@ -9,7 +9,8 @@ import java.util.function.Function;
  */
 public enum OrderType {
 	CHANGE_TAX(ChangeTaxOrder::new),
-	BUY_FOOD(BuyFoodOrder::new);
+	BUY_FOOD(BuyFoodOrder::new),
+	BUY_GRANARY(BuyGranaryOrder::new);
 
 	private final Function<Long, Order> generator;
 

@@ -1,7 +1,10 @@
 package com.vgalloy.empire.webservice.controller;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,6 +41,11 @@ public class EmpireController {
 		this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
 		this.empireService = Objects.requireNonNull(empireService);
 		this.empireDao = Objects.requireNonNull(empireDao);
+	}
+
+	@GetMapping("/ordersType")
+	public List<OrderType> getById() {
+		return Stream.of(OrderType.values()).collect(Collectors.toList());
 	}
 
 	@GetMapping("/{empireId}")

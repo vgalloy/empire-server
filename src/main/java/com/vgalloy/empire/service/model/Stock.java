@@ -8,11 +8,11 @@ package com.vgalloy.empire.service.model;
 public final class Stock {
 
 	private final long current;
-	private final long max;
+	private final long granary;
 
-	private Stock(long current, long max) {
+	private Stock(long current, long granary) {
 		this.current = current;
-		this.max = max;
+		this.granary = granary;
 	}
 
 	public long getCurrent() {
@@ -20,24 +20,36 @@ public final class Stock {
 	}
 
 	public long getMax() {
-		return max;
+		return granary * 200;
 	}
 
-	public static Stock of(long current, long max) {
-		if(current < 0) {
+	public static Stock of(long current, long granary) {
+		if (current < 0) {
 			throw new IllegalStateException("Stock can't be negative");
 		}
-		if (current > max) {
-			throw new IllegalStateException("Stock can't be higher than max");
+		if (granary < 0) {
+			throw new IllegalStateException("Granary can't be negative");
 		}
-		return new Stock(current, max);
+		Stock stock = new Stock(current, granary);
+		if (stock.getMax() < stock.getCurrent()) {
+			throw new IllegalStateException("Current resources can't be higher than max");
+		}
+		return stock;
 	}
 
 	public static Stock newStock() {
-		return of(1000, 1000);
+		return of(1000, 5);
 	}
 
-	public Stock add(long resources) {
-		return of(Math.min(resources + current, max), max);
+	public Stock addResource(long resources) {
+		return of(Math.min(resources + current, getMax()), getMax());
+	}
+
+	public Stock addGranary(long amount) {
+		return of(current, granary + amount);
+	}
+
+	public long getGranary() {
+		return granary;
 	}
 }

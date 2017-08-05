@@ -28,6 +28,6 @@ public enum HarvestStep implements Step {
 		}
 		long newStock = value * empire.getPopulation();
 
-		return empire.stock(empire.getStock().add(newStock));
+		return empire.stock(empire.getStock().addResource(newStock));
 	}
 }

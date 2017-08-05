@@ -17,6 +17,7 @@ final class StockMapperImpl implements StockMapper {
 	public StockDto map(Stock stock) {
 		StockDto result = new StockDto();
 		result.setCurrent(stock.getCurrent());
+		result.setGranary(stock.getGranary());
 		result.setMax(stock.getMax());
 		return result;
 	}
