@@ -18,10 +18,17 @@ public final class Empire {
 	private final Stock stock;
 
 	public static Empire newInstance(EmpireId empireId) {
-		return new Empire(empireId, PlayerInstructions.newEmpty(), Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
+		return of(empireId, PlayerInstructions.newEmpty(), Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
 	}
 
-	Empire(EmpireId empireId, PlayerInstructions playerInstructions, Round round, long population, long gold, long tax, Stock stock) {
+	public static Empire of(EmpireId empireId, PlayerInstructions playerInstructions, Round round, long population, long gold, long tax, Stock stock) {
+		if (gold < 0) {
+			throw new IllegalStateException("Gold can't be negative");
+		}
+		return new Empire(empireId, playerInstructions, round, population, gold, tax, stock);
+	}
+
+	private Empire(EmpireId empireId, PlayerInstructions playerInstructions, Round round, long population, long gold, long tax, Stock stock) {
 		this.empireId = Objects.requireNonNull(empireId);
 		this.playerInstructions = Objects.requireNonNull(playerInstructions);
 		this.round = Objects.requireNonNull(round);
@@ -118,36 +125,36 @@ public final class Empire {
 			this.stock = empire.stock;
 		}
 
-		public Empire build() {
-			return new Empire(empireId, playerInstructions, round, population, gold, tax, stock);
+		private Empire build() {
+			return of(empireId, playerInstructions, round, population, gold, tax, stock);
 		}
 
-		public Builder playerInstructions(PlayerInstructions playerInstructions) {
+		private Builder playerInstructions(PlayerInstructions playerInstructions) {
 			this.playerInstructions = playerInstructions;
 			return this;
 		}
 
-		public Builder round(Round round) {
+		private Builder round(Round round) {
 			this.round = round;
 			return this;
 		}
 
-		public Builder population(long population) {
+		private Builder population(long population) {
 			this.population = population;
 			return this;
 		}
 
-		public Builder gold(long gold) {
+		private Builder gold(long gold) {
 			this.gold = gold;
 			return this;
 		}
 
-		public Builder tax(long tax) {
+		private Builder tax(long tax) {
 			this.tax = tax;
 			return this;
 		}
 
-		public Builder stock(Stock stock) {
+		private Builder stock(Stock stock) {
 			this.stock = stock;
 			return this;
 		}

@@ -8,7 +8,7 @@ import java.util.function.Function;
  * @author Vincent Galloy
  */
 public enum OrderType {
-	CHANGE_TAX(ChangeTaxOrder::new),
+	CHANGE_TAX(ChangeTaxOrder::of),
 	BUY_FOOD(BuyFoodOrder::new),
 	BUY_GRANARY(BuyGranaryOrder::new);
 

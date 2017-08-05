@@ -17,8 +17,11 @@ final class BuyGranaryOrder implements Order {
 
 	@Override
 	public Empire apply(Empire empire) {
-		long price = Math.round(Math.ceil(1.0 * amount / 200));
-		return empire.gold(empire.getGold() - price)
-			.stock(empire.getStock().addGranary(amount));
+		double unitPrice = 0.1;
+		long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / unitPrice));
+		long buy = Math.min(amount, maxAllowed);
+		long totalPrice = Math.round(Math.ceil(1.0 * buy * unitPrice));
+		return empire.gold(empire.getGold() - totalPrice)
+			.stock(empire.getStock().addGranary(buy));
 	}
 }

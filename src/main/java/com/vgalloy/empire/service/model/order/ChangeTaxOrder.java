@@ -1,7 +1,6 @@
 package com.vgalloy.empire.service.model.order;
 
 import com.vgalloy.empire.service.model.Empire;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 
 /**
  * Create by Vincent Galloy on 04/08/2017.
@@ -12,9 +11,12 @@ final class ChangeTaxOrder implements Order {
 
 	private final long amount;
 
-	ChangeTaxOrder(long amount) {
-		UserInputException.checkState(amount >= 0, "Tax can't be negative");
+	private ChangeTaxOrder(long amount) {
 		this.amount = amount;
+	}
+
+	static ChangeTaxOrder of(long amount) {
+		return new ChangeTaxOrder(Math.max(0, amount));
 	}
 
 	@Override

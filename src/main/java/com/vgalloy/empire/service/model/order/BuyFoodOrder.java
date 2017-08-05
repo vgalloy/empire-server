@@ -9,16 +9,20 @@ import com.vgalloy.empire.service.model.Empire;
  */
 final class BuyFoodOrder implements Order {
 
-	private final long amount;
+	private final long food;
 
-	BuyFoodOrder(long amount) {
-		this.amount = amount;
+	BuyFoodOrder(long food) {
+		this.food = food;
 	}
 
 	@Override
 	public Empire apply(Empire empire) {
-		long price = Math.round(Math.ceil(1.0 * amount / 10));
-		return empire.gold(empire.getGold() - price)
-			.stock(empire.getStock().addResource(amount));
+		double unitPrice = 0.1;
+		long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / unitPrice));
+		long buy = Math.min(food, maxAllowed);
+		long totalPrice = Math.round(Math.ceil(1.0 * buy * unitPrice));
+
+		return empire.gold(empire.getGold() - totalPrice)
+			.stock(empire.getStock().addResource(buy));
 	}
 }
