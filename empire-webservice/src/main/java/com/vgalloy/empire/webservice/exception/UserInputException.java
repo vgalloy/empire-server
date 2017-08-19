@@ -27,7 +27,7 @@ public final class UserInputException extends RuntimeException {
      * @param message the message for the user.
      * @return a instance internalCreate this exception.
      */
-    public static UserInputException of(String message) {
+    private static UserInputException of(String message) {
         return new UserInputException(message);
     }
 

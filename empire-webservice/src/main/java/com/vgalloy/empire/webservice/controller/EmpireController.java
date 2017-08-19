@@ -29,7 +29,7 @@ import com.vgalloy.empire.webservice.mapper.EmpireMapper;
  * @author Vincent Galloy
  */
 @RestController
-@RequestMapping("empire")
+@RequestMapping("empires")
 public class EmpireController {
 
     private final EmpireMapper empireMapper;
@@ -57,8 +57,8 @@ public class EmpireController {
      *
      * @return the list internalCreate order
      */
-    @GetMapping("/ordersType")
-    public List<OrderType> getById() {
+    @GetMapping("ordersTypes")
+    public List<OrderType> getOrdersTypes() {
         return Stream.of(OrderType.values()).collect(Collectors.toList());
     }
 
@@ -68,7 +68,7 @@ public class EmpireController {
      * @param empireId the empireId
      * @return the empire
      */
-    @GetMapping("/{empireId}")
+    @GetMapping("{empireId}")
     public EmpireDto getById(@PathVariable String empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
@@ -83,7 +83,7 @@ public class EmpireController {
      *
      * @param empireId the empireId
      */
-    @PutMapping("/{empireId}/nextRound")
+    @PutMapping("{empireId}/nextRound")
     public void nextRound(@PathVariable String empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
@@ -99,7 +99,7 @@ public class EmpireController {
      * @param empireId the empire id
      * @param orders   the new orders
      */
-    @PatchMapping("/{empireId}/order")
+    @PatchMapping("{empireId}/order")
     public void updateOrder(@PathVariable String empireId, @RequestBody Map<OrderType, Long> orders) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);

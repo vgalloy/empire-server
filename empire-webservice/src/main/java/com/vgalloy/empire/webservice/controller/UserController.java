@@ -24,7 +24,7 @@ import com.vgalloy.empire.webservice.mapper.UserMapper;
  * @author Vincent Galloy
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("users")
 public class UserController {
 
     private final UserService userService;

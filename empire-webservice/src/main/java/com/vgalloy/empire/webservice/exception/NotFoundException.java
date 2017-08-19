@@ -15,6 +15,7 @@ public final class NotFoundException extends RuntimeException {
      * Private to prevent non managed instantiation
      */
     private NotFoundException() {
+        // instantiate once
     }
 
     /**

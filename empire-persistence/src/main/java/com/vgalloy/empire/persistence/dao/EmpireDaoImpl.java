@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
@@ -17,7 +17,7 @@ import com.vgalloy.empire.service.spi.dao.EmpireDao;
  *
  * @author Vincent Galloy
  */
-@Component
+@Repository
 final class EmpireDaoImpl implements EmpireDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmpireDaoImpl.class);
