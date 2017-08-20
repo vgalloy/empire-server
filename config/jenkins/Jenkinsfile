@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    stages {
+        stage ('Fetch') {
+            steps {
+                git([url: 'https://github.com/vgalloy/empire-server.git', branch: 'master'])
+            }
+        }
+
+        stage ('Clear maven') {
+              steps {
+                sh '''
+                    if [ ! -e $(docker ps -aq -f "name=empire-server-maven-builder-java8") ]
+                    then
+                    	docker rm -vf empire-server-maven-builder-java8
+                    fi
+                '''
+              }
+        }
+
+        stage ('Build with maven') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
+                sh '''
+                    docker create --name=empire-server-maven-builder-java8 -v /m2:/root/.m2 -w /usr/maven maven:3.5.0 mvn clean install -B
+                    docker cp . empire-server-maven-builder-java8:/usr/maven
+                    docker start -a empire-server-maven-builder-java8
+
+                    mkdir -p target
+                    docker cp empire-server-maven-builder-java8:/usr/maven/empire-webservice/target/empire-server.jar target/empire-server.jar
+
+                    docker build -f config/docker/Dockerfile -t registry.3csminute.com/empire-server:1.$BUILD_NUMBER .
+                    docker tag registry.3csminute.com/empire-server:1.$BUILD_NUMBER registry.3csminute.com/empire-server:latest
+
+                    docker login registry.3csminute.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
+                    docker push registry.3csminute.com/empire-server:1.$BUILD_NUMBER
+                    docker push registry.3csminute.com/empire-server:latest
+                    docker logout registry.3csminute.com
+                    '''
+                }
+            }
+        }
+
+        stage ('Deploy') {
+            steps {
+                sh "ssh ubuntu@api.empire.vgalloy.com container/empire/deploy.sh"
+            }
+        }
+    }
+}

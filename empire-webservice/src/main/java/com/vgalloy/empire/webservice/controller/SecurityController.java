@@ -16,11 +16,12 @@ import com.vgalloy.empire.webservice.exception.NotFoundException;
 import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.request.LoginRequest;
 
+// TODO : remove
 @RestController
 @RequestMapping("security")
-public class LoginController {
+public class SecurityController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(SecurityController.class);
 
     private final UserService userService;
 
@@ -29,7 +30,7 @@ public class LoginController {
      *
      * @param userService the user service
      */
-    public LoginController(UserService userService) {
+    public SecurityController(UserService userService) {
         this.userService = Objects.requireNonNull(userService);
     }
 

@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
+ * Represent all the exception due to the final user.
  *
  * @author Vincent Galloy
  */
