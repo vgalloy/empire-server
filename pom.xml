@@ -22,23 +22,23 @@
 
         <!-- Maven -->
         <maven.version>3.5.0</maven.version>
-        <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.6.2</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
 
         <!-- Mojo version checker -->
         <versions-maven-plugin.version>2.4</versions-maven-plugin.version>
 
         <!-- Checkstyle -->
-        <checkstyle.version>2.17</checkstyle.version>
-        <checkstyle.checkstyle.location>config/checkstyle/checkstyle.xml</checkstyle.checkstyle.location>
-        <checkstyle.suppressions.location>config/checkstyle/suppressions.xml</checkstyle.suppressions.location>
+        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.checkstyle.location>config/checkstyle/checkstyle.xml</maven-checkstyle-plugin.checkstyle.location>
+        <maven-checkstyle-plugin.suppressions.location>config/checkstyle/suppressions.xml</maven-checkstyle-plugin.suppressions.location>
 
         <!-- PMD -->
-        <pmd.version>3.8</pmd.version>
-        <pmd.configuration.location>../config/pmd/ruleset.xml</pmd.configuration.location>
+        <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
+        <maven-pmd-plugin.configuration.location>../config/pmd/ruleset.xml</maven-pmd-plugin.configuration.location>
 
         <!-- Find bugs -->
-        <findbugs-maven-plugin.version>3.0.4</findbugs-maven-plugin.version>
+        <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <findbugs.exception.location>../config/findbugs/findbugs-exception-filter.xml</findbugs.exception.location>
 
         <!-- Log -->
@@ -50,6 +50,9 @@
 
         <!-- Springfox (Swagger)-->
         <springfox.version>2.7.0</springfox.version>
+
+        <!-- Test -->
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencyManagement>
@@ -107,6 +110,13 @@
                 <artifactId>springfox-swagger2</artifactId>
                 <version>${springfox.version}</version>
             </dependency>
+
+            <!-- Juint -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -148,11 +158,11 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>${checkstyle.version}</version>
+                <version>${maven-checkstyle-plugin.version}</version>
                 <configuration>
                     <encoding>${project.build.sourceEncoding}</encoding>
-                    <configLocation>${checkstyle.checkstyle.location}</configLocation>
-                    <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
+                    <configLocation>${maven-checkstyle-plugin.checkstyle.location}</configLocation>
+                    <suppressionsLocation>${maven-checkstyle-plugin.suppressions.location}</suppressionsLocation>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                 </configuration>
@@ -170,13 +180,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>${pmd.version}</version>
+                <version>${maven-pmd-plugin.version}</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
                     <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
                     <printFailingErrors>true</printFailingErrors>
                     <rulesets>
-                        <ruleset>${pmd.configuration.location}</ruleset>
+                        <ruleset>${maven-pmd-plugin.configuration.location}</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
