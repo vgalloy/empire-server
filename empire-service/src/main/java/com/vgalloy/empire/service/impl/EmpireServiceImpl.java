@@ -1,5 +1,7 @@
 package com.vgalloy.empire.service.impl;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -59,5 +61,10 @@ final class EmpireServiceImpl implements EmpireService {
         Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
         empireDao.update(newEmpire);
         return newEmpire;
+    }
+
+    @Override
+    public List<EmpireId> getEmpireIdByUserId(String userId) {
+        return Arrays.asList(EmpireId.of("TEST"), EmpireId.of("TEST2"));
     }
 }

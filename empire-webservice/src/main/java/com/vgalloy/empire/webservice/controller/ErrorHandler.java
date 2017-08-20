@@ -18,7 +18,7 @@ import com.vgalloy.empire.webservice.exception.UserInputException;
  *
  * @author Vincent Galloy
  */
-// TODO : RestControllerAdvice
+// TODO : RestControllerAdvice ?
 @ControllerAdvice
 final class ErrorHandler {
 

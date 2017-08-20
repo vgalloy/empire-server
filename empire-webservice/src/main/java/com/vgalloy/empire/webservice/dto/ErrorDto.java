@@ -5,6 +5,8 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
+// TODO : internalize into ErrorHandler ?
+// TODO : message can't be null -> define constructor
 public class ErrorDto implements Dto {
 
     private static final long serialVersionUID = 8094145595695749692L;

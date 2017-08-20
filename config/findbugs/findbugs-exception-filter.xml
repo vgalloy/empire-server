@@ -1,4 +1,6 @@
 <?xml version="1.0"?>
 <FindBugsFilter>
-
+    <Match>
+        <Class name="com.vgalloy.empire.webservice.filter.CorsFilter"/>
+    </Match>
 </FindBugsFilter>

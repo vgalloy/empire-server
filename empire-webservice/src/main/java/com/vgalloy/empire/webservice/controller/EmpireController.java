@@ -20,6 +20,7 @@ import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
+import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
 
@@ -69,7 +70,7 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    public EmpireDto getById(@PathVariable String empireId) {
+    public EmpireDto getById(@PathVariable EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -84,7 +85,7 @@ public class EmpireController {
      * @param empireId the empireId
      */
     @PutMapping("{empireId}/nextRound")
-    public void nextRound(@PathVariable String empireId) {
+    public void nextRound(@PathVariable EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -100,7 +101,7 @@ public class EmpireController {
      * @param orders   the new orders
      */
     @PatchMapping("{empireId}/order")
-    public void updateOrder(@PathVariable String empireId, @RequestBody Map<OrderType, Long> orders) {
+    public void updateOrder(@PathVariable EmpireIdDto empireId, @RequestBody Map<OrderType, Long> orders) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO

@@ -3,6 +3,7 @@ package com.vgalloy.empire.webservice.mapper.impl;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 
@@ -15,14 +16,17 @@ import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 final class EmpireIdMapperImpl implements EmpireIdMapper {
 
     @Override
-    public String map(EmpireId empireId) {
-        return empireId.getId();
+    public EmpireIdDto map(EmpireId empireId) {
+        EmpireIdDto result = new  EmpireIdDto();
+        result.setEmpireId(empireId.getId());
+        return result;
     }
 
     @Override
-    public EmpireId unmap(String empireIdAsString) {
-        UserInputException.requireNonNullNonEmptyNonBlank(empireIdAsString, "Invalid empire id");
+    public EmpireId unmap(EmpireIdDto empireIdDto) {
+        UserInputException.requireNonNull(empireIdDto, "Empire id can't be null");
+        UserInputException.requireNonNullNonEmptyNonBlank(empireIdDto.getEmpireId(), "Invalid empire id");
 
-        return EmpireId.of(empireIdAsString);
+        return EmpireId.of(empireIdDto.getEmpireId());
     }
 }

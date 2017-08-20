@@ -1,5 +1,6 @@
 package com.vgalloy.empire.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.vgalloy.empire.service.model.Empire;
@@ -32,4 +33,12 @@ public interface EmpireService {
      * @return the updated orders
      */
     Empire updateOrders(Empire empire, Map<OrderType, Long> orders);
+
+    /**
+     * Obtains all the {@link EmpireId} associated to the given user.
+     *
+     * @param userId the user Id
+     * @return the list of all Empire id
+     */
+    List<EmpireId> getEmpireIdByUserId(String userId);
 }

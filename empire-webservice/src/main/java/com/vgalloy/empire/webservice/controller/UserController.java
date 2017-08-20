@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.exception.UserInputException;
+import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
 
 /**
@@ -29,16 +32,21 @@ public class UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
+    private final EmpireService empireService;
+    private final EmpireIdMapper empireIdMapper;
 
     /**
      * Constructor.
-     *
-     * @param userService the user service
+     *  @param userService the user service
      * @param userMapper  the user mapper
+     * @param empireService the empire service
+     * @param empireIdMapper the empireId mapper
      */
-    public UserController(UserService userService, UserMapper userMapper) {
+    public UserController(UserService userService, UserMapper userMapper, EmpireService empireService, EmpireIdMapper empireIdMapper) {
         this.userService = Objects.requireNonNull(userService);
         this.userMapper = Objects.requireNonNull(userMapper);
+        this.empireService = Objects.requireNonNull(empireService);
+        this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
     }
 
     /**
@@ -56,6 +64,21 @@ public class UserController {
     }
 
     /**
+     * Get the user by id.
+     *
+     * @param userId the user id
+     * @return the User
+     */
+    @GetMapping("{userId}/empires")
+    public List<EmpireIdDto> getEmpiresByUser(@PathVariable String userId) {
+        UserInputException.requireNonNullNonEmptyNonBlank(userId, "Invalid user id");
+
+        return empireService.getEmpireIdByUserId(userId).stream()
+            .map(empireIdMapper::map)
+            .collect(Collectors.toList());
+    }
+
+    /**
      * Create a new user.
      *
      * @param userDto the user
@@ -63,7 +86,7 @@ public class UserController {
      */
     @PostMapping
     public String create(@RequestBody UserDto userDto) {
-        UserInputException.requireNonNull(userDto, "user can't be null");
+        UserInputException.requireNonNull(userDto, "User can't be null");
         String login = UserInputException.requireNonNullNonEmptyNonBlank(userDto.getLogin(), "Invalid login");
         String password = UserInputException.requireNonNullNonEmptyNonBlank(userDto.getPassword(), "Invalid password");
 
