@@ -21,15 +21,31 @@ pipeline {
 
         stage('Build with maven') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh '''
-                    docker create --name=empire-server-maven-builder-java8 -v /m2:/root/.m2 -w /usr/maven maven:3.5.0 mvn clean install -B
+                sh '''
+                    docker create --name=empire-server-maven-builder-java8 \
+                       -v /m2:/root/.m2 \
+                       -w /usr/maven \
+                       maven:3.5.0 \
+                       mvn clean install -B
                     docker cp . empire-server-maven-builder-java8:/usr/maven
                     docker start -a empire-server-maven-builder-java8
 
                     mkdir -p target
                     docker cp empire-server-maven-builder-java8:/usr/maven/empire-webservice/target/empire-server.jar target/empire-server.jar
+                    '''
+            }
+            post {
+                success {
+                    archive "target/empire-server.jar"
+                }
+            }
+        }
 
+        stage('Docker image creation') {
+            steps {
+                unarchive mapping: ['target/empire-server.jar': 'target/empire-server.jar']
+                withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh '''
                     docker build -f config/docker/Dockerfile -t registry.3csminute.com/empire-server:1.$BUILD_NUMBER .
                     docker tag registry.3csminute.com/empire-server:1.$BUILD_NUMBER registry.3csminute.com/empire-server:latest
 
