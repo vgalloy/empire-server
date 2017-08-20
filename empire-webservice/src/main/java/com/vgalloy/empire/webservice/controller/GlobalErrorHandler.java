@@ -20,9 +20,9 @@ import com.vgalloy.empire.webservice.exception.UserInputException;
  */
 // TODO : RestControllerAdvice ?
 @ControllerAdvice
-final class ErrorHandler {
+final class GlobalErrorHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalErrorHandler.class);
 
     /**
      * Handle error and set the correct response status.

@@ -5,11 +5,11 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public class EmpireDto implements Dto {
+public final class EmpireDto implements Dto {
 
     private static final long serialVersionUID = 7102663990613057803L;
 
-    private String empireId;
+    private EmpireIdDto empireId;
     private PlayerInstructionDto playerInstruction;
     private RoundDto round;
     private Long population;
@@ -17,11 +17,11 @@ public class EmpireDto implements Dto {
     private Long tax;
     private StockDto stock;
 
-    public String getEmpireId() {
+    public EmpireIdDto getEmpireId() {
         return empireId;
     }
 
-    public void setEmpireId(String empireId) {
+    public void setEmpireId(EmpireIdDto empireId) {
         this.empireId = empireId;
     }
 

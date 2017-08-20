@@ -5,35 +5,35 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public class StockDto implements Dto {
+public final class StockDto implements Dto {
 
     private static final long serialVersionUID = 5891980627889366133L;
 
-    private long current;
-    private long granary;
-    private long max;
+    private Long current;
+    private Long granary;
+    private Long max;
 
-    public long getCurrent() {
+    public Long getCurrent() {
         return current;
     }
 
-    public void setCurrent(long current) {
+    public void setCurrent(Long current) {
         this.current = current;
     }
 
-    public long getGranary() {
+    public Long getGranary() {
         return granary;
     }
 
-    public void setGranary(long granary) {
+    public void setGranary(Long granary) {
         this.granary = granary;
     }
 
-    public long getMax() {
+    public Long getMax() {
         return max;
     }
 
-    public void setMax(long max) {
+    public void setMax(Long max) {
         this.max = max;
     }
 }

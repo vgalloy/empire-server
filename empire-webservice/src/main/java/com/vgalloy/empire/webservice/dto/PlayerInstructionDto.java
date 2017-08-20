@@ -9,7 +9,7 @@ import com.vgalloy.empire.service.model.order.OrderType;
  *
  * @author Vincent Galloy
  */
-public class PlayerInstructionDto implements Dto {
+public final class PlayerInstructionDto implements Dto {
 
     private static final long serialVersionUID = -5119911425089528228L;
 

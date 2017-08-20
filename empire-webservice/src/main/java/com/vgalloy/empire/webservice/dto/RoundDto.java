@@ -5,18 +5,18 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public class RoundDto implements Dto {
+public final class RoundDto implements Dto {
 
     private static final long serialVersionUID = -1914593785780456504L;
 
-    private int year;
+    private Integer year;
     private String month;
 
-    public int getYear() {
+    public Integer getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
