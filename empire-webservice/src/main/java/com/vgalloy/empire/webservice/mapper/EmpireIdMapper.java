@@ -9,5 +9,4 @@ import com.vgalloy.empire.webservice.dto.EmpireIdDto;
  * @author Vincent Galloy
  */
 public interface EmpireIdMapper extends Mapper<EmpireId, EmpireIdDto>, UnMapper<EmpireId, EmpireIdDto> {
-
 }

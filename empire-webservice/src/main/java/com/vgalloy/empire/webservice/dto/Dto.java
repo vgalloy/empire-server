@@ -10,5 +10,4 @@ import java.io.Serializable;
  * @author Vincent Galloy
  */
 public interface Dto extends Serializable {
-
 }

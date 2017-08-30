@@ -10,5 +10,4 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public interface Step extends Function<Empire, Empire> {
-
 }

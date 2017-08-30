@@ -10,5 +10,4 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public interface Order extends Function<Empire, Empire> {
-
 }
