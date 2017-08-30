@@ -1,10 +1,10 @@
 package com.vgalloy.empire.service.impl;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.EmpireService;
@@ -40,11 +40,13 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public Empire getEmpireById(EmpireId empireId) {
         return empireDao.getEmpireById(empireId);
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public Empire computeNextRound(Empire empire) {
         return StepManager.of(empire)
             .step(RoundStep.INSTANCE)
@@ -57,6 +59,7 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public Empire updateOrders(Empire empire, Map<OrderType, Long> orders) {
         Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
         empireDao.update(newEmpire);
@@ -64,7 +67,8 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public List<EmpireId> getEmpireIdByUserId(String userId) {
-        return Arrays.asList(EmpireId.of("TEST"), EmpireId.of("TEST2"));
+        return empireDao.getEmpireIdByUserId(userId);
     }
 }

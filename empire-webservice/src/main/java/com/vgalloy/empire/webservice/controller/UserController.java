@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,7 +56,6 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userId}")
-    @PreAuthorize("ROLE_USER")
     public UserDto getById(@PathVariable String userId) {
         UserInputException.requireNonNullNonEmptyNonBlank(userId, "Invalid user id");
 
@@ -72,7 +70,6 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userId}/empires")
-    @PreAuthorize("ROLE_USER")
     public List<EmpireIdDto> getEmpiresByUser(@PathVariable String userId) {
         UserInputException.requireNonNullNonEmptyNonBlank(userId, "Invalid user id");
 
@@ -88,7 +85,6 @@ public class UserController {
      * @return the user id
      */
     @PostMapping
-    @PreAuthorize("ROLE_USER")
     public String create(@RequestBody UserDto userDto) {
         UserInputException.requireNonNull(userDto, "User can't be null");
         String login = UserInputException.requireNonNullNonEmptyNonBlank(userDto.getLogin(), "Invalid login");

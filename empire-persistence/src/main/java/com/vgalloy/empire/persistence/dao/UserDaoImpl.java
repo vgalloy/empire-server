@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
@@ -52,5 +53,12 @@ final class UserDaoImpl implements UserDao {
     @Override
     public List<User> getAll() {
         return new ArrayList<>(users);
+    }
+
+    @Override
+    public List<User> getByLogin(String login) {
+        return users.stream()
+            .filter(user -> user.getLogin().equals(login))
+            .collect(Collectors.toList());
     }
 }

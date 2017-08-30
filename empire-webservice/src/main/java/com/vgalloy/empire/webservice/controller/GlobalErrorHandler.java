@@ -6,6 +6,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -42,6 +43,18 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ErrorDto> handle(AccessDeniedException e) {
+        LOGGER.error("", e);
+        return buildResponse(HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * Handle error and set the correct response status.
+     *
+     * @param e The handle exception
+     * @return The error message for web user
+     */
     @ExceptionHandler(UserInputException.class)
     public ResponseEntity<ErrorDto> handle(UserInputException e) {
         LOGGER.warn("UserInputException : {}", e.getMessage());
@@ -57,7 +70,7 @@ final class GlobalErrorHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorDto> handle(NotFoundException e) {
         LOGGER.warn("NotFoundException : {}", HttpStatus.NOT_FOUND.getReasonPhrase());
-        return buildResponse(HttpStatus.NOT_FOUND, HttpStatus.NOT_FOUND.getReasonPhrase());
+        return buildResponse(HttpStatus.NOT_FOUND);
     }
 
     /**
@@ -74,6 +87,16 @@ final class GlobalErrorHandler {
 
     /**
      * Build a ErrorDto from a http status.
+     *
+     * @param httpStatus the httpStatus internalCreate the request
+     * @return the ResponseEntity with an ErrorDto
+     */
+    private ResponseEntity<ErrorDto> buildResponse(HttpStatus httpStatus) {
+        return buildResponse(httpStatus, httpStatus.getReasonPhrase());
+    }
+
+    /**
+     * Build a ErrorDto from a http status and message.
      *
      * @param httpStatus the httpStatus internalCreate the request
      * @param message    the message display to the final user

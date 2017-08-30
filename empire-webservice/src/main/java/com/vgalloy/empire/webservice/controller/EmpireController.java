@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -71,7 +70,6 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    @PreAuthorize("ROLE_USER")
     public EmpireDto getById(@PathVariable EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
@@ -87,7 +85,6 @@ public class EmpireController {
      * @param empireId the empireId
      */
     @PutMapping("{empireId}/nextRound")
-    @PreAuthorize("ROLE_USER")
     public void nextRound(@PathVariable EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
@@ -104,7 +101,6 @@ public class EmpireController {
      * @param orders   the new orders
      */
     @PatchMapping("{empireId}/order")
-    @PreAuthorize("ROLE_USER")
     public void updateOrder(@PathVariable EmpireIdDto empireId, @RequestBody Map<OrderType, Long> orders) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);

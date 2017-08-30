@@ -34,4 +34,12 @@ public interface EmpireDao {
      * @return the same empire
      */
     Empire update(Empire empire);
+
+    /**
+     * Obtains all the {@link EmpireId} associated to the given user.
+     *
+     * @param userId the user Id
+     * @return the list of all Empire id
+     */
+    List<EmpireId> getEmpireIdByUserId(String userId);
 }

@@ -2,7 +2,6 @@ package com.vgalloy.empire.persistence.dao;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,16 +25,15 @@ final class EmpireDaoImpl implements EmpireDao {
 
     @Override
     public Empire getEmpireById(EmpireId empireId) {
-        Optional<Empire> empire = empires.stream()
+        return empires.stream()
             .filter(e -> e.getEmpireId().equals(empireId))
-            .findFirst();
-        if (empire.isPresent()) {
-            return empire.get();
-        }
-        LOGGER.info("New empire creation");
-        Empire result = Empire.newInstance(empireId);
-        empires.add(result);
-        return result;
+            .findFirst()
+            .orElseGet(() -> {
+                LOGGER.info("New empire creation");
+                Empire result = Empire.newInstance(empireId);
+                empires.add(result);
+                return result;
+            });
     }
 
     @Override
@@ -49,5 +47,10 @@ final class EmpireDaoImpl implements EmpireDao {
         empires.remove(previous);
         empires.add(empire);
         return empire;
+    }
+
+    @Override
+    public List<EmpireId> getEmpireIdByUserId(String userId) {
+        return null;
     }
 }

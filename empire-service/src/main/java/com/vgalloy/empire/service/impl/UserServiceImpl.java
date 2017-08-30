@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.UserService;
@@ -30,6 +31,7 @@ final class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public User getById(String userId) {
         return userDao.getById(userId);
     }
@@ -45,6 +47,7 @@ final class UserServiceImpl implements UserService {
     }
 
     @Override
+    @PreAuthorize("hasRole('USER')")
     public void update(User user) {
         userDao.update(user);
     }

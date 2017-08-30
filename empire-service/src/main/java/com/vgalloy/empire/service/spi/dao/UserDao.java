@@ -46,4 +46,12 @@ public interface UserDao {
      * @return the users list
      */
     List<User> getAll();
+
+    /**
+     * Get users matching with login.
+     *
+     * @param login the login
+     * @return the user
+     */
+    List<User> getByLogin(String login);
 }
