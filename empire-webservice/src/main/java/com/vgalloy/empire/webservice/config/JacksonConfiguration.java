@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.vgalloy.empire.webservice.dto.EmpireIdDto;
+import com.vgalloy.empire.webservice.dto.UserIdDto;
 
 /**
  * Created by Vincent Galloy on 20/08/17.
@@ -20,14 +21,17 @@ import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 public class JacksonConfiguration {
 
     private final StdSerializer<EmpireIdDto> empireIdStdSerializer;
+    private final StdSerializer<UserIdDto> userIdDtoStdSerializer;
 
     /**
      * Constructor.
      *
      * @param empireIdStdSerializer the empire id converter
+     * @param userIdDtoStdSerializer the user id converter
      */
-    public JacksonConfiguration(StdSerializer<EmpireIdDto> empireIdStdSerializer) {
+    public JacksonConfiguration(StdSerializer<EmpireIdDto> empireIdStdSerializer, StdSerializer<UserIdDto> userIdDtoStdSerializer) {
         this.empireIdStdSerializer = Objects.requireNonNull(empireIdStdSerializer);
+        this.userIdDtoStdSerializer = Objects.requireNonNull(userIdDtoStdSerializer);
     }
 
     /**
@@ -42,6 +46,7 @@ public class JacksonConfiguration {
 
         SimpleModule module = new SimpleModule();
         module.addSerializer(EmpireIdDto.class, empireIdStdSerializer);
+        module.addSerializer(UserIdDto.class, userIdDtoStdSerializer);
         mapper.registerModule(module);
 
         return mapper;

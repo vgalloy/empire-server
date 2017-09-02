@@ -1,6 +1,7 @@
 package com.vgalloy.empire.service.model;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -29,6 +30,15 @@ public final class EmpireId {
      */
     public static EmpireId of(String empireId) {
         return new EmpireId(empireId);
+    }
+
+    /**
+     * Build a new empire id.
+     *
+     * @return a new instance of empire id
+     */
+    public static EmpireId newInstance() {
+        return new EmpireId(UUID.randomUUID().toString());
     }
 
     public String getId() {

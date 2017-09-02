@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.service.model.UserId;
 
 /**
  * Create by Vincent Galloy on 03/08/2017.
@@ -11,6 +12,14 @@ import com.vgalloy.empire.service.model.EmpireId;
  * @author Vincent Galloy
  */
 public interface EmpireDao {
+
+    /**
+     * Create a new Empire for the given player.
+     *
+     * @param userId the id of the user creating the empire
+     * @return the id of the empire
+     */
+    EmpireId createEmpire(UserId userId);
 
     /**
      * Get an empire by id.
@@ -41,5 +50,5 @@ public interface EmpireDao {
      * @param userId the user Id
      * @return the list of all Empire id
      */
-    List<EmpireId> getEmpireIdByUserId(String userId);
+    List<EmpireId> getEmpireIdByUserId(UserId userId);
 }

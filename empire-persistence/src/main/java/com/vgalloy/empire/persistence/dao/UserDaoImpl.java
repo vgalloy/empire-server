@@ -3,12 +3,12 @@ package com.vgalloy.empire.persistence.dao;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Repository;
 
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.spi.dao.UserDao;
 
 /**
@@ -22,7 +22,7 @@ final class UserDaoImpl implements UserDao {
     private final List<User> users = new ArrayList<>();
 
     @Override
-    public User getById(String userId) {
+    public User getById(UserId userId) {
         return users.stream()
             .filter(user -> user.getId().equals(userId))
             .findFirst()
@@ -31,7 +31,7 @@ final class UserDaoImpl implements UserDao {
 
     @Override
     public User create(String login, String password) {
-        User user = new User(UUID.randomUUID().toString(), login, password);
+        User user = User.of(login, password);
         users.add(user);
         return user;
     }

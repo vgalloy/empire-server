@@ -44,11 +44,10 @@ public final class Empire {
     /**
      * Build a new instance of Empire.
      *
-     * @param empireId the empire Id.
      * @return the new Empire
      */
-    public static Empire newInstance(EmpireId empireId) {
-        return internalCreate(empireId, PlayerInstructions.newEmpty(), Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
+    public static Empire newInstance() {
+        return internalCreate(EmpireId.newInstance(), PlayerInstructions.newEmpty(), Round.newInstance(), 100L, 0L, 100L, Stock.newStock());
     }
 
     /**

@@ -17,6 +17,7 @@ import com.vgalloy.empire.service.impl.step.StepManager;
 import com.vgalloy.empire.service.impl.step.TaxStep;
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 
@@ -47,6 +48,12 @@ final class EmpireServiceImpl implements EmpireService {
 
     @Override
     @PreAuthorize("hasRole('USER')")
+    public EmpireId createEmpire(UserId userId) {
+        return null;
+    }
+
+    @Override
+    @PreAuthorize("hasRole('USER')")
     public Empire computeNextRound(Empire empire) {
         return StepManager.of(empire)
             .step(RoundStep.INSTANCE)
@@ -68,7 +75,7 @@ final class EmpireServiceImpl implements EmpireService {
 
     @Override
     @PreAuthorize("hasRole('USER')")
-    public List<EmpireId> getEmpireIdByUserId(String userId) {
+    public List<EmpireId> getEmpireIdByUserId(UserId userId) {
         return empireDao.getEmpireIdByUserId(userId);
     }
 }

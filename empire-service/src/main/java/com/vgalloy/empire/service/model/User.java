@@ -9,24 +9,53 @@ import java.util.Objects;
  */
 public final class User {
 
-    private final String id;
+    private final UserId id;
     private final String login;
     private final String password;
 
     /**
      * Constructor.
+     * Private to avoid non managed instantiation
      *
      * @param id       the user id (must be unique)
      * @param login    the login
      * @param password the password
      */
-    public User(String id, String login, String password) {
+    private User(UserId id, String login, String password) {
         this.id = Objects.requireNonNull(id);
         this.login = Objects.requireNonNull(login);
         this.password = Objects.requireNonNull(password);
     }
 
-    public String getId() {
+    /**
+     * Build a {@link User}.
+     *
+     * @param login    the login
+     * @param password the password
+     */
+    public static User of(String login, String password) {
+        UserId id = UserId.newInstance();
+        Objects.requireNonNull(login);
+        Objects.requireNonNull(password);
+
+        return new User(id, login, password);
+    }
+
+    /**
+     * Build a {@link User}.
+     *
+     * @param login    the login
+     * @param password the password
+     */
+    public static User of(UserId userId, String login, String password) {
+        Objects.requireNonNull(userId);
+        Objects.requireNonNull(login);
+        Objects.requireNonNull(password);
+
+        return new User(userId, login, password);
+    }
+
+    public UserId getId() {
         return id;
     }
 

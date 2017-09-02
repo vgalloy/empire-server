@@ -20,6 +20,6 @@ public final class EmpireTest {
         expectedException.expect(NullPointerException.class);
 
         // WHEN
-        Empire.newInstance(null);
+        Empire.newInstance();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.spi.dao.UserDao;
 
 /**
@@ -32,7 +33,7 @@ final class UserServiceImpl implements UserService {
 
     @Override
     @PreAuthorize("hasRole('USER')")
-    public User getById(String userId) {
+    public User getById(UserId userId) {
         return userDao.getById(userId);
     }
 

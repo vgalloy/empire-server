@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.service.model.UserId;
 
 public interface UserDao {
 
@@ -13,7 +14,7 @@ public interface UserDao {
      * @param userId the userId
      * @return the corresponding user
      */
-    User getById(String userId);
+    User getById(UserId userId);
 
     /**
      * Create a user.

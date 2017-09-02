@@ -21,6 +21,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.ErrorDto;
+import com.vgalloy.empire.webservice.dto.UserIdDto;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -45,6 +46,7 @@ public class SwaggerConfig {
             .build()
             .directModelSubstitute(LocalDate.class, String.class)
             .directModelSubstitute(EmpireIdDto.class, String.class)
+            .directModelSubstitute(UserIdDto.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .securitySchemes(Collections.singletonList(new BasicAuth("")))
             .useDefaultResponseMessages(false)

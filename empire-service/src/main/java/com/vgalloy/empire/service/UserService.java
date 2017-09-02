@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.service.model.UserId;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -18,7 +19,7 @@ public interface UserService {
      * @param userId the userId
      * @return the corresponding user
      */
-    User getById(String userId);
+    User getById(UserId userId);
 
     /**
      * Create a user.

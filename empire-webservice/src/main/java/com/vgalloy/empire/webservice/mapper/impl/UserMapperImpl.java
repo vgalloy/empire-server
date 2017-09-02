@@ -3,7 +3,11 @@ package com.vgalloy.empire.webservice.mapper.impl;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.model.User;
+import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
+import com.vgalloy.empire.webservice.dto.UserIdDto;
+import com.vgalloy.empire.webservice.exception.UserInputException;
+import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
 
 /**
@@ -14,6 +18,12 @@ import com.vgalloy.empire.webservice.mapper.UserMapper;
 @Component
 final class UserMapperImpl implements UserMapper {
 
+    private final UserIdMapper userIdMapper;
+
+    UserMapperImpl(UserIdMapper userIdMapper) {
+        this.userIdMapper = userIdMapper;
+    }
+
     @Override
     public UserDto map(User user) {
         UserDto result = new UserDto();
@@ -23,7 +33,12 @@ final class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public User unmap(String userId, UserDto userDto) {
-        return new User(userId, userDto.getLogin(), userDto.getPassword());
+    public User unmap(UserIdDto userIdDto, UserDto userDto) {
+        UserInputException.requireNonNull(userIdDto, "User id can't be null");
+        UserInputException.requireNonNullNonEmptyNonBlank(userDto.getLogin(), "Invalid user login");
+        UserInputException.requireNonNullNonEmptyNonBlank(userDto.getPassword(), "Invalid user password");
+
+        UserId userId = userIdMapper.unmap(userIdDto);
+        return User.of(userId, userDto.getLogin(), userDto.getPassword());
     }
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.model.order.OrderType;
 
 public interface EmpireService {
@@ -16,6 +17,14 @@ public interface EmpireService {
      * @return the corresponding empire
      */
     Empire getEmpireById(EmpireId empireId);
+
+    /**
+     * Create a new Empire for the given player.
+     *
+     * @param userId the id of the user creating the empire
+     * @return the id of the empire
+     */
+    EmpireId createEmpire(UserId userId);
 
     /**
      * Compute the next round for an empire.
@@ -40,5 +49,5 @@ public interface EmpireService {
      * @param userId the user Id
      * @return the list of all Empire id
      */
-    List<EmpireId> getEmpireIdByUserId(String userId);
+    List<EmpireId> getEmpireIdByUserId(UserId userId);
 }
