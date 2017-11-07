@@ -20,6 +20,11 @@ final class UserMapperImpl implements UserMapper {
 
     private final UserIdMapper userIdMapper;
 
+    /**
+     * Constructor.
+     *
+     * @param userIdMapper the user id mapper
+     */
     UserMapperImpl(UserIdMapper userIdMapper) {
         this.userIdMapper = userIdMapper;
     }

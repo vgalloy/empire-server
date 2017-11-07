@@ -9,7 +9,7 @@ import org.junit.rules.ExpectedException;
  *
  * @author Vincent Galloy
  */
-public final class EmpireTest {
+public final class EmpireIdTest {
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -20,6 +20,6 @@ public final class EmpireTest {
         expectedException.expect(NullPointerException.class);
 
         // WHEN
-        Empire.newInstance();
+        EmpireId.of(null);
     }
 }

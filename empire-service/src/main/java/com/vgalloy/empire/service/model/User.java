@@ -32,6 +32,7 @@ public final class User {
      *
      * @param login    the login
      * @param password the password
+     * @return the user
      */
     public static User of(String login, String password) {
         UserId id = UserId.newInstance();
@@ -44,8 +45,10 @@ public final class User {
     /**
      * Build a {@link User}.
      *
+     * @param userId   the user id
      * @param login    the login
      * @param password the password
+     * @return the user
      */
     public static User of(UserId userId, String login, String password) {
         Objects.requireNonNull(userId);

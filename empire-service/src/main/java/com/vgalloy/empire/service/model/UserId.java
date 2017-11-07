@@ -35,7 +35,7 @@ public final class UserId {
     }
 
     /**
-     * Build a new instance of {@link UserId}
+     * Build a new instance of {@link UserId}.
      *
      * @return a new {@link UserId}
      */
