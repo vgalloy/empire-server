@@ -41,14 +41,12 @@ public class JacksonConfiguration {
      */
     @Bean
     public ObjectMapper objectMapper() {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        SimpleModule module = new SimpleModule()
+            .addSerializer(EmpireIdDto.class, empireIdStdSerializer)
+            .addSerializer(UserIdDto.class, userIdDtoStdSerializer);
 
-        SimpleModule module = new SimpleModule();
-        module.addSerializer(EmpireIdDto.class, empireIdStdSerializer);
-        module.addSerializer(UserIdDto.class, userIdDtoStdSerializer);
-        mapper.registerModule(module);
-
-        return mapper;
+        return new ObjectMapper()
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
+            .registerModule(module);
     }
 }
