@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.vgalloy.empire.service.model.Empire;
@@ -21,8 +19,6 @@ import com.vgalloy.empire.service.spi.dao.EmpireDao;
  */
 @Repository
 final class EmpireDaoImpl implements EmpireDao {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(EmpireDaoImpl.class);
 
     private final List<Empire> empires = new ArrayList<>();
     private final Map<UserId, List<EmpireId>> map = new HashMap<>();
