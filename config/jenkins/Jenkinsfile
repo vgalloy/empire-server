@@ -41,6 +41,12 @@ pipeline {
             }
         }
 
+        stage('Build with gradle') {
+            steps {
+                sh "./gradlew build"
+            }
+        }
+
         stage('Docker image creation') {
             steps {
                 unarchive mapping: ['target/empire-server.jar': 'target/empire-server.jar']
