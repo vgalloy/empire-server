@@ -1,19 +1,17 @@
 plugins {
-    id 'org.springframework.boot' version "1.5.9.RELEASE" apply false
+    id 'org.springframework.boot' version "1.5.10.RELEASE" apply false
     // dependencyUpdates
     id 'com.github.ben-manes.versions' version '0.15.0'
 }
-
 
 ext {
     javaVersion = '1.8'
     checkstyleVersion = '7.5'
 
-    springBootVersion = '1.5.9.RELEASE'
+    springBootVersion = '1.5.10.RELEASE'
     springFoxVersion = '2.7.0'
     junitVersion = '4.12'
 }
-
 
 allprojects {
     group = 'com.vgalloy'
