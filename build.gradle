@@ -1,0 +1,58 @@
+plugins {
+    id 'org.springframework.boot' version "1.5.9.RELEASE" apply false
+    // dependencyUpdates
+    id 'com.github.ben-manes.versions' version '0.15.0'
+}
+
+
+ext {
+    javaVersion = '1.8'
+    checkstyleVersion = '7.5'
+
+    springBootVersion = '1.5.9.RELEASE'
+    springFoxVersion = '2.7.0'
+    junitVersion = '4.12'
+}
+
+
+allprojects {
+    group = 'com.vgalloy'
+    version = '1.0-SNAPSHOT'
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'checkstyle'
+    apply plugin: 'pmd'
+    apply plugin: 'findbugs'
+
+    sourceCompatibility = "$javaVersion"
+    targetCompatibility = "$javaVersion"
+
+    checkstyle {
+        toolVersion = "$checkstyleVersion"
+        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        checkstyleTest.enabled = false
+    }
+
+    pmd {
+        consoleOutput = true
+        ruleSetFiles = rootProject.files('config/pmd/ruleset.xml')
+        pmdTest.enabled = false
+    }
+
+    findbugs {
+        excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
+        findbugsTest.enabled = false
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+}

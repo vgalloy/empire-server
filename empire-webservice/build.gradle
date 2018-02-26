@@ -1,0 +1,14 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile project(':empire-service')
+    compile project(':empire-persistence')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springBootVersion"
+    compile group: 'io.springfox', name: 'springfox-swagger-ui', version: "$springFoxVersion"
+    compile group: 'io.springfox', name: 'springfox-swagger2', version: "$springFoxVersion"
+}
+
+configurations {
+    jar.archiveName = 'empire-server.jar'
+}
