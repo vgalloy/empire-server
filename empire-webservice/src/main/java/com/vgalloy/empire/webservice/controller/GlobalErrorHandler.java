@@ -1,5 +1,8 @@
 package com.vgalloy.empire.webservice.controller;
 
+import com.vgalloy.empire.webservice.dto.ErrorDto;
+import com.vgalloy.empire.webservice.exception.NotFoundException;
+import com.vgalloy.empire.webservice.exception.UserInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -7,12 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import com.vgalloy.empire.webservice.dto.ErrorDto;
-import com.vgalloy.empire.webservice.exception.NotFoundException;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -83,6 +83,18 @@ final class GlobalErrorHandler {
     public ResponseEntity<ErrorDto> handle(HttpMessageNotReadableException e) {
         LOGGER.warn("{}", e.getMessage());
         return buildResponse(HttpStatus.BAD_REQUEST, "Invalid json");
+    }
+
+    /**
+     * Handle error and set the correct response status.
+     *
+     * @param e The handle exception
+     * @return The error message for web user
+     */
+    @ExceptionHandler(MissingPathVariableException.class)
+    public ResponseEntity<ErrorDto> handle(MissingPathVariableException e) {
+        LOGGER.warn("{}", e.getMessage());
+        return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     /**
