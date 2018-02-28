@@ -52,13 +52,13 @@ pipeline {
                 unarchive mapping: ['target/empire-server.jar': 'target/empire-server.jar']
                 withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh '''
-                    docker build -f config/docker/Dockerfile -t registry.3csminute.com/empire-server:1.$BUILD_NUMBER .
-                    docker tag registry.3csminute.com/empire-server:1.$BUILD_NUMBER registry.3csminute.com/empire-server:latest
+                    docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
+                    docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
 
-                    docker login registry.3csminute.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
-                    docker push registry.3csminute.com/empire-server:1.$BUILD_NUMBER
-                    docker push registry.3csminute.com/empire-server:latest
-                    docker logout registry.3csminute.com
+                    docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
+                    docker push registry.vgalloy.com/empire-server:1.$BUILD_NUMBER
+                    docker push registry.vgalloy.com/empire-server:latest
+                    docker logout registry.vgalloy.com
                     '''
                 }
             }
