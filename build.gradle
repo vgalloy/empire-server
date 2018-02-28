@@ -6,7 +6,7 @@ plugins {
 
 ext {
     javaVersion = '1.8'
-    checkstyleVersion = '7.5'
+    checkstyleVersion = '8.8'
 
     springBootVersion = '1.5.10.RELEASE'
     springFoxVersion = '2.7.0'

@@ -67,9 +67,6 @@
             <property name="allowMissingPropertyJavadoc" value="true"/>
         </module>
 
-        <!-- To have SuppressionsCommentFilter available -->
-        <module name="FileContentsHolder"/>
-
         <!-- Checks for Naming Conventions -->
         <module name="AbstractClassName"/>
         <module name="ConstantName"/>
@@ -179,7 +176,7 @@
     </module>
 
     <!-- Ignore filter -->
-    <module name="SuppressionCommentFilter">
+    <module name="SuppressWithPlainTextCommentFilter">
         <property name="offCommentFormat" value="BEGIN GENERATED CODE"/>
         <property name="onCommentFormat" value="END GENERATED CODE"/>
     </module>
