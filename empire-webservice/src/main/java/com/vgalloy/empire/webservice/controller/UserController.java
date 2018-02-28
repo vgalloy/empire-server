@@ -62,7 +62,7 @@ public class UserController {
      * @param userIdDto the user id dto
      * @return the User
      */
-    @GetMapping("{userId}")
+    @GetMapping("{userIdDto}")
     public UserDto getById(@PathVariable UserIdDto userIdDto) {
         UserId userId = userIdMapper.unmap(userIdDto);
         User user = userService.getById(userId);
@@ -75,7 +75,7 @@ public class UserController {
      * @param userIdDto the user id
      * @return the User
      */
-    @GetMapping("{userId}/empires")
+    @GetMapping("{userIdDto}/empires")
     public List<EmpireIdDto> getEmpiresByUser(@PathVariable UserIdDto userIdDto) {
         UserId userId = userIdMapper.unmap(userIdDto);
 
@@ -107,7 +107,7 @@ public class UserController {
      * @param userDto the user to update
      * @return the new user
      */
-    @PutMapping("{userId}")
+    @PutMapping("{userIdDto}")
     public UserDto update(@PathVariable UserIdDto userIdDto, @RequestBody UserDto userDto) {
         User user = userMapper.unmap(userIdDto, userDto);
         userService.update(user);
