@@ -1,8 +1,5 @@
 package com.vgalloy.empire.webservice.controller;
 
-import com.vgalloy.empire.webservice.dto.ErrorDto;
-import com.vgalloy.empire.webservice.exception.NotFoundException;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +10,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MissingPathVariableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.vgalloy.empire.webservice.dto.ErrorDto;
+import com.vgalloy.empire.webservice.exception.NotFoundException;
+import com.vgalloy.empire.webservice.exception.UserInputException;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
