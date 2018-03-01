@@ -12,11 +12,13 @@ import javax.servlet.ServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
+import org.springframework.stereotype.Component;
 
 /**
- * @author Vincent Galloy
  * Created by Vincent Galloy on 28/02/18.
+ * @author Vincent Galloy
  */
+@Component
 public class RequestUuidFilter implements Filter {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestUuidFilter.class);
