@@ -10,11 +10,9 @@ import org.springframework.stereotype.Component;
 /**
  * Created by Vincent Galloy on 01/03/18.
  * <p>
- * Le but de cette classe est de creer des pointsCuts et d'injecter les fonctions de log aux bons endroits. Toute
- * methode annotée @Log doit être loggées (par defaut en trace). Afin de soulager son utilisation, l'annotation
- * s'utilise aussi sur des classes. Au quel cas toute les methodes publics de la classe sont annotées au même
- * niveau. En cas de double annotation (l'une venant de la méthode et l'autre de la classe) c'est la plus proche
- * (celle de la methode) qui doit prendre le pas.
+ * The goal is to logs all information given to the method annotate with {@link FullLog} and the result.
+ * <p>
+ * If the class AND the method are annotated with {@link FullLog}, only the method annotation must be applied.
  *
  * @author Vincent Galloy
  */
@@ -55,28 +53,23 @@ public class LoggerAspect {
     }
 
     /**
-     * On crée un pointCut pour injecter l'aspect aux bons endroits.
-     * 1. L'annotation @within permet de trouver les méthodes dont la classe est annotée par @Log
-     * 2. L'annotation @annotation permet de trouver les méthodes directement annotée par @Log
+     * Pointcut creation.
+     * 1. @within is used to detect class annotated with {@link FullLog}
+     * 2. @annotation is used to detect method annotated with {@link FullLog}
      * <p/>
-     * Le principal problème consiste à gerer la double annotation. Puisque chaque pointcut est un proxy il faut éviter
-     * que les logs s'affichent deux fois avec differents niveaux
-     * Dans le cas d'un pointCut avec un OU ( || ) l'annotation est remplie avec le second terme même si celui-ci est vide.
-     * Exemple avec : @within(methodLog) || @annotation(methodLog)
-     * Si la classe est annotée mais pas la méthode, l'aspect sera bien appelé mais le methodLog sera vide.
-     * <p/>
-     * Dans ce cas de figure évoqué precedement il faut donc retrouver avec la reflexion l'annotation sur la classe pour
-     * utiliser sa 'value'. Il est important de noter que l'inverse n'est pas possible puisque les annotations sur les
-     * methodes ne peuvent pas être trouvées par reflexion.
-     * <p/>
-     * La seconde méthode consiste à effectuer un double OU ( || ) et de les lier avec un ET ( && ). Comme expliqué, les
-     * clause OU seront toujours valables et retourneront les deux annotations.
+     * The main issues here to handle double annotation : one on class and one on method. If both are present only
+     * method must be applied
+     * If pointcut define an OR ( || ) annotation parameter is field with the second part of the OR even if this one is
+     * empty.
+     * <p>
+     * For example  : @within(methodLog) || @annotation(methodLog)
+     * if class is annotated but the method is not, pointcut will be call but parameter "methodLog" will be empty.
      *
-     * @param joinPoint Le joinPoint servant de reference vers le file d'execution et la méthode encapsulée
-     * @param methodLog L'annotation (liée à la méthode) qui a servie faire le lien.
-     * @param classLog  L'annotation (liée à la classe) qui a servie faire le lien.
-     * @return Le resultat de la methode encapsulée par l'aspect
-     * @throws Throwable La méthode encapsulée peux jetter n'importe quel type de Throwable
+     * @param joinPoint the jointPoint representing wrapped method
+     * @param methodLog the annotation related to the method, can be null
+     * @param classLog  the annotation related to the class, can be null
+     * @return the wrapped method result
+     * @throws Throwable forward method possible throwable
      */
     @Around("(@within(methodLog) || @annotation(methodLog)) && (@annotation(classLog) || @within(classLog))")
     public final Object logForClass(ProceedingJoinPoint joinPoint, FullLog methodLog, FullLog classLog) throws Throwable {

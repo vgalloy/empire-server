@@ -34,7 +34,7 @@ public class ExecutionTimeLoggerAspect {
             return joinPoint.proceed();
         } finally {
             long totalTimeMillis = System.currentTimeMillis() - start;
-            String message = joinPoint.getTarget().getClass().getSimpleName() + "#" + joinPoint.getSignature().getDeclaringTypeName() + " : " + totalTimeMillis + " ms";
+            String message = joinPoint.getTarget().getClass().getSimpleName() + "#" + joinPoint.getSignature().getName() + " : " + totalTimeMillis + " ms";
             LogLevel.printLog(logger, logLevel, message);
         }
     }
