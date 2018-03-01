@@ -7,6 +7,9 @@ import java.util.Optional;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+import com.vgalloy.empire.common.ExecutionTimeLog;
+import com.vgalloy.empire.common.FullLog;
+import com.vgalloy.empire.common.LogLevel;
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
@@ -17,6 +20,7 @@ import com.vgalloy.empire.service.spi.dao.UserDao;
  *
  * @author Vincent Galloy
  */
+@FullLog
 @Component
 final class UserServiceImpl implements UserService {
 
@@ -38,11 +42,14 @@ final class UserServiceImpl implements UserService {
     }
 
     @Override
+    @FullLog(LogLevel.TRACE)
+    @ExecutionTimeLog
     public User create(String login, String password) {
         return userDao.create(login, password);
     }
 
     @Override
+    @FullLog(LogLevel.TRACE)
     public Optional<User> findByLoginAndPassword(String login, String password) {
         return userDao.findByLoginAndPassword(login, password);
     }

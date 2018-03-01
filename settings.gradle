@@ -2,7 +2,4 @@ rootProject.name = 'empire'
 include ':empire-service'
 include ':empire-persistence'
 include ':empire-webservice'
-
-project(':empire-service').projectDir = "$rootDir/empire-service" as File
-project(':empire-persistence').projectDir = "$rootDir/empire-persistence" as File
-project(':empire-webservice').projectDir = "$rootDir/empire-webservice" as File
+include ':empire-common'
