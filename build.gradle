@@ -1,11 +1,12 @@
 plugins {
     id 'org.springframework.boot' version "1.5.10.RELEASE" apply false
     // dependencyUpdates
-    id 'com.github.ben-manes.versions' version '0.15.0'
+    id 'com.github.ben-manes.versions' version '0.17.0'
 }
 
 ext {
     javaVersion = '1.8'
+    encoding = 'UTF-8'
     checkstyleVersion = '8.8'
 
     springBootVersion = '1.5.10.RELEASE'
@@ -68,8 +69,10 @@ subprojects {
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
 
-    sourceCompatibility = "$javaVersion"
-    targetCompatibility = "$javaVersion"
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
 
     checkstyle {
         toolVersion = "$checkstyleVersion"
@@ -88,13 +91,16 @@ subprojects {
         findbugsTest.enabled = false
     }
 
-    repositories {
-        mavenLocal()
-        mavenCentral()
+    compileJava {
+        sourceCompatibility = "$javaVersion"
+        targetCompatibility = "$javaVersion"
+        options.encoding = "$encoding"
     }
 
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
+    compileTestJava {
+        sourceCompatibility = "$javaVersion"
+        targetCompatibility = "$javaVersion"
+        options.encoding = "$encoding"
     }
 
 }
