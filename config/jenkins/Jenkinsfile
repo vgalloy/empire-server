@@ -25,7 +25,7 @@ pipeline {
                     docker create --name=empire-server-maven-builder-java8 \
                        -v /m2:/root/.m2 \
                        -w /usr/maven \
-                       maven:3.5.0 \
+                       maven:3.5.2 \
                        mvn clean install -B
                     docker cp . empire-server-maven-builder-java8:/usr/maven
                     docker start -a empire-server-maven-builder-java8
