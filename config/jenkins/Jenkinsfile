@@ -57,6 +57,7 @@ pipeline {
                 sh '''
                     docker create --name=empire-server-gradle-builder-java8 \
                        -v /docker-shared/m2:/root/.m2 \
+                       -v /docker-shared/gradle-distribution:/root/.gradle \
                        -w /usr/maven \
                        java:openjdk-8-jdk \
                        ./gradlew build
