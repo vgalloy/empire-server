@@ -8,7 +8,7 @@ pipeline {
             }
         }
 
-        stage('Clear maven') {
+        stage('Clear maven builder') {
             steps {
                 sh '''
                     if [ ! -e $(docker ps -aq -f "name=empire-server-maven-builder-java8") ]
@@ -41,9 +41,28 @@ pipeline {
             }
         }
 
+        stage('Clear gradle builder') {
+            steps {
+                sh '''
+                    if [ ! -e $(docker ps -aq -f "name=empire-server-gradle-builder-java8") ]
+                    then
+                    	docker rm -vf empire-server-gradle-builder-java8
+                    fi
+                '''
+            }
+        }
+
         stage('Build with gradle') {
             steps {
-                sh "./gradlew build"
+                sh '''
+                    docker create --name=empire-server-gradle-builder-java8 \
+                       -v /m2:/root/.m2 \
+                       -w /usr/maven \
+                       java:openjdk-8-jdk \
+                       ./gradlew build
+                    docker cp . empire-server-gradle-builder-java8:/usr/maven
+                    docker start -a empire-server-gradle-builder-java8
+                    '''
             }
         }
 
