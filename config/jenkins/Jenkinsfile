@@ -58,10 +58,10 @@ pipeline {
                     docker create --name=empire-server-gradle-builder-java8 \
                        -v /docker-shared/m2:/root/.m2 \
                        -v /docker-shared/gradle-distribution:/root/.gradle \
-                       -w /usr/maven \
+                       -w /home/gradle \
                        java:openjdk-8-jdk \
                        ./gradlew build
-                    docker cp . empire-server-gradle-builder-java8:/usr/maven
+                    docker cp . empire-server-gradle-builder-java8:/home/gradle
                     docker start -a empire-server-gradle-builder-java8
                     '''
             }
