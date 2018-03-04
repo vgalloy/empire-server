@@ -4,7 +4,6 @@ pipeline {
     stages {
         stage('Init volume') {
             steps {
-                sh 'rm -rf *'
                 sh '''
                     if [ -e $(docker volume list -q -f "name=empire-source-volume") ]
                     then
