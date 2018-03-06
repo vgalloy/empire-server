@@ -13,6 +13,11 @@ pipeline {
                             -v empire-source-volume:/git \
                             alpine/git clone https://github.com/vgalloy/empire-server.git
                     fi
+                    docker run \
+                        --rm \
+                        -v empire-source-volume:/home/ \
+                        -w /home/empire-server \
+                        ubuntu rm -rf target
                 '''
             }
         }
@@ -34,26 +39,18 @@ pipeline {
             }
         }
 
-        stage('Maven init builder') {
-            steps {
-                sh '''
-                    if [ -e $(docker container list -aqf "name=empire-server-maven-builder-java8") ]
-                    then
-                        docker container create \
-                            --name=empire-server-maven-builder-java8 \
-                            -v empire-source-volume:/src/maven \
-                            -w /src/maven/empire-server \
-                            maven:3.5.2 mvn clean install
-                    fi
-                '''
-            }
-        }
-
-        stage('Maven clean install') {
-            steps {
-                sh 'docker container start -a empire-server-maven-builder-java8'
-            }
-        }
+         stage('Maven clean install') {
+             steps {
+                 sh '''
+                     docker container run \
+                         --rm \
+                         --name=empire-server-maven-builder-java8 \
+                         -v empire-source-volume:/src/maven \
+                         -w /src/maven/empire-server \
+                         maven:3.5.2 mvn clean install
+                 '''
+             }
+         }
 
         stage('Gradle init builder') {
             steps {
@@ -76,36 +73,35 @@ pipeline {
             }
         }
 
-        stage('Extract jar') {
+        stage('Docker build image') {
             steps {
                 sh '''
-                    if [ ! -e $(docker container list -aqf "name=empire-volume-extractor") ]
-                    then
-                        docker rm -f empire-volume-extractor
-                    fi    
-                    docker run \
-                        --name=empire-volume-extractor \
+                    docker container run \
+                        --rm \
                         -v empire-source-volume:/home/ \
-                        ubuntu cp -r /home/empire-server /save
-                    docker container cp empire-volume-extractor:/save empire-server
+                        -w /home/empire-server \
+                        ubuntu mkdir target
+                    docker container run \
+                        --rm \
+                        -v empire-source-volume:/home/ \
+                        -w /home/empire-server \
+                        ubuntu cp empire-webservice/build/libs/empire-server.jar target/empire-server.jar
+                    docker container run \
+                        --rm \
+                        -v empire-source-volume:/home/ \
+                        -w /home/empire-server \
+                        -v /var/run/docker.sock:/var/run/docker.sock \
+                        docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
+                    docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
                 '''
-            }
-            post {
-                success {
-                    archive "empire-server/empire-webservice/build/libs/empire-server.jar"
-                    archive "empire-server/config/docker/Dockerfile"
-                }
             }
         }
 
-        stage('Docker image creation') {
+        stage('Docker push image to registry') {
             steps {
-                unarchive mapping: ['empire-server/empire-webservice/build/libs/empire-server.jar': 'target/empire-server.jar']
-                unarchive mapping: ['empire-server/config/docker/Dockerfile': 'config/docker/Dockerfile']
+
                 withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh '''
-                        docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
-                        docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
                         docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
                         docker push registry.vgalloy.com/empire-server:1.$BUILD_NUMBER
                         docker push registry.vgalloy.com/empire-server:latest
