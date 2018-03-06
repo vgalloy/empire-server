@@ -13,6 +13,10 @@ pipeline {
                             -v empire-source-volume:/git \
                             alpine/git clone https://github.com/vgalloy/empire-server.git
                     fi
+                    if [ -e $(docker volume list -q -f "name=empire-m2-volume") ]
+                    then
+                        docker volume create --name=empire-m2-volume
+                    fi
                     docker run \
                         --rm \
                         -v empire-source-volume:/home/ \
@@ -39,18 +43,19 @@ pipeline {
             }
         }
 
-         stage('Maven clean install') {
-             steps {
-                 sh '''
+        stage('Maven clean install') {
+            steps {
+                sh '''
                      docker container run \
                          --rm \
                          --name=empire-server-maven-builder-java8 \
+                         -v empire-m2-volume:/root/.m2 \
                          -v empire-source-volume:/src/maven \
                          -w /src/maven/empire-server \
                          maven:3.5.2 mvn clean install
                  '''
-             }
-         }
+            }
+        }
 
         stage('Gradle init builder') {
             steps {
