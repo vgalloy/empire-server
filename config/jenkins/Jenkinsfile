@@ -17,6 +17,10 @@ pipeline {
                     then
                         docker volume create --name=empire-m2-volume
                     fi
+                    if [ -e $(docker volume list -q -f "name=empire-gradle-volume") ]
+                    then
+                        docker volume create --name=empire-gradle-volume
+                    fi
                     docker run \
                         --rm \
                         -v empire-source-volume:/home/ \
@@ -33,12 +37,7 @@ pipeline {
                         --rm \
                         -v empire-source-volume:/home/ \
                         -w /home/empire-server \
-                        alpine/git fetch
-                    docker run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        alpine/git checkout --force origin/master
+                        alpine/git fetch && git checkout --force origin/master
                 '''
             }
         }
@@ -48,7 +47,6 @@ pipeline {
                 sh '''
                      docker container run \
                          --rm \
-                         --name=empire-server-maven-builder-java8 \
                          -v empire-m2-volume:/root/.m2 \
                          -v empire-source-volume:/src/maven \
                          -w /src/maven/empire-server \
@@ -57,24 +55,17 @@ pipeline {
             }
         }
 
-        stage('Gradle init builder') {
-            steps {
-                sh '''
-                    if [ -e $(docker container list -aqf "name=empire-server-gradle-builder-java8") ]
-                    then
-                        docker container create \
-                            --name=empire-server-gradle-builder-java8 \
-                            -v empire-source-volume:/home/gradle \
-                            -w /home/gradle/empire-server \
-                            java:openjdk-8 ./gradlew build --project-cache-dir=/home/gradle-cache
-                    fi
-                '''
-            }
-        }
-
         stage('Gradle build') {
             steps {
-                sh 'docker container start -a empire-server-gradle-builder-java8'
+                sh '''
+                docker container run \
+                    --rm \
+                    -v empire-m2-volume:/root/.m2 \
+                    -v empire-gradle-volume:/root/.gradle \
+                    -v empire-source-volume:/home/gradle \
+                    -w /home/gradle/empire-server \
+                   java:openjdk-8 ./gradlew build
+                '''
             }
         }
 
@@ -85,7 +76,7 @@ pipeline {
                         --rm \
                         -v empire-source-volume:/home/ \
                         -w /home/empire-server \
-                        ubuntu mkdir target
+                        ubuntu mkdir -p target
                     docker container run \
                         --rm \
                         -v empire-source-volume:/home/ \
@@ -104,7 +95,6 @@ pipeline {
 
         stage('Docker push image to registry') {
             steps {
-
                 withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
                     sh '''
                         docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
