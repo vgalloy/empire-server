@@ -64,7 +64,7 @@ pipeline {
                     -v empire-gradle-volume:/root/.gradle \
                     -v empire-source-volume:/home/gradle \
                     -w /home/gradle/empire-server \
-                   java:openjdk-9 ./gradlew build
+                   java:openjdk-8 ./gradlew build
                 '''
             }
         }
