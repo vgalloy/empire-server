@@ -1,6 +1,7 @@
 plugins {
     // dependencyUpdates
     id 'com.github.ben-manes.versions' version '0.17.0'
+    id 'net.researchgate.release' version '2.6.0'
 }
 
 ext {
@@ -58,15 +59,12 @@ class TimingsListener implements TaskExecutionListener, BuildListener {
 gradle.addListener new TimingsListener()
 
 allprojects {
-    group = 'com.vgalloy'
-    version = '1.0-SNAPSHOT'
-}
-
-subprojects {
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
+
+    group = 'com.vgalloy'
 
     repositories {
         mavenLocal()
