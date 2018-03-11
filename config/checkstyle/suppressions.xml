@@ -7,5 +7,6 @@
 <suppressions>
     <suppress files="[/\\]generated-sources[/\\]" checks="[a-zA-Z0-9]*"/>
     <suppress files="[/\\]target[/\\]" checks=".*"/>
+    <suppress files="[/\\]build[/\\]" checks=".*"/>
     <suppress files="[/\\]resources[/\\]" checks=".*"/>
 </suppressions>
