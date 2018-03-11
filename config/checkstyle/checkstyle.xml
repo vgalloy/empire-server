@@ -4,6 +4,12 @@
         "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 <!-- url : http://checkstyle.sourceforge.net/checks.html -->
 <module name="Checker">
+    <property name="charset" value="UTF-8"/>
+
+    <property name="severity" value="error"/>
+
+    <property name="fileExtensions" value="java, properties, xml"/>
+
     <module name="Translation"/>
 
     <!-- Checks for Size Violations. -->
@@ -173,6 +179,20 @@
 
         <!-- Miscellaneous other checks -->
         <module name="UpperEll"/>
+
+        <!-- Check code indentation -->
+        <module name="Indentation">
+            <property name="basicOffset" value="4"/>
+            <property name="braceAdjustment" value="0"/>
+            <property name="caseIndent" value="4"/>
+            <property name="throwsIndent" value="4"/>
+            <property name="lineWrappingIndentation" value="4"/>
+            <property name="arrayInitIndent" value="4"/>
+            <property name="forceStrictCondition" value="true"/>
+        </module>
+
+        <!-- Checks comment indent on code -->
+        <module name="CommentsIndentation"/>
     </module>
 
     <!-- Ignore filter -->

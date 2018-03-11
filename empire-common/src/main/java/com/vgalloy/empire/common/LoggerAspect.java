@@ -21,21 +21,20 @@ import org.springframework.stereotype.Component;
 public class LoggerAspect {
 
     /**
-     * 1. Analyse le point cut afin de trouver le nom et les arguments de la fonction appelé et les log en fonction du
-     * niveau de log passé en paramètre.
-     * 2. Execute la méthode
-     * 3. Affiche le resultat
+     * 1. Analyze pointcut to find arguments and display it
+     * 2. Execute method
+     * 3. Print the result and return it
      *
-     * @param joinPoint Le joinPoint servant de reference vers le file d'execution et la méthode encapsulée
-     * @param logLevel  Le niveau de log attendu
-     * @return Le resultat de la methode encapsulée par l'aspect
-     * @throws Throwable La méthode encapsulée peux jetter n'importe quel type de Throwable
+     * @param joinPoint the pointcut
+     * @param logLevel  the expected log level
+     * @return method result
+     * @throws Throwable forward method throwable
      */
     private static Object displayLog(ProceedingJoinPoint joinPoint, LogLevel logLevel) throws Throwable {
         Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         StringBuilder stringBuilder = new StringBuilder("[ START ] : ")
-                .append(joinPoint.getSignature().getName())
-                .append("(");
+            .append(joinPoint.getSignature().getName())
+            .append("(");
         for (Object o : joinPoint.getArgs()) {
             stringBuilder.append(o.toString());
         }
@@ -45,9 +44,9 @@ public class LoggerAspect {
         Object result = joinPoint.proceed();
 
         stringBuilder = new StringBuilder("[ END   ] : ")
-                .append(joinPoint.getSignature().getName())
-                .append(" ==> ")
-                .append(result);
+            .append(joinPoint.getSignature().getName())
+            .append(" ==> ")
+            .append(result);
         LogLevel.printLog(logger, logLevel, stringBuilder.toString());
         return result;
     }

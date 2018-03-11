@@ -37,7 +37,7 @@ public enum LogLevel {
                 logger.error(message);
                 break;
             default:
-                break;
+                throw new IllegalArgumentException("The log level " + logger + " doesn't exist");
         }
     }
 }

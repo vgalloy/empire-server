@@ -11,6 +11,8 @@
 
     <artifactId>empire-common</artifactId>
 
+
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
