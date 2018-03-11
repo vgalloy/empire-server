@@ -25,6 +25,7 @@ ext {
 
     checkstyleVersion = '8.10'
     jacocoVersion = '0.8.1'
+    pmdVersion = '6.1.0'
 
     springBootVersion = '2.0.1.RELEASE'
     springFoxVersion = '2.8.0'
@@ -69,7 +70,9 @@ allprojects {
     }
 
     pmd {
+        toolVersion = "$pmdVersion"
         consoleOutput = true
+        ruleSets = []
         ruleSetFiles = rootProject.files('config/pmd/pmd.xml')
         pmdTest.enabled = false
         pmdIntegrationTest.enabled = false

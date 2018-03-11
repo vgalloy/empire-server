@@ -7,7 +7,7 @@ import com.vgalloy.empire.webservice.dto.Dto;
  *
  * @author Vincent Galloy
  */
-public interface Mapper<BUSINESS, DTO extends Dto> {
+public interface Mapper<T, R extends Dto> {
 
     /**
      * Map the business object into a Dto one.
@@ -15,5 +15,5 @@ public interface Mapper<BUSINESS, DTO extends Dto> {
      * @param business the business object
      * @return the dto object
      */
-    DTO map(BUSINESS business);
+    R map(T business);
 }

@@ -9,6 +9,7 @@ import com.vgalloy.empire.service.model.Empire;
  */
 final class BuyFoodOrder implements Order {
 
+    private static final double FOOD_UNIT_PRICE = 0.1;
     private final long food;
 
     /**
@@ -22,10 +23,9 @@ final class BuyFoodOrder implements Order {
 
     @Override
     public Empire apply(final Empire empire) {
-        final double unitPrice = 0.1;
-        final long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / unitPrice));
+        final long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / FOOD_UNIT_PRICE));
         final long buy = Math.min(food, maxAllowed);
-        final long totalPrice = Math.round(Math.ceil(1.0 * buy * unitPrice));
+        final long totalPrice = Math.round(Math.ceil(1.0 * buy * FOOD_UNIT_PRICE));
         return empire.gold(empire.getGold() - totalPrice)
             .stock(empire.getStock().resource(empire.getStock().getCurrent() + buy));
     }

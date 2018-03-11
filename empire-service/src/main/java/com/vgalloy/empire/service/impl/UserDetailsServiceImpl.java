@@ -1,6 +1,6 @@
 package com.vgalloy.empire.service.impl;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -46,6 +46,6 @@ class UserDetailsServiceImpl implements UserDetailsService {
         }
         final User user = users.get(0);
 
-        return new org.springframework.security.core.userdetails.User(user.getPassword(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
+        return new org.springframework.security.core.userdetails.User(user.getPassword(), user.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
     }
 }

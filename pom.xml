@@ -39,7 +39,7 @@
         <checkstyle.version>8.10</checkstyle.version>
 
         <!-- PMD -->
-        <maven-pmd-plugin.version>3.8</maven-pmd-plugin.version>
+        <maven-pmd-plugin.version>3.9.0</maven-pmd-plugin.version>
         <maven-pmd-plugin.configuration.location>../config/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
 
         <!-- Find bugs -->
@@ -284,15 +284,21 @@
                 <version>${maven-pmd-plugin.version}</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
-                    <sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
+                    <targetJdk>${java.version}</targetJdk>
+                    <minimumTokens>20</minimumTokens>
+                    <skipEmptyReport>false</skipEmptyReport>
+                    <failOnViolation>true</failOnViolation>
                     <printFailingErrors>true</printFailingErrors>
+                    <includeTests>false</includeTests>
+                    <analysisCache>true</analysisCache>
+                    <analysisCacheLocation>${project.build.directory}/pmd.cache</analysisCacheLocation>
                     <rulesets>
                         <ruleset>${maven-pmd-plugin.configuration.location}</ruleset>
                     </rulesets>
                 </configuration>
                 <executions>
                     <execution>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>check</goal>
                         </goals>

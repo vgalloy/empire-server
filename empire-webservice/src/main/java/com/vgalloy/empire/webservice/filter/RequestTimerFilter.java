@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * Created by Vincent Galloy on 28/02/18.
+ *
  * @author Vincent Galloy
  */
 @Component
@@ -34,7 +35,9 @@ public class RequestTimerFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
             final long total = System.currentTimeMillis() - start;
-            LOGGER.info("Total execution time : " + total + " ms");
+            if (LOGGER.isInfoEnabled()) {
+                LOGGER.info("Total execution time : " + total + " ms");
+            }
         }
     }
 

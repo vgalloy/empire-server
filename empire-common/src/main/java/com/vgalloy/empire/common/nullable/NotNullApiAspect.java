@@ -30,13 +30,13 @@ public final class NotNullApiAspect {
         final Object[] args = joinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
             final Object arg = args[i];
-            if (Objects.isNull(arg)) {
+            final int index = i;
+            Objects.requireNonNull(arg, () -> {
                 final String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
                 final Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-                final String paramName = method.getParameters()[i].getName();
-                final String message = fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
-                throw new NullPointerException(message);
-            }
+                final String paramName = method.getParameters()[index].getName();
+                return fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
+            });
         }
     }
 }

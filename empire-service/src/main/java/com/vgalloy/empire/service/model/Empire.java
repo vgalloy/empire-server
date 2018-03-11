@@ -53,7 +53,7 @@ public final class Empire {
         builder.gold = 0L;
         builder.tax = 100L;
         builder.stock = Stock.newStock();
-        return builder.build();
+        return new Empire(builder);
     }
 
     public EmpireId getEmpireId() {
@@ -93,7 +93,7 @@ public final class Empire {
     public Empire playerInstructions(final PlayerInstructions playerInstructions) {
         final Builder builder = Builder.from(this);
         builder.playerInstructions = playerInstructions;
-        return builder.build();
+        return new Empire(builder);
     }
 
     /**
@@ -105,7 +105,7 @@ public final class Empire {
     public Empire round(final Round round) {
         final Builder builder = Builder.from(this);
         builder.round = round;
-        return builder.build();
+        return new Empire(builder);
     }
 
     /**
@@ -117,7 +117,7 @@ public final class Empire {
     public Empire population(final long population) {
         final Builder builder = Builder.from(this);
         builder.population = population;
-        return builder.build();
+        return new Empire(builder);
     }
 
     /**
@@ -129,7 +129,7 @@ public final class Empire {
     public Empire gold(final long gold) {
         final Builder builder = Builder.from(this);
         builder.gold = gold;
-        return builder.build();
+        return new Empire(builder);
     }
 
     /**
@@ -141,7 +141,7 @@ public final class Empire {
     public Empire tax(final long tax) {
         final Builder builder = Builder.from(this);
         builder.tax = tax;
-        return builder.build();
+        return new Empire(builder);
     }
 
     /**
@@ -153,7 +153,7 @@ public final class Empire {
     public Empire stock(final Stock stock) {
         final Builder builder = Builder.from(this);
         builder.stock = stock;
-        return builder.build();
+        return new Empire(builder);
     }
 
     private static class Builder {
@@ -183,15 +183,6 @@ public final class Empire {
             builder.stock = empire.getStock();
 
             return builder;
-        }
-
-        /**
-         * Build the new empire.
-         *
-         * @return the empire fill with the builder information
-         */
-        private Empire build() {
-            return new Empire(this);
         }
     }
 }
