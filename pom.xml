@@ -238,7 +238,11 @@
                 </executions>
             </plugin>
 
-            <!-- Mojo Version Checker : mvn versions:display-dependency-updates -->
+            <!--
+                Mojo Version Checker
+                Checks dependencies version : mvn versions:display-dependency-updates
+                Checks plugin  version : mvn versions:display-plugin-updates
+            -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>versions-maven-plugin</artifactId>
