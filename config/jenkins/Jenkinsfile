@@ -50,7 +50,7 @@ pipeline {
                          -v empire-m2-volume:/root/.m2 \
                          -v empire-source-volume:/src/maven \
                          -w /src/maven/empire-server \
-                         maven:3.5.3     mvn clean install
+                         maven:3.5.3 mvn clean install
                  '''
             }
         }
