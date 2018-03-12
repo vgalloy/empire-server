@@ -39,6 +39,23 @@ public final class Empire {
         Assert.state(tax >= 0, "Empire tax can't be negative");
     }
 
+    /**
+     * Build a new instance of Empire.
+     *
+     * @return the new Empire
+     */
+    public static Empire newInstance() {
+        Builder builder = new Builder();
+        builder.empireId = EmpireId.newInstance();
+        builder.playerInstructions = PlayerInstructions.newEmpty();
+        builder.round = Round.newInstance();
+        builder.population = 100L;
+        builder.gold = 0L;
+        builder.tax = 100L;
+        builder.stock = Stock.newStock();
+        return builder.build();
+    }
+
     public EmpireId getEmpireId() {
         return empireId;
     }
@@ -151,6 +168,7 @@ public final class Empire {
         /**
          * Constructor.
          *
+         * @param empire the empire
          * @return a new instance of empire
          */
         private static Builder from(Empire empire) {
@@ -167,6 +185,11 @@ public final class Empire {
             return builder;
         }
 
+        /**
+         * Build the new empire.
+         *
+         * @return the empire fill with the builder information
+         */
         private Empire build() {
             return new Empire(this);
         }
