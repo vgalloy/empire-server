@@ -26,6 +26,8 @@
         <exclude name="CompareObjectsWithEquals"/>
         <exclude name="PreserveStackTrace"/>
         <exclude name="ConfusingTernary"/>
+        <exclude name="AccessorMethodGeneration" />
+        <exclude name="AccessorClassGeneration" />
     </rule>
     <rule ref="rulesets/java/imports.xml"/>
 </ruleset>
