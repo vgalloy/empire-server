@@ -37,7 +37,13 @@ pipeline {
                         --rm \
                         -v empire-source-volume:/home/ \
                         -w /home/empire-server \
-                        alpine/git fetch && git checkout --force origin/master
+                        alpine/git fetch
+
+                    docker run \
+                        --rm \
+                        -v empire-source-volume:/home/ \
+                        -w /home/empire-server \
+                        alpine/git checkout --force origin/master
                 '''
             }
         }
