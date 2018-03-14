@@ -56,7 +56,7 @@ pipeline {
                          -v empire-m2-volume:/root/.m2 \
                          -v empire-source-volume:/src/maven \
                          -w /src/maven/empire-server \
-                         maven:3.5.3 mvn clean install
+                         java:openjdk-8 ./mvnw clean install
                  '''
             }
         }
@@ -70,7 +70,7 @@ pipeline {
                     -v empire-gradle-volume:/root/.gradle \
                     -v empire-source-volume:/home/gradle \
                     -w /home/gradle/empire-server \
-                   java:openjdk-8 ./gradlew build
+                    java:openjdk-8 ./gradlew build
                 '''
             }
         }
