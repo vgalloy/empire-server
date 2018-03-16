@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.webservice.dto.EmpireIdDto;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 
 /**
@@ -24,9 +23,6 @@ final class EmpireIdMapperImpl implements EmpireIdMapper {
 
     @Override
     public EmpireId unmap(EmpireIdDto empireIdDto) {
-        UserInputException.requireNonNull(empireIdDto, "Empire id can't be null");
-        UserInputException.requireNonNullNonEmptyNonBlank(empireIdDto.getEmpireId(), "Invalid empire id");
-
         return EmpireId.of(empireIdDto.getEmpireId());
     }
 }

@@ -6,6 +6,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +32,7 @@ import com.vgalloy.empire.webservice.mapper.EmpireMapper;
  *
  * @author Vincent Galloy
  */
+@Validated
 @RestController
 @RequestMapping("empires")
 public class EmpireController {
@@ -70,7 +74,7 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    public EmpireDto getById(@PathVariable EmpireIdDto empireId) {
+    public EmpireDto getById(@PathVariable @Valid @NotNull EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -85,7 +89,7 @@ public class EmpireController {
      * @param empireId the empireId
      */
     @PutMapping("{empireId}/nextRound")
-    public void nextRound(@PathVariable EmpireIdDto empireId) {
+    public void nextRound(@PathVariable @Valid @NotNull EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -101,7 +105,7 @@ public class EmpireController {
      * @param orders   the new orders
      */
     @PatchMapping("{empireId}/order")
-    public void updateOrder(@PathVariable EmpireIdDto empireId, @RequestBody Map<OrderType, Long> orders) {
+    public void updateOrder(@PathVariable @Valid @NotNull EmpireIdDto empireId, @Valid @NotNull @RequestBody Map<OrderType, Long> orders) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO

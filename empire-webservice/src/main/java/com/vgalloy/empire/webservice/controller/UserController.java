@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +32,7 @@ import com.vgalloy.empire.webservice.mapper.UserMapper;
  *
  * @author Vincent Galloy
  */
+@Validated
 @RestController
 @RequestMapping("users")
 public class UserController {
@@ -63,7 +67,7 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userIdDto}")
-    public UserDto getById(@PathVariable UserIdDto userIdDto) {
+    public UserDto getById(@PathVariable @Valid UserIdDto userIdDto) {
         UserId userId = userIdMapper.unmap(userIdDto);
         User user = userService.getById(userId);
         return userMapper.map(user);
@@ -108,7 +112,7 @@ public class UserController {
      * @return the new user
      */
     @PutMapping("{userIdDto}")
-    public UserDto update(@PathVariable UserIdDto userIdDto, @RequestBody UserDto userDto) {
+    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto, @RequestBody @Valid @NotNull UserDto userDto) {
         User user = userMapper.unmap(userIdDto, userDto);
         userService.update(user);
         return userMapper.map(user);

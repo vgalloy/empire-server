@@ -36,24 +36,23 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException) throws IOException, ServletException {
-        //Authentication failed, send error response.
+        // Authentication failed, send error response.
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
+        response.addHeader("Content-Type", "application/json");
 
         ErrorDto errorDto = new ErrorDto();
         errorDto.setCode(HttpStatus.UNAUTHORIZED.value());
         errorDto.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
         String errorAsString = objectMapper.writeValueAsString(errorDto);
 
-        // TODO : clean it
         PrintWriter writer = response.getWriter();
         writer.println(errorAsString);
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        // TODO : correct realm
-        setRealmName("REALM_TEST");
+        setRealmName("EMPIRE_REALM");
         super.afterPropertiesSet();
     }
 }

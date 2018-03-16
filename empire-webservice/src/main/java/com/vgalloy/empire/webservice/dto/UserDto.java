@@ -1,5 +1,7 @@
 package com.vgalloy.empire.webservice.dto;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Create by Vincent Galloy on 02/08/2017.
  *
@@ -9,7 +11,9 @@ public final  class UserDto implements Dto {
 
     private static final long serialVersionUID = -1914355807800734302L;
 
+    @NotEmpty(message = "Invalid user login")
     private String login;
+    @NotEmpty(message = "Invalid user password")
     private String password;
 
     public String getLogin() {

@@ -6,7 +6,6 @@ import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.dto.UserIdDto;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
 
@@ -39,10 +38,6 @@ final class UserMapperImpl implements UserMapper {
 
     @Override
     public User unmap(UserIdDto userIdDto, UserDto userDto) {
-        UserInputException.requireNonNull(userIdDto, "User id can't be null");
-        UserInputException.requireNonNullNonEmptyNonBlank(userDto.getLogin(), "Invalid user login");
-        UserInputException.requireNonNullNonEmptyNonBlank(userDto.getPassword(), "Invalid user password");
-
         UserId userId = userIdMapper.unmap(userIdDto);
         return User.of(userId, userDto.getLogin(), userDto.getPassword());
     }

@@ -1,8 +1,8 @@
 package com.vgalloy.empire.webservice.controller;
 
+import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,7 +20,6 @@ import com.vgalloy.empire.webservice.exception.UserInputException;
  *
  * @author Vincent Galloy
  */
-// TODO : RestControllerAdvice ?
 @ControllerAdvice
 final class GlobalErrorHandler {
 
@@ -48,6 +47,18 @@ final class GlobalErrorHandler {
     public ResponseEntity<ErrorDto> handle(AccessDeniedException e) {
         LOGGER.error("", e);
         return buildResponse(HttpStatus.FORBIDDEN);
+    }
+
+    /**
+     * Handle error and set the correct response status.
+     *
+     * @param e The handle exception
+     * @return The error message for web user
+     */
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorDto> handle(ConstraintViolationException e) {
+        LOGGER.warn("", e);
+        return buildResponse(HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -116,10 +127,9 @@ final class GlobalErrorHandler {
      * @return the ResponseEntity with an ErrorDto
      */
     private ResponseEntity<ErrorDto> buildResponse(HttpStatus httpStatus, String message) {
-        HttpHeaders headers = new HttpHeaders();
         ErrorDto errorDto = new ErrorDto();
         errorDto.setCode(httpStatus.value());
         errorDto.setMessage(message);
-        return new ResponseEntity<>(errorDto, headers, httpStatus);
+        return new ResponseEntity<>(errorDto, httpStatus);
     }
 }

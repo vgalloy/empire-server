@@ -1,10 +1,10 @@
 package com.vgalloy.empire.webservice.mapper.impl;
 
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserIdDto;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 
 /**
@@ -12,8 +12,9 @@ import com.vgalloy.empire.webservice.mapper.UserIdMapper;
  *
  * @author Vincent Galloy
  */
+@Validated
 @Component
-final class UserIdMapperImpl implements UserIdMapper {
+class UserIdMapperImpl implements UserIdMapper {
 
     @Override
     public UserIdDto map(UserId userId) {
@@ -24,8 +25,8 @@ final class UserIdMapperImpl implements UserIdMapper {
 
     @Override
     public UserId unmap(UserIdDto dto) {
-        UserInputException.requireNonNull(dto, "Empire id can't be null");
-        UserInputException.requireNonNullNonEmptyNonBlank(dto.getUserId(), "Invalid user id");
+//        UserInputException.requireNonNull(dto, "Empire id can't be null");
+//        UserInputException.requireNonNullNonEmptyNonBlank(dto.getUserId(), "Invalid user id");
 
         return UserId.of(dto.getUserId());
     }
