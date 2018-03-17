@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.vgalloy.empire.webservice.dto.ErrorDto;
 import com.vgalloy.empire.webservice.exception.NotFoundException;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -59,18 +58,6 @@ final class GlobalErrorHandler {
     public ResponseEntity<ErrorDto> handle(ConstraintViolationException e) {
         LOGGER.warn("", e);
         return buildResponse(HttpStatus.BAD_REQUEST);
-    }
-
-    /**
-     * Handle error and set the correct response status.
-     *
-     * @param e The handle exception
-     * @return The error message for web user
-     */
-    @ExceptionHandler(UserInputException.class)
-    public ResponseEntity<ErrorDto> handle(UserInputException e) {
-        LOGGER.warn("UserInputException : {}", e.getMessage());
-        return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
     }
 
     /**

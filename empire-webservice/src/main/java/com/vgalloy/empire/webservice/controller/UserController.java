@@ -22,7 +22,6 @@ import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.dto.UserIdDto;
-import com.vgalloy.empire.webservice.exception.UserInputException;
 import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
@@ -67,7 +66,7 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userIdDto}")
-    public UserDto getById(@PathVariable @Valid UserIdDto userIdDto) {
+    public UserDto getById(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto) {
         UserId userId = userIdMapper.unmap(userIdDto);
         User user = userService.getById(userId);
         return userMapper.map(user);
@@ -80,7 +79,7 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userIdDto}/empires")
-    public List<EmpireIdDto> getEmpiresByUser(@PathVariable UserIdDto userIdDto) {
+    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto) {
         UserId userId = userIdMapper.unmap(userIdDto);
 
         return empireService.getEmpireIdByUserId(userId).stream()
@@ -95,12 +94,8 @@ public class UserController {
      * @return the user id
      */
     @PostMapping
-    public UserIdDto create(@RequestBody UserDto userDto) {
-        UserInputException.requireNonNull(userDto, "User can't be null");
-        String login = UserInputException.requireNonNullNonEmptyNonBlank(userDto.getLogin(), "Invalid login");
-        String password = UserInputException.requireNonNullNonEmptyNonBlank(userDto.getPassword(), "Invalid password");
-
-        User user = userService.create(login, password);
+    public UserIdDto create(@RequestBody @Valid @NotNull(message = "User can't be null") UserDto userDto) {
+        User user = userService.create(userDto.getLogin(), userDto.getPassword());
         return userIdMapper.map(user.getId());
     }
 
@@ -112,7 +107,7 @@ public class UserController {
      * @return the new user
      */
     @PutMapping("{userIdDto}")
-    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto, @RequestBody @Valid @NotNull UserDto userDto) {
+    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto, @RequestBody @Valid @NotNull(message = "User can't be null") UserDto userDto) {
         User user = userMapper.unmap(userIdDto, userDto);
         userService.update(user);
         return userMapper.map(user);

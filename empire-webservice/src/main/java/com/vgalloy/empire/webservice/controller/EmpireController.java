@@ -74,7 +74,7 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    public EmpireDto getById(@PathVariable @Valid @NotNull EmpireIdDto empireId) {
+    public EmpireDto getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -89,7 +89,7 @@ public class EmpireController {
      * @param empireId the empireId
      */
     @PutMapping("{empireId}/nextRound")
-    public void nextRound(@PathVariable @Valid @NotNull EmpireIdDto empireId) {
+    public void nextRound(@PathVariable @Valid @NotNull(message = "Empire id can't be null") EmpireIdDto empireId) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO
@@ -105,7 +105,7 @@ public class EmpireController {
      * @param orders   the new orders
      */
     @PatchMapping("{empireId}/order")
-    public void updateOrder(@PathVariable @Valid @NotNull EmpireIdDto empireId, @Valid @NotNull @RequestBody Map<OrderType, Long> orders) {
+    public void updateOrder(@PathVariable @Valid @NotNull(message = "Empire id can't be null") EmpireIdDto empireId, @Valid @NotNull @RequestBody Map<OrderType, Long> orders) {
         // EXTRACT
         EmpireId id = this.empireIdMapper.unmap(empireId);
         // DO

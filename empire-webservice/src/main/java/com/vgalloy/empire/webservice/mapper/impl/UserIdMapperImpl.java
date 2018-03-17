@@ -25,9 +25,6 @@ class UserIdMapperImpl implements UserIdMapper {
 
     @Override
     public UserId unmap(UserIdDto dto) {
-//        UserInputException.requireNonNull(dto, "Empire id can't be null");
-//        UserInputException.requireNonNullNonEmptyNonBlank(dto.getUserId(), "Invalid user id");
-
         return UserId.of(dto.getUserId());
     }
 }

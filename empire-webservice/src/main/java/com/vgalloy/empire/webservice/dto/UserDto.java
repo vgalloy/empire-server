@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author Vincent Galloy
  */
-public final  class UserDto implements Dto {
+public final class UserDto implements Dto {
 
     private static final long serialVersionUID = -1914355807800734302L;
 

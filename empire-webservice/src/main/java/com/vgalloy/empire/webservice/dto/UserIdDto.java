@@ -11,7 +11,7 @@ public final class UserIdDto implements Dto {
 
     private static final long serialVersionUID = 190932754140605307L;
 
-    @NotEmpty
+    @NotEmpty(message = "Invalid user id")
     private String userId;
 
     public String getUserId() {
