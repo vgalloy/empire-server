@@ -34,11 +34,11 @@ public class LoggerAspect {
         Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         StringBuilder stringBuilder = new StringBuilder("[ START ] : ")
             .append(joinPoint.getSignature().getName())
-            .append("(");
+            .append('(');
         for (Object o : joinPoint.getArgs()) {
             stringBuilder.append(o.toString());
         }
-        stringBuilder.append(")");
+        stringBuilder.append(')');
         LogLevel.printLog(logger, logLevel, stringBuilder.toString());
 
         Object result = joinPoint.proceed();

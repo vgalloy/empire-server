@@ -28,13 +28,13 @@ public class ExecutionTimeLoggerAspect {
     @Around("@annotation(methodLog)")
     public final Object logExecutionTime(ProceedingJoinPoint joinPoint, ExecutionTimeLog methodLog) throws Throwable {
         long start = System.currentTimeMillis();
-        LogLevel logLevel = methodLog.value();
-        Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         try {
             return joinPoint.proceed();
         } finally {
             long totalTimeMillis = System.currentTimeMillis() - start;
             String message = joinPoint.getTarget().getClass().getSimpleName() + "#" + joinPoint.getSignature().getName() + " : " + totalTimeMillis + " ms";
+            Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+            LogLevel logLevel = methodLog.value();
             LogLevel.printLog(logger, logLevel, message);
         }
     }

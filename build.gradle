@@ -48,7 +48,7 @@ allprojects {
 
     pmd {
         consoleOutput = true
-        ruleSetFiles = rootProject.files('config/pmd/ruleset.xml')
+        ruleSetFiles = rootProject.files('config/pmd/pmd.xml')
         pmdTest.enabled = false
     }
 
@@ -68,5 +68,4 @@ allprojects {
         targetCompatibility = "$javaVersion"
         options.encoding = "$encoding"
     }
-
 }
