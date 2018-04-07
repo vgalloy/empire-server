@@ -14,6 +14,7 @@
         <module>empire-service</module>
         <module>empire-persistence</module>
         <module>empire-webservice</module>
+        <module>empire-i18n</module>
     </modules>
 
     <properties>
