@@ -20,10 +20,10 @@ buildTimer {
 ext {
     javaVersion = '1.8'
     encoding = 'UTF-8'
-    checkstyleVersion = '8.8'
+    checkstyleVersion = '8.9'
 
     springBootVersion = '1.5.10.RELEASE'
-    springFoxVersion = '2.7.0'
+    springFoxVersion = '2.8.0'
     junitVersion = '4.12'
 }
 
