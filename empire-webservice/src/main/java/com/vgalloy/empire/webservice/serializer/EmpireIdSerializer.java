@@ -25,7 +25,7 @@ public class EmpireIdSerializer extends StdSerializer<EmpireIdDto> implements Co
      * For correct invocation of super constructor.
      */
     public EmpireIdSerializer() {
-        super((Class<EmpireIdDto>) null);
+        super(EmpireIdDto.class);
     }
 
     @Override

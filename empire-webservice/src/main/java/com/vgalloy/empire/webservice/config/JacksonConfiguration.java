@@ -1,5 +1,6 @@
 package com.vgalloy.empire.webservice.config;
 
+import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -9,9 +10,6 @@ import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.vgalloy.empire.webservice.dto.EmpireIdDto;
-import com.vgalloy.empire.webservice.dto.UserIdDto;
-
 /**
  * Created by Vincent Galloy on 20/08/17.
  *
@@ -20,18 +18,15 @@ import com.vgalloy.empire.webservice.dto.UserIdDto;
 @Configuration
 public class JacksonConfiguration {
 
-    private final StdSerializer<EmpireIdDto> empireIdStdSerializer;
-    private final StdSerializer<UserIdDto> userIdDtoStdSerializer;
+    private final List<StdSerializer<?>> serializers;
 
     /**
      * Constructor.
      *
-     * @param empireIdStdSerializer the empire id converter
-     * @param userIdDtoStdSerializer the user id converter
+     * @param serializers the serializers
      */
-    public JacksonConfiguration(StdSerializer<EmpireIdDto> empireIdStdSerializer, StdSerializer<UserIdDto> userIdDtoStdSerializer) {
-        this.empireIdStdSerializer = Objects.requireNonNull(empireIdStdSerializer);
-        this.userIdDtoStdSerializer = Objects.requireNonNull(userIdDtoStdSerializer);
+    public JacksonConfiguration(List<StdSerializer<?>> serializers) {
+        this.serializers = Objects.requireNonNull(serializers);
     }
 
     /**
@@ -41,9 +36,10 @@ public class JacksonConfiguration {
      */
     @Bean
     public ObjectMapper objectMapper() {
-        SimpleModule module = new SimpleModule()
-            .addSerializer(EmpireIdDto.class, empireIdStdSerializer)
-            .addSerializer(UserIdDto.class, userIdDtoStdSerializer);
+        SimpleModule module = new SimpleModule();
+        for (StdSerializer<?> serializer : serializers) {
+            module.addSerializer(serializer);
+        }
 
         return new ObjectMapper()
             .setSerializationInclusion(JsonInclude.Include.NON_NULL)

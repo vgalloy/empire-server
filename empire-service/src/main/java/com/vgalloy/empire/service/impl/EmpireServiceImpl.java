@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
-import com.vgalloy.empire.common.ExecutionTimeLog;
+import com.vgalloy.empire.common.executiontime.ExecutionTimeLog;
 import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.impl.step.HarvestStep;
 import com.vgalloy.empire.service.impl.step.PlayerInstructionStep;

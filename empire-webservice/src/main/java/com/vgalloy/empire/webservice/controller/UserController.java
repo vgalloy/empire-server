@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vgalloy.empire.common.nullable.NotNullApi;
 import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.User;
@@ -31,6 +32,7 @@ import com.vgalloy.empire.webservice.mapper.UserMapper;
  *
  * @author Vincent Galloy
  */
+@NotNullApi
 @Validated
 @RestController
 @RequestMapping("users")

@@ -7,9 +7,9 @@ import java.util.Optional;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
-import com.vgalloy.empire.common.ExecutionTimeLog;
-import com.vgalloy.empire.common.FullLog;
 import com.vgalloy.empire.common.LogLevel;
+import com.vgalloy.empire.common.executiontime.ExecutionTimeLog;
+import com.vgalloy.empire.common.log.FullLog;
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;

@@ -25,7 +25,7 @@ public class UserIdSerializer extends StdSerializer<UserIdDto> implements Conver
      * For correct invocation of super constructor.
      */
     public UserIdSerializer() {
-        super((Class<UserIdDto>) null);
+        super(UserIdDto.class);
     }
 
     @Override
