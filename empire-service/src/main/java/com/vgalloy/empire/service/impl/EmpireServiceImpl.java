@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.common.executiontime.ExecutionTimeLog;
@@ -20,6 +19,7 @@ import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.model.order.OrderType;
+import com.vgalloy.empire.service.security.AuthorizeUser;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 
 /**
@@ -42,20 +42,20 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @AuthorizeUser
     public Empire getEmpireById(EmpireId empireId) {
         return empireDao.getEmpireById(empireId);
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @AuthorizeUser
     public EmpireId createEmpire(UserId userId) {
         return null;
     }
 
     @Override
     @ExecutionTimeLog
-    @PreAuthorize("hasRole('USER')")
+    @AuthorizeUser
     public Empire computeNextRound(Empire empire) {
         return StepManager.of(empire)
             .step(RoundStep.INSTANCE)
@@ -68,7 +68,7 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @AuthorizeUser
     public Empire updateOrders(Empire empire, Map<OrderType, Long> orders) {
         Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
         empireDao.update(newEmpire);
@@ -76,7 +76,7 @@ final class EmpireServiceImpl implements EmpireService {
     }
 
     @Override
-    @PreAuthorize("hasRole('USER')")
+    @AuthorizeUser
     public List<EmpireId> getEmpireIdByUserId(UserId userId) {
         return empireDao.getEmpireIdByUserId(userId);
     }
