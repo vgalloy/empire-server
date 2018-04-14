@@ -11,7 +11,7 @@ public enum TaxStep implements Step {
     INSTANCE;
 
     @Override
-    public Empire apply(Empire empire) {
+    public Empire apply(final Empire empire) {
         return empire.gold(empire.getGold() + empire.getPopulation() * empire.getTax() / 1_000);
     }
 }

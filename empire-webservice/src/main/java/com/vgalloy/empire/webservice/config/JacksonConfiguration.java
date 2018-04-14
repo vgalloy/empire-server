@@ -25,7 +25,7 @@ public class JacksonConfiguration {
      *
      * @param serializers the serializers
      */
-    public JacksonConfiguration(List<StdSerializer<?>> serializers) {
+    public JacksonConfiguration(final List<StdSerializer<?>> serializers) {
         this.serializers = Objects.requireNonNull(serializers);
     }
 
@@ -36,8 +36,8 @@ public class JacksonConfiguration {
      */
     @Bean
     public ObjectMapper objectMapper() {
-        SimpleModule module = new SimpleModule();
-        for (StdSerializer<?> serializer : serializers) {
+        final SimpleModule module = new SimpleModule();
+        for (final StdSerializer<?> serializer : serializers) {
             module.addSerializer(serializer);
         }
 

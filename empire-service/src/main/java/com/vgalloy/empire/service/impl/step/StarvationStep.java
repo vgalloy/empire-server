@@ -11,11 +11,11 @@ public enum StarvationStep implements Step {
     INSTANCE;
 
     @Override
-    public Empire apply(Empire empire) {
-        long virtualRemainingStock = empire.getStock().getCurrent() - empire.getPopulation();
-        long realRemainingStock = Math.max(0, virtualRemainingStock);
-        long missingFood = realRemainingStock - virtualRemainingStock;
-        long starvingPeople = missingFood * 20 / 100;
+    public Empire apply(final Empire empire) {
+        final long virtualRemainingStock = empire.getStock().getCurrent() - empire.getPopulation();
+        final long realRemainingStock = Math.max(0, virtualRemainingStock);
+        final long missingFood = realRemainingStock - virtualRemainingStock;
+        final long starvingPeople = missingFood * 20 / 100;
 
         return empire.stock(empire.getStock().resource(realRemainingStock))
             .population(empire.getPopulation() - starvingPeople);

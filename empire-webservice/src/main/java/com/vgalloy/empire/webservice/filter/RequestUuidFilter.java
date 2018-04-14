@@ -24,13 +24,13 @@ public class RequestUuidFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestUuidFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(final FilterConfig filterConfig) throws ServletException {
         // Tumbleweed
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        String requestUuid = UUID.randomUUID().toString();
+    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
+        final String requestUuid = UUID.randomUUID().toString();
         MDC.put("requestUuid", requestUuid);
         LOGGER.info("add correlation Id : {}", requestUuid);
         filterChain.doFilter(servletRequest, servletResponse);

@@ -21,12 +21,12 @@ public final class InMemoryTranslationService implements TranslationService {
     private final Map<String, Map<Locale, String>> translationTable = new HashMap<>();
 
     @Override
-    public Translation translate(String code, Locale locale) {
+    public Translation translate(final String code, final Locale locale) {
         Objects.requireNonNull(code, "code");
         Objects.requireNonNull(locale, "locale");
 
-        Map<Locale, String> byLocaleTable = translationTable.computeIfAbsent(code, c -> new HashMap<>());
-        String translation = byLocaleTable.get(locale);
+        final Map<Locale, String> byLocaleTable = translationTable.computeIfAbsent(code, c -> new HashMap<>());
+        final String translation = byLocaleTable.get(locale);
 
         if (Objects.isNull(translation)) {
             return new EmptyTranslationResult(code);
@@ -36,12 +36,12 @@ public final class InMemoryTranslationService implements TranslationService {
     }
 
     @Override
-    public void addCode(String code, Locale locale, String translation) {
+    public void addCode(final String code, final Locale locale, final String translation) {
         Objects.requireNonNull(code, "code");
         Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(translation, "translation");
 
-        Map<Locale, String> byLocaleTable = translationTable.computeIfAbsent(code, c -> new HashMap<>());
+        final Map<Locale, String> byLocaleTable = translationTable.computeIfAbsent(code, c -> new HashMap<>());
         byLocaleTable.put(locale, translation);
     }
 }

@@ -22,17 +22,17 @@ public class RequestTimerFilter implements Filter {
     private static final Logger LOGGER = LoggerFactory.getLogger(RequestTimerFilter.class);
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(final FilterConfig filterConfig) throws ServletException {
         // Tumbleweed
     }
 
     @Override
-    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-        long start = System.currentTimeMillis();
+    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
+        final long start = System.currentTimeMillis();
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
-            long total = System.currentTimeMillis() - start;
+            final long total = System.currentTimeMillis() - start;
             LOGGER.info("Total execution time : " + total + " ms");
         }
     }

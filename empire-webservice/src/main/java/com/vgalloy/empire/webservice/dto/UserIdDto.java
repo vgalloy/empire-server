@@ -18,7 +18,7 @@ public final class UserIdDto implements Dto {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(final String userId) {
         this.userId = userId;
     }
 }

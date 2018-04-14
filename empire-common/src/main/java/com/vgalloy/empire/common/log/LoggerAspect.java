@@ -20,7 +20,7 @@ import com.vgalloy.empire.common.LogLevel;
  */
 @Aspect
 @Component
-public class LoggerAspect {
+public final class LoggerAspect {
 
     /**
      * 1. Analyze pointcut to find arguments and display it
@@ -32,18 +32,18 @@ public class LoggerAspect {
      * @return method result
      * @throws Throwable forward method throwable
      */
-    private static Object displayLog(ProceedingJoinPoint joinPoint, LogLevel logLevel) throws Throwable {
-        Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+    private static Object displayLog(final ProceedingJoinPoint joinPoint, final LogLevel logLevel) throws Throwable {
+        final Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
         StringBuilder stringBuilder = new StringBuilder("[ START ] : ")
             .append(joinPoint.getSignature().getName())
             .append('(');
-        for (Object o : joinPoint.getArgs()) {
+        for (final Object o : joinPoint.getArgs()) {
             stringBuilder.append(o.toString());
         }
         stringBuilder.append(')');
         LogLevel.printLog(logger, logLevel, stringBuilder.toString());
 
-        Object result = joinPoint.proceed();
+        final Object result = joinPoint.proceed();
 
         stringBuilder = new StringBuilder("[ END   ] : ")
             .append(joinPoint.getSignature().getName())
@@ -73,7 +73,7 @@ public class LoggerAspect {
      * @throws Throwable forward method possible throwable
      */
     @Around("(@within(methodLog) || @annotation(methodLog)) && (@annotation(classLog) || @within(classLog))")
-    public final Object logForClass(ProceedingJoinPoint joinPoint, FullLog methodLog, FullLog classLog) throws Throwable {
+    public Object logForClass(final ProceedingJoinPoint joinPoint, final FullLog methodLog, final FullLog classLog) throws Throwable {
         if (methodLog != null) {
             return displayLog(joinPoint, methodLog.value());
         }

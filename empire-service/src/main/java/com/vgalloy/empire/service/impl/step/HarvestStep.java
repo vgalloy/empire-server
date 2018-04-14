@@ -11,7 +11,7 @@ public enum HarvestStep implements Step {
     INSTANCE;
 
     @Override
-    public Empire apply(Empire empire) {
+    public Empire apply(final Empire empire) {
         int value;
         switch (empire.getRound().getCurrentDate().getMonth()) {
             case JULY:
@@ -27,8 +27,8 @@ public enum HarvestStep implements Step {
                 value = 0;
                 break;
         }
-        long harvesting = value * empire.getPopulation();
-        long newStock = Math.min(empire.getStock().getMax(), empire.getStock().getCurrent() + harvesting);
+        final long harvesting = value * empire.getPopulation();
+        final long newStock = Math.min(empire.getStock().getMax(), empire.getStock().getCurrent() + harvesting);
         return empire.stock(empire.getStock().resource(newStock));
     }
 }

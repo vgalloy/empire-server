@@ -18,7 +18,7 @@ public final class EmpireIdDto implements Dto {
         return empireId;
     }
 
-    public void setEmpireId(String empireId) {
+    public void setEmpireId(final String empireId) {
         this.empireId = empireId;
     }
 }

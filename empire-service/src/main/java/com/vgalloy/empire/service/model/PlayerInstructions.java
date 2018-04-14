@@ -21,7 +21,7 @@ public final class PlayerInstructions {
      *
      * @param orders the
      */
-    private PlayerInstructions(Map<OrderType, Long> orders) {
+    private PlayerInstructions(final Map<OrderType, Long> orders) {
         this.orders = Collections.unmodifiableMap(orders);
     }
 
@@ -44,9 +44,9 @@ public final class PlayerInstructions {
      * @param empire the new empire
      * @return a new empire build
      */
-    public Empire apply(Empire empire) {
+    public Empire apply(final Empire empire) {
         Empire tmp = empire;
-        for (Map.Entry<OrderType, Long> entry : orders.entrySet()) {
+        for (final Map.Entry<OrderType, Long> entry : orders.entrySet()) {
             tmp = entry.getKey()
                 .build(entry.getValue())
                 .apply(tmp);
@@ -60,9 +60,9 @@ public final class PlayerInstructions {
      * @param orders the orders
      * @return a new Player instruction
      */
-    public PlayerInstructions addOrders(Map<OrderType, Long> orders) {
-        Map<OrderType, Long> newOrders = new HashMap<>(orders);
-        for (Map.Entry<OrderType, Long> order : orders.entrySet()) {
+    public PlayerInstructions addOrders(final Map<OrderType, Long> orders) {
+        final Map<OrderType, Long> newOrders = new HashMap<>(orders);
+        for (final Map.Entry<OrderType, Long> order : orders.entrySet()) {
             newOrders.put(order.getKey(), order.getValue());
         }
         return new PlayerInstructions(newOrders);

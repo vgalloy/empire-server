@@ -33,7 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @param basicAuthenticationEntryPoint the basic authentication entry point
      * @param userDetailsService            the user detail service
      */
-    public SecurityConfiguration(BasicAuthenticationEntryPoint basicAuthenticationEntryPoint, UserDetailsService userDetailsService) {
+    public SecurityConfiguration(final BasicAuthenticationEntryPoint basicAuthenticationEntryPoint, final UserDetailsService userDetailsService) {
         this.basicAuthenticationEntryPoint = Objects.requireNonNull(basicAuthenticationEntryPoint);
         this.userDetailsService = Objects.requireNonNull(userDetailsService);
     }
@@ -45,12 +45,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
      * @throws Exception if an error occurs when adding the in memory authentication
      */
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(final HttpSecurity http) throws Exception {
         http.csrf().disable()
             .authorizeRequests()
             .antMatchers("/empires/**").authenticated()
@@ -61,7 +61,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(WebSecurity web) {
+    public void configure(final WebSecurity web) {
         web.ignoring()
             .antMatchers("/v2/api-docs")
             .antMatchers("/swagger-ui.html");

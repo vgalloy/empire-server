@@ -19,7 +19,7 @@ public final class StepManager {
      *
      * @param empire the empire
      */
-    private StepManager(Empire empire) {
+    private StepManager(final Empire empire) {
         this.empire = Objects.requireNonNull(empire);
     }
 
@@ -29,7 +29,7 @@ public final class StepManager {
      * @param empire the empire
      * @return a new instance internalCreate StepManager
      */
-    public static StepManager of(Empire empire) {
+    public static StepManager of(final Empire empire) {
         return new StepManager(empire);
     }
 
@@ -39,7 +39,7 @@ public final class StepManager {
      * @param step the step
      * @return the step manager
      */
-    public StepManager step(Step step) {
+    public StepManager step(final Step step) {
         Objects.requireNonNull(step);
 
         return of(step.apply(empire));

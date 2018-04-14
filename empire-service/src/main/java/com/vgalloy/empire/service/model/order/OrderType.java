@@ -20,7 +20,7 @@ public enum OrderType {
      *
      * @param generator the order generator
      */
-    OrderType(Function<Long, Order> generator) {
+    OrderType(final Function<Long, Order> generator) {
         this.generator = Objects.requireNonNull(generator);
     }
 
@@ -30,7 +30,7 @@ public enum OrderType {
      * @param number the value for the order
      * @return a new Order
      */
-    public Order build(Long number) {
+    public Order build(final Long number) {
         return generator.apply(number);
     }
 }

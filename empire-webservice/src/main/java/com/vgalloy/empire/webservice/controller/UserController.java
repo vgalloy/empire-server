@@ -53,7 +53,7 @@ public class UserController {
      * @param empireIdMapper the empireId mapper
      * @param userIdMapper the userId mapper
      */
-    public UserController(UserService userService, UserMapper userMapper, EmpireService empireService, EmpireIdMapper empireIdMapper, UserIdMapper userIdMapper) {
+    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService, final EmpireIdMapper empireIdMapper, final UserIdMapper userIdMapper) {
         this.userService = Objects.requireNonNull(userService);
         this.userMapper = Objects.requireNonNull(userMapper);
         this.empireService = Objects.requireNonNull(empireService);
@@ -68,9 +68,9 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userIdDto}")
-    public UserDto getById(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto) {
-        UserId userId = userIdMapper.unmap(userIdDto);
-        User user = userService.getById(userId);
+    public UserDto getById(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto) {
+        final UserId userId = userIdMapper.unmap(userIdDto);
+        final User user = userService.getById(userId);
         return userMapper.map(user);
     }
 
@@ -81,8 +81,8 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userIdDto}/empires")
-    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto) {
-        UserId userId = userIdMapper.unmap(userIdDto);
+    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto) {
+        final UserId userId = userIdMapper.unmap(userIdDto);
 
         return empireService.getEmpireIdByUserId(userId).stream()
             .map(empireIdMapper::map)
@@ -96,8 +96,8 @@ public class UserController {
      * @return the user id
      */
     @PostMapping
-    public UserIdDto create(@RequestBody @Valid @NotNull(message = "User can't be null") UserDto userDto) {
-        User user = userService.create(userDto.getLogin(), userDto.getPassword());
+    public UserIdDto create(@RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
+        final User user = userService.create(userDto.getLogin(), userDto.getPassword());
         return userIdMapper.map(user.getId());
     }
 
@@ -109,8 +109,8 @@ public class UserController {
      * @return the new user
      */
     @PutMapping("{userIdDto}")
-    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") UserIdDto userIdDto, @RequestBody @Valid @NotNull(message = "User can't be null") UserDto userDto) {
-        User user = userMapper.unmap(userIdDto, userDto);
+    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
+        final User user = userMapper.unmap(userIdDto, userDto);
         userService.update(user);
         return userMapper.map(user);
     }

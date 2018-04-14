@@ -16,7 +16,7 @@ public final class RoundDto implements Dto {
         return year;
     }
 
-    public void setYear(Integer year) {
+    public void setYear(final Integer year) {
         this.year = year;
     }
 
@@ -24,7 +24,7 @@ public final class RoundDto implements Dto {
         return month;
     }
 
-    public void setMonth(String month) {
+    public void setMonth(final String month) {
         this.month = month;
     }
 }

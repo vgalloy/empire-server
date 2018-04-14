@@ -19,7 +19,7 @@ public final class Stock {
      * @param current the current value internalCreate the stock
      * @param granary the number internalCreate granary
      */
-    private Stock(long current, long granary) {
+    private Stock(final long current, final long granary) {
         this.current = current;
         this.granary = granary;
     }
@@ -31,10 +31,10 @@ public final class Stock {
      * @param granary the number internalCreate granary
      * @return a new Stock
      */
-    private static Stock createInternal(long current, long granary) {
+    private static Stock createInternal(final long current, final long granary) {
         Assert.state(current > 0, "Stock can't be negative");
         Assert.state(granary > 0, "Granary can't be negative");
-        Stock stock = new Stock(current, granary);
+        final Stock stock = new Stock(current, granary);
         Assert.state(stock.getMax() >= stock.getCurrent(), "Current resources can't be higher than max");
         return stock;
     }
@@ -66,7 +66,7 @@ public final class Stock {
      * @param resources the new amount internalCreate resources
      * @return a new stock
      */
-    public Stock resource(long resources) {
+    public Stock resource(final long resources) {
         return createInternal(resources, granary);
     }
 
@@ -76,7 +76,7 @@ public final class Stock {
      * @param granary the new number internalCreate granary
      * @return a new stock
      */
-    public Stock granary(long granary) {
+    public Stock granary(final long granary) {
         return createInternal(current, granary);
     }
 }

@@ -21,7 +21,7 @@ public final class EmpireDto implements Dto {
         return empireId;
     }
 
-    public void setEmpireId(EmpireIdDto empireId) {
+    public void setEmpireId(final EmpireIdDto empireId) {
         this.empireId = empireId;
     }
 
@@ -29,7 +29,7 @@ public final class EmpireDto implements Dto {
         return playerInstruction;
     }
 
-    public void setPlayerInstruction(PlayerInstructionDto playerInstruction) {
+    public void setPlayerInstruction(final PlayerInstructionDto playerInstruction) {
         this.playerInstruction = playerInstruction;
     }
 
@@ -37,7 +37,7 @@ public final class EmpireDto implements Dto {
         return round;
     }
 
-    public void setRound(RoundDto round) {
+    public void setRound(final RoundDto round) {
         this.round = round;
     }
 
@@ -45,7 +45,7 @@ public final class EmpireDto implements Dto {
         return population;
     }
 
-    public void setPopulation(Long population) {
+    public void setPopulation(final Long population) {
         this.population = population;
     }
 
@@ -53,7 +53,7 @@ public final class EmpireDto implements Dto {
         return gold;
     }
 
-    public void setGold(Long gold) {
+    public void setGold(final Long gold) {
         this.gold = gold;
     }
 
@@ -61,7 +61,7 @@ public final class EmpireDto implements Dto {
         return tax;
     }
 
-    public void setTax(Long tax) {
+    public void setTax(final Long tax) {
         this.tax = tax;
     }
 
@@ -69,7 +69,7 @@ public final class EmpireDto implements Dto {
         return stock;
     }
 
-    public void setStock(StockDto stock) {
+    public void setStock(final StockDto stock) {
         this.stock = stock;
     }
 }

@@ -25,7 +25,7 @@ public final class Empire {
      *
      * @param builder the builder
      */
-    private Empire(Builder builder) {
+    private Empire(final Builder builder) {
         this.empireId = Objects.requireNonNull(builder.empireId);
         this.playerInstructions = Objects.requireNonNull(builder.playerInstructions);
         this.round = Objects.requireNonNull(builder.round);
@@ -45,7 +45,7 @@ public final class Empire {
      * @return the new Empire
      */
     public static Empire newInstance() {
-        Builder builder = new Builder();
+        final Builder builder = new Builder();
         builder.empireId = EmpireId.newInstance();
         builder.playerInstructions = PlayerInstructions.newEmpty();
         builder.round = Round.newInstance();
@@ -90,8 +90,8 @@ public final class Empire {
      * @param playerInstructions the new playerInstructions
      * @return the new empire
      */
-    public Empire playerInstructions(PlayerInstructions playerInstructions) {
-        Builder builder = Builder.from(this);
+    public Empire playerInstructions(final PlayerInstructions playerInstructions) {
+        final Builder builder = Builder.from(this);
         builder.playerInstructions = playerInstructions;
         return builder.build();
     }
@@ -102,8 +102,8 @@ public final class Empire {
      * @param round the new round
      * @return the new empire
      */
-    public Empire round(Round round) {
-        Builder builder = Builder.from(this);
+    public Empire round(final Round round) {
+        final Builder builder = Builder.from(this);
         builder.round = round;
         return builder.build();
     }
@@ -114,8 +114,8 @@ public final class Empire {
      * @param population the new population
      * @return the new empire
      */
-    public Empire population(long population) {
-        Builder builder = Builder.from(this);
+    public Empire population(final long population) {
+        final Builder builder = Builder.from(this);
         builder.population = population;
         return builder.build();
     }
@@ -126,8 +126,8 @@ public final class Empire {
      * @param gold the new gold
      * @return the new empire
      */
-    public Empire gold(long gold) {
-        Builder builder = Builder.from(this);
+    public Empire gold(final long gold) {
+        final Builder builder = Builder.from(this);
         builder.gold = gold;
         return builder.build();
     }
@@ -138,8 +138,8 @@ public final class Empire {
      * @param tax the new tax
      * @return the new empire
      */
-    public Empire tax(long tax) {
-        Builder builder = Builder.from(this);
+    public Empire tax(final long tax) {
+        final Builder builder = Builder.from(this);
         builder.tax = tax;
         return builder.build();
     }
@@ -150,8 +150,8 @@ public final class Empire {
      * @param stock the new stock
      * @return the new empire
      */
-    public Empire stock(Stock stock) {
-        Builder builder = Builder.from(this);
+    public Empire stock(final Stock stock) {
+        final Builder builder = Builder.from(this);
         builder.stock = stock;
         return builder.build();
     }
@@ -171,8 +171,8 @@ public final class Empire {
          * @param empire the empire
          * @return a new instance of empire
          */
-        private static Builder from(Empire empire) {
-            Builder builder = new Builder();
+        private static Builder from(final Empire empire) {
+            final Builder builder = new Builder();
 
             builder.empireId = empire.getEmpireId();
             builder.playerInstructions = empire.getPlayerInstructions();

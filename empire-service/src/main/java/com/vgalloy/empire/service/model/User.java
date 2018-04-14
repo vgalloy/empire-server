@@ -21,7 +21,7 @@ public final class User {
      * @param login    the login
      * @param password the password
      */
-    private User(UserId id, String login, String password) {
+    private User(final UserId id, final String login, final String password) {
         this.id = Objects.requireNonNull(id);
         this.login = Objects.requireNonNull(login);
         this.password = Objects.requireNonNull(password);
@@ -34,8 +34,8 @@ public final class User {
      * @param password the password
      * @return the user
      */
-    public static User of(String login, String password) {
-        UserId id = UserId.newInstance();
+    public static User of(final String login, final String password) {
+        final UserId id = UserId.newInstance();
         Objects.requireNonNull(login);
         Objects.requireNonNull(password);
 
@@ -50,7 +50,7 @@ public final class User {
      * @param password the password
      * @return the user
      */
-    public static User of(UserId userId, String login, String password) {
+    public static User of(final UserId userId, final String login, final String password) {
         Objects.requireNonNull(userId);
         Objects.requireNonNull(login);
         Objects.requireNonNull(password);

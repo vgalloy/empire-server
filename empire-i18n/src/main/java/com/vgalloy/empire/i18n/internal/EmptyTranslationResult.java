@@ -20,7 +20,7 @@ final class EmptyTranslationResult implements Translation {
      *
      * @param code the code
      */
-    EmptyTranslationResult(String code) {
+    EmptyTranslationResult(final String code) {
         this.code = Objects.requireNonNull(code);
     }
 

@@ -24,16 +24,16 @@ final class EmpireDaoImpl implements EmpireDao {
     private final Map<UserId, List<EmpireId>> map = new HashMap<>();
 
     @Override
-    public EmpireId createEmpire(UserId userId) {
-        Empire empire = Empire.newInstance();
-        EmpireId empireId = empire.getEmpireId();
+    public EmpireId createEmpire(final UserId userId) {
+        final Empire empire = Empire.newInstance();
+        final EmpireId empireId = empire.getEmpireId();
 
         map.computeIfAbsent(userId, id -> new ArrayList<>()).add(empireId);
         return empireId;
     }
 
     @Override
-    public Empire getEmpireById(EmpireId empireId) {
+    public Empire getEmpireById(final EmpireId empireId) {
         return empires.stream()
             .filter(e -> e.getEmpireId().equals(empireId))
             .findFirst()
@@ -46,15 +46,15 @@ final class EmpireDaoImpl implements EmpireDao {
     }
 
     @Override
-    public Empire update(Empire empire) {
-        Empire previous = getEmpireById(empire.getEmpireId());
+    public Empire update(final Empire empire) {
+        final Empire previous = getEmpireById(empire.getEmpireId());
         empires.remove(previous);
         empires.add(empire);
         return empire;
     }
 
     @Override
-    public List<EmpireId> getEmpireIdByUserId(UserId userId) {
+    public List<EmpireId> getEmpireIdByUserId(final UserId userId) {
         return map.getOrDefault(userId, new ArrayList<>());
     }
 }

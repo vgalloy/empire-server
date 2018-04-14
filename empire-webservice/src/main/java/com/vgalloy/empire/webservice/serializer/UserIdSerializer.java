@@ -29,13 +29,13 @@ public class UserIdSerializer extends StdSerializer<UserIdDto> implements Conver
     }
 
     @Override
-    public void serialize(UserIdDto userIdDto, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(final UserIdDto userIdDto, final JsonGenerator jsonGenerator, final SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeString(userIdDto.getUserId());
     }
 
     @Override
-    public UserIdDto convert(String s) {
-        UserIdDto userIdDto = new UserIdDto();
+    public UserIdDto convert(final String s) {
+        final UserIdDto userIdDto = new UserIdDto();
         userIdDto.setUserId(s);
         return userIdDto;
     }

@@ -29,22 +29,22 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param userDao the user dao
      */
-    public UserDetailsServiceImpl(UserDao userDao) {
+    public UserDetailsServiceImpl(final UserDao userDao) {
         this.userDao = Objects.requireNonNull(userDao);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Objects.requireNonNull(username);
 
-        List<User> users = userDao.getByLogin(username).stream()
+        final List<User> users = userDao.getByLogin(username).stream()
             .filter(user -> user.getLogin().equals(username))
             .collect(Collectors.toList());
 
         if (users.size() != 1) {
             throw new UsernameNotFoundException("");
         }
-        User user = users.get(0);
+        final User user = users.get(0);
 
         return new org.springframework.security.core.userdetails.User(user.getPassword(), user.getPassword(), Arrays.asList(new SimpleGrantedAuthority("ROLE_USER")));
     }

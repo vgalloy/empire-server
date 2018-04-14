@@ -18,7 +18,7 @@ public final class UserId {
      *
      * @param id the is of the user
      */
-    private UserId(String id) {
+    private UserId(final String id) {
         this.id = id;
     }
 
@@ -28,7 +28,7 @@ public final class UserId {
      * @param id the id
      * @return a new {@link UserId}
      */
-    public static UserId of(String id) {
+    public static UserId of(final String id) {
         Objects.requireNonNull(id);
 
         return new UserId(id);
@@ -40,7 +40,7 @@ public final class UserId {
      * @return a new {@link UserId}
      */
     public static UserId newInstance() {
-        String id = UUID.randomUUID().toString();
+        final String id = UUID.randomUUID().toString();
         return new UserId(id);
     }
 
@@ -49,14 +49,14 @@ public final class UserId {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        UserId userId = (UserId) o;
+        final UserId userId = (UserId) o;
         return Objects.equals(id, userId.id);
     }
 

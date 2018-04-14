@@ -16,16 +16,16 @@ final class BuyGranaryOrder implements Order {
      *
      * @param amount the amount
      */
-    BuyGranaryOrder(long amount) {
+    BuyGranaryOrder(final long amount) {
         this.amount = amount;
     }
 
     @Override
-    public Empire apply(Empire empire) {
-        double unitPrice = 0.1;
-        long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / unitPrice));
-        long buy = Math.min(amount, maxAllowed);
-        long totalPrice = Math.round(Math.ceil(1.0 * buy * unitPrice));
+    public Empire apply(final Empire empire) {
+        final double unitPrice = 0.1;
+        final long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / unitPrice));
+        final long buy = Math.min(amount, maxAllowed);
+        final long totalPrice = Math.round(Math.ceil(1.0 * buy * unitPrice));
         return empire.gold(empire.getGold() - totalPrice)
             .stock(empire.getStock().granary(empire.getStock().getGranary() + buy));
     }

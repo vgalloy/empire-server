@@ -19,7 +19,7 @@ public final class PlayerInstructionDto implements Dto {
         return orders;
     }
 
-    public void setOrders(Map<OrderType, Long> orders) {
+    public void setOrders(final Map<OrderType, Long> orders) {
         this.orders = orders;
     }
 }

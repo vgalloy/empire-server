@@ -22,7 +22,7 @@ final class UserDaoImpl implements UserDao {
     private final List<User> users = new ArrayList<>();
 
     @Override
-    public User getById(UserId userId) {
+    public User getById(final UserId userId) {
         return users.stream()
             .filter(user -> user.getId().equals(userId))
             .findFirst()
@@ -30,22 +30,22 @@ final class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User create(String login, String password) {
-        User user = User.of(login, password);
+    public User create(final String login, final String password) {
+        final User user = User.of(login, password);
         users.add(user);
         return user;
     }
 
     @Override
-    public Optional<User> findByLoginAndPassword(String login, String password) {
+    public Optional<User> findByLoginAndPassword(final String login, final String password) {
         return users.stream()
             .filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password))
             .findFirst();
     }
 
     @Override
-    public void update(User user) {
-        User userToUpdate = getById(user.getId());
+    public void update(final User user) {
+        final User userToUpdate = getById(user.getId());
         users.remove(userToUpdate);
         users.add(user);
     }
@@ -56,7 +56,7 @@ final class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> getByLogin(String login) {
+    public List<User> getByLogin(final String login) {
         return users.stream()
             .filter(user -> user.getLogin().equals(login))
             .collect(Collectors.toList());

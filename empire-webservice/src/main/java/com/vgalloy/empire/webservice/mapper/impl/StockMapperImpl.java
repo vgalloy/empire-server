@@ -15,8 +15,8 @@ import com.vgalloy.empire.webservice.mapper.StockMapper;
 final class StockMapperImpl implements StockMapper {
 
     @Override
-    public StockDto map(Stock stock) {
-        StockDto result = new StockDto();
+    public StockDto map(final Stock stock) {
+        final StockDto result = new StockDto();
         result.setCurrent(stock.getCurrent());
         result.setGranary(stock.getGranary());
         result.setMax(stock.getMax());

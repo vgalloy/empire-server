@@ -37,26 +37,26 @@ final class EmpireServiceImpl implements EmpireService {
      *
      * @param empireDao the empireDao
      */
-    EmpireServiceImpl(EmpireDao empireDao) {
+    EmpireServiceImpl(final EmpireDao empireDao) {
         this.empireDao = Objects.requireNonNull(empireDao);
     }
 
     @Override
     @AuthorizeUser
-    public Empire getEmpireById(EmpireId empireId) {
+    public Empire getEmpireById(final EmpireId empireId) {
         return empireDao.getEmpireById(empireId);
     }
 
     @Override
     @AuthorizeUser
-    public EmpireId createEmpire(UserId userId) {
+    public EmpireId createEmpire(final UserId userId) {
         return null;
     }
 
     @Override
     @ExecutionTimeLog
     @AuthorizeUser
-    public Empire computeNextRound(Empire empire) {
+    public Empire computeNextRound(final Empire empire) {
         return StepManager.of(empire)
             .step(RoundStep.INSTANCE)
             .step(HarvestStep.INSTANCE)
@@ -69,15 +69,15 @@ final class EmpireServiceImpl implements EmpireService {
 
     @Override
     @AuthorizeUser
-    public Empire updateOrders(Empire empire, Map<OrderType, Long> orders) {
-        Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
+    public Empire updateOrders(final Empire empire, final Map<OrderType, Long> orders) {
+        final Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
         empireDao.update(newEmpire);
         return newEmpire;
     }
 
     @Override
     @AuthorizeUser
-    public List<EmpireId> getEmpireIdByUserId(UserId userId) {
+    public List<EmpireId> getEmpireIdByUserId(final UserId userId) {
         return empireDao.getEmpireIdByUserId(userId);
     }
 }

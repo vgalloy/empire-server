@@ -17,7 +17,7 @@ import com.vgalloy.empire.common.LogLevel;
  */
 @Aspect
 @Component
-public class ExecutionTimeLoggerAspect {
+public final class ExecutionTimeLoggerAspect {
 
     /**
      * Log execution time.
@@ -28,15 +28,15 @@ public class ExecutionTimeLoggerAspect {
      * @throws Throwable forward method throwable
      */
     @Around("@annotation(methodLog)")
-    public final Object logExecutionTime(ProceedingJoinPoint joinPoint, ExecutionTimeLog methodLog) throws Throwable {
-        long start = System.currentTimeMillis();
+    public Object logExecutionTime(final ProceedingJoinPoint joinPoint, final ExecutionTimeLog methodLog) throws Throwable {
+        final long start = System.currentTimeMillis();
         try {
             return joinPoint.proceed();
         } finally {
-            long totalTimeMillis = System.currentTimeMillis() - start;
-            String message = joinPoint.getTarget().getClass().getSimpleName() + "#" + joinPoint.getSignature().getName() + " : " + totalTimeMillis + " ms";
-            Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
-            LogLevel logLevel = methodLog.value();
+            final long totalTimeMillis = System.currentTimeMillis() - start;
+            final String message = joinPoint.getTarget().getClass().getSimpleName() + "#" + joinPoint.getSignature().getName() + " : " + totalTimeMillis + " ms";
+            final Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+            final LogLevel logLevel = methodLog.value();
             LogLevel.printLog(logger, logLevel, message);
         }
     }

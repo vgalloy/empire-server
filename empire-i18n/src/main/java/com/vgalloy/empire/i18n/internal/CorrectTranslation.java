@@ -24,7 +24,7 @@ final class CorrectTranslation implements Translation {
      * @param locale      the locale
      * @param translation the translation
      */
-    CorrectTranslation(String code, Locale locale, String translation) {
+    CorrectTranslation(final String code, final Locale locale, final String translation) {
         this.code = Objects.requireNonNull(code);
         this.locale = Objects.requireNonNull(locale);
         this.translation = Objects.requireNonNull(translation);

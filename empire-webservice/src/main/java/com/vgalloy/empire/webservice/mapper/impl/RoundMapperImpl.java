@@ -15,8 +15,8 @@ import com.vgalloy.empire.webservice.mapper.RoundMapper;
 final class RoundMapperImpl implements RoundMapper {
 
     @Override
-    public RoundDto map(Round round) {
-        RoundDto result = new RoundDto();
+    public RoundDto map(final Round round) {
+        final RoundDto result = new RoundDto();
         result.setMonth(round.getCurrentDate().getMonth().name());
         result.setYear(round.getCurrentDate().getYear());
         return result;

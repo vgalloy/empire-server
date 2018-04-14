@@ -17,7 +17,7 @@ public final class StockDto implements Dto {
         return current;
     }
 
-    public void setCurrent(Long current) {
+    public void setCurrent(final Long current) {
         this.current = current;
     }
 
@@ -25,7 +25,7 @@ public final class StockDto implements Dto {
         return granary;
     }
 
-    public void setGranary(Long granary) {
+    public void setGranary(final Long granary) {
         this.granary = granary;
     }
 
@@ -33,7 +33,7 @@ public final class StockDto implements Dto {
         return max;
     }
 
-    public void setMax(Long max) {
+    public void setMax(final Long max) {
         this.max = max;
     }
 }

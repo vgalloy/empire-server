@@ -64,7 +64,7 @@ public class SwaggerConfig {
      * @param httpStatus the http status
      * @return the common response message
      */
-    private ResponseMessage build(HttpStatus httpStatus) {
+    private ResponseMessage build(final HttpStatus httpStatus) {
         return new ResponseMessageBuilder()
             .code(httpStatus.value())
             .message(HttpStatus.UNAUTHORIZED.getReasonPhrase())

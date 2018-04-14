@@ -30,7 +30,7 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
      *
      * @param objectMapper the json mapper
      */
-    CustomBasicAuthenticationEntryPoint(ObjectMapper objectMapper) {
+    CustomBasicAuthenticationEntryPoint(final ObjectMapper objectMapper) {
         this.objectMapper = Objects.requireNonNull(objectMapper);
     }
 
@@ -38,15 +38,15 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
     public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException) throws IOException, ServletException {
         // Authentication failed, send error response.
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-        response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName() + "");
+        response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName());
         response.addHeader("Content-Type", "application/json");
 
-        ErrorDto errorDto = new ErrorDto();
+        final ErrorDto errorDto = new ErrorDto();
         errorDto.setCode(HttpStatus.UNAUTHORIZED.value());
         errorDto.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
-        String errorAsString = objectMapper.writeValueAsString(errorDto);
+        final String errorAsString = objectMapper.writeValueAsString(errorDto);
 
-        PrintWriter writer = response.getWriter();
+        final PrintWriter writer = response.getWriter();
         writer.println(errorAsString);
     }
 

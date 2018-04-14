@@ -33,7 +33,7 @@ final class EmpireMapperImpl implements EmpireMapper {
      * @param empireIdMapper          empire id mapper
      * @param playerInstructionMapper the playerInstructionMapper
      */
-    EmpireMapperImpl(RoundMapper roundMapper, StockMapper stockMapper, EmpireIdMapper empireIdMapper, PlayerInstructionMapper playerInstructionMapper) {
+    EmpireMapperImpl(final RoundMapper roundMapper, final StockMapper stockMapper, final EmpireIdMapper empireIdMapper, final PlayerInstructionMapper playerInstructionMapper) {
         this.roundMapper = Objects.requireNonNull(roundMapper);
         this.stockMapper = Objects.requireNonNull(stockMapper);
         this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
@@ -41,8 +41,8 @@ final class EmpireMapperImpl implements EmpireMapper {
     }
 
     @Override
-    public EmpireDto map(Empire empire) {
-        EmpireDto result = new EmpireDto();
+    public EmpireDto map(final Empire empire) {
+        final EmpireDto result = new EmpireDto();
         result.setEmpireId(empireIdMapper.map(empire.getEmpireId()));
         result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstructions()));
         result.setRound(roundMapper.map(empire.getRound()));

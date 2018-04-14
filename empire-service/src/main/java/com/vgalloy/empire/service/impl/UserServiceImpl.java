@@ -31,32 +31,32 @@ final class UserServiceImpl implements UserService {
      *
      * @param userDao the user service Dao
      */
-    UserServiceImpl(UserDao userDao) {
+    UserServiceImpl(final UserDao userDao) {
         this.userDao = Objects.requireNonNull(userDao);
     }
 
     @Override
     @AuthorizeUser
-    public User getById(UserId userId) {
+    public User getById(final UserId userId) {
         return userDao.getById(userId);
     }
 
     @Override
     @FullLog(LogLevel.TRACE)
     @ExecutionTimeLog
-    public User create(String login, String password) {
+    public User create(final String login, final String password) {
         return userDao.create(login, password);
     }
 
     @Override
     @FullLog(LogLevel.TRACE)
-    public Optional<User> findByLoginAndPassword(String login, String password) {
+    public Optional<User> findByLoginAndPassword(final String login, final String password) {
         return userDao.findByLoginAndPassword(login, password);
     }
 
     @Override
     @AuthorizeUser
-    public void update(User user) {
+    public void update(final User user) {
         userDao.update(user);
     }
 

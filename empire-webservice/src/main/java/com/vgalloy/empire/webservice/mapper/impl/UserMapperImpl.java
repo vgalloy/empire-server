@@ -24,21 +24,21 @@ final class UserMapperImpl implements UserMapper {
      *
      * @param userIdMapper the user id mapper
      */
-    UserMapperImpl(UserIdMapper userIdMapper) {
+    UserMapperImpl(final UserIdMapper userIdMapper) {
         this.userIdMapper = userIdMapper;
     }
 
     @Override
-    public UserDto map(User user) {
-        UserDto result = new UserDto();
+    public UserDto map(final User user) {
+        final UserDto result = new UserDto();
         result.setLogin(user.getLogin());
         result.setPassword(user.getPassword());
         return result;
     }
 
     @Override
-    public User unmap(UserIdDto userIdDto, UserDto userDto) {
-        UserId userId = userIdMapper.unmap(userIdDto);
+    public User unmap(final UserIdDto userIdDto, final UserDto userDto) {
+        final UserId userId = userIdMapper.unmap(userIdDto);
         return User.of(userId, userDto.getLogin(), userDto.getPassword());
     }
 }

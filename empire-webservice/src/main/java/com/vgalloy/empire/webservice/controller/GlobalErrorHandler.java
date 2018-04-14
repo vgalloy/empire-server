@@ -31,7 +31,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(Throwable.class)
-    public ResponseEntity<ErrorDto> handle(Throwable e) {
+    public ResponseEntity<ErrorDto> handle(final Throwable e) {
         LOGGER.error("", e);
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Ups ... unexpected error occurred ! !");
     }
@@ -43,7 +43,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(AccessDeniedException.class)
-    public ResponseEntity<ErrorDto> handle(AccessDeniedException e) {
+    public ResponseEntity<ErrorDto> handle(final AccessDeniedException e) {
         LOGGER.error("", e);
         return buildResponse(HttpStatus.FORBIDDEN);
     }
@@ -55,7 +55,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<ErrorDto> handle(ConstraintViolationException e) {
+    public ResponseEntity<ErrorDto> handle(final ConstraintViolationException e) {
         LOGGER.warn("", e);
         return buildResponse(HttpStatus.BAD_REQUEST);
     }
@@ -67,7 +67,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorDto> handle(NotFoundException e) {
+    public ResponseEntity<ErrorDto> handle(final NotFoundException e) {
         LOGGER.warn("NotFoundException : {}", HttpStatus.NOT_FOUND.getReasonPhrase());
         return buildResponse(HttpStatus.NOT_FOUND);
     }
@@ -79,7 +79,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<ErrorDto> handle(HttpMessageNotReadableException e) {
+    public ResponseEntity<ErrorDto> handle(final HttpMessageNotReadableException e) {
         LOGGER.warn("{}", e.getMessage());
         return buildResponse(HttpStatus.BAD_REQUEST, "Invalid json");
     }
@@ -91,7 +91,7 @@ final class GlobalErrorHandler {
      * @return The error message for web user
      */
     @ExceptionHandler(MissingPathVariableException.class)
-    public ResponseEntity<ErrorDto> handle(MissingPathVariableException e) {
+    public ResponseEntity<ErrorDto> handle(final MissingPathVariableException e) {
         LOGGER.warn("{}", e.getMessage());
         return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
     }
@@ -102,7 +102,7 @@ final class GlobalErrorHandler {
      * @param httpStatus the httpStatus internalCreate the request
      * @return the ResponseEntity with an ErrorDto
      */
-    private ResponseEntity<ErrorDto> buildResponse(HttpStatus httpStatus) {
+    private ResponseEntity<ErrorDto> buildResponse(final HttpStatus httpStatus) {
         return buildResponse(httpStatus, httpStatus.getReasonPhrase());
     }
 
@@ -113,8 +113,8 @@ final class GlobalErrorHandler {
      * @param message    the message display to the final user
      * @return the ResponseEntity with an ErrorDto
      */
-    private ResponseEntity<ErrorDto> buildResponse(HttpStatus httpStatus, String message) {
-        ErrorDto errorDto = new ErrorDto();
+    private ResponseEntity<ErrorDto> buildResponse(final HttpStatus httpStatus, final String message) {
+        final ErrorDto errorDto = new ErrorDto();
         errorDto.setCode(httpStatus.value());
         errorDto.setMessage(message);
         return new ResponseEntity<>(errorDto, httpStatus);

@@ -21,9 +21,9 @@ public final class Round {
      *
      * @param numberOfRound the number internalCreate round
      */
-    private Round(int numberOfRound) {
+    private Round(final int numberOfRound) {
         this.numberOfRound = numberOfRound;
-        LocalDate zero = LocalDate.of(0, 1, 1);
+        final LocalDate zero = LocalDate.of(0, 1, 1);
         currentDate = zero.plus(numberOfRound, ChronoUnit.MONTHS);
     }
 
@@ -33,7 +33,7 @@ public final class Round {
      * @param numberOfRound the number internalCreate round.
      * @return the new Round.
      */
-    private static Round internalCreate(int numberOfRound) {
+    private static Round internalCreate(final int numberOfRound) {
         Assert.state(numberOfRound >= 0, "Round should be positive");
         return new Round(numberOfRound);
     }

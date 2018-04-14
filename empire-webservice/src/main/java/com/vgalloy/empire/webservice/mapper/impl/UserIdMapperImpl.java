@@ -17,14 +17,14 @@ import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 class UserIdMapperImpl implements UserIdMapper {
 
     @Override
-    public UserIdDto map(UserId userId) {
-        UserIdDto result = new UserIdDto();
+    public UserIdDto map(final UserId userId) {
+        final UserIdDto result = new UserIdDto();
         result.setUserId(userId.getId());
         return result;
     }
 
     @Override
-    public UserId unmap(UserIdDto dto) {
+    public UserId unmap(final UserIdDto dto) {
         return UserId.of(dto.getUserId());
     }
 }

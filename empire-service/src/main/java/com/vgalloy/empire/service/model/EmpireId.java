@@ -18,7 +18,7 @@ public final class EmpireId {
      *
      * @param id the id of empire
      */
-    private EmpireId(String id) {
+    private EmpireId(final String id) {
         this.id = Objects.requireNonNull(id);
     }
 
@@ -28,7 +28,7 @@ public final class EmpireId {
      * @param empireId the empire id as string
      * @return a new instance of empire id
      */
-    public static EmpireId of(String empireId) {
+    public static EmpireId of(final String empireId) {
         return new EmpireId(empireId);
     }
 
@@ -46,14 +46,14 @@ public final class EmpireId {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        EmpireId empireId = (EmpireId) o;
+        final EmpireId empireId = (EmpireId) o;
         return Objects.equals(id, empireId.id);
     }
 

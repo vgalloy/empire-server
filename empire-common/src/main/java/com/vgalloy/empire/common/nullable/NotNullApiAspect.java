@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Component
-public class NotNullApiAspect {
+public final class NotNullApiAspect {
 
     /**
      * Assert all params of the method are not null.
@@ -26,15 +26,15 @@ public class NotNullApiAspect {
      * @param methodLog the annotation
      */
     @Before("@within(methodLog)")
-    public final void logExecutionTime(JoinPoint joinPoint, NotNullApi methodLog) {
-        Object[] args = joinPoint.getArgs();
-        Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+    public void logExecutionTime(final JoinPoint joinPoint, final NotNullApi methodLog) {
+        final Object[] args = joinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
-            Object arg = args[i];
+            final Object arg = args[i];
             if (Objects.isNull(arg)) {
-                String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
-                String paramName = method.getParameters()[i].getName();
-                String message = fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
+                final String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
+                final Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+                final String paramName = method.getParameters()[i].getName();
+                final String message = fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
                 throw new NullPointerException(message);
             }
         }

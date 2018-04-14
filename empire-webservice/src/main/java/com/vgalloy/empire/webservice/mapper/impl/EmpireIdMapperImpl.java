@@ -15,14 +15,14 @@ import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 final class EmpireIdMapperImpl implements EmpireIdMapper {
 
     @Override
-    public EmpireIdDto map(EmpireId empireId) {
-        EmpireIdDto result = new  EmpireIdDto();
+    public EmpireIdDto map(final EmpireId empireId) {
+        final EmpireIdDto result = new  EmpireIdDto();
         result.setEmpireId(empireId.getId());
         return result;
     }
 
     @Override
-    public EmpireId unmap(EmpireIdDto empireIdDto) {
+    public EmpireId unmap(final EmpireIdDto empireIdDto) {
         return EmpireId.of(empireIdDto.getEmpireId());
     }
 }

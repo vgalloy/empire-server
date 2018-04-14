@@ -29,13 +29,13 @@ public class EmpireIdSerializer extends StdSerializer<EmpireIdDto> implements Co
     }
 
     @Override
-    public void serialize(EmpireIdDto empireIdDto, JsonGenerator jsonGenerator, SerializerProvider serializerProvider) throws IOException {
+    public void serialize(final EmpireIdDto empireIdDto, final JsonGenerator jsonGenerator, final SerializerProvider serializerProvider) throws IOException {
         jsonGenerator.writeString(empireIdDto.getEmpireId());
     }
 
     @Override
-    public EmpireIdDto convert(String s) {
-        EmpireIdDto empireIdDto = new EmpireIdDto();
+    public EmpireIdDto convert(final String s) {
+        final EmpireIdDto empireIdDto = new EmpireIdDto();
         empireIdDto.setEmpireId(s);
         return empireIdDto;
     }

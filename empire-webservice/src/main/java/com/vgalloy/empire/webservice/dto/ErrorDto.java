@@ -18,7 +18,7 @@ public final class ErrorDto implements Dto {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(final int code) {
         this.code = code;
     }
 
@@ -26,7 +26,7 @@ public final class ErrorDto implements Dto {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(final String message) {
         this.message = message;
     }
 }

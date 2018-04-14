@@ -20,7 +20,7 @@ public final class UserDto implements Dto {
         return login;
     }
 
-    public void setLogin(String login) {
+    public void setLogin(final String login) {
         this.login = login;
     }
 
@@ -28,7 +28,7 @@ public final class UserDto implements Dto {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 }

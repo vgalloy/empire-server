@@ -11,7 +11,7 @@ public enum PlayerInstructionStep implements Step {
     INSTANCE;
 
     @Override
-    public Empire apply(Empire empire) {
+    public Empire apply(final Empire empire) {
         return empire.getPlayerInstructions()
             .apply(empire);
     }

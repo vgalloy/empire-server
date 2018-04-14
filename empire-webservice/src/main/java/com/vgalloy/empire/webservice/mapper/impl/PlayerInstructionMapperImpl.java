@@ -15,8 +15,8 @@ import com.vgalloy.empire.webservice.mapper.PlayerInstructionMapper;
 final class PlayerInstructionMapperImpl implements PlayerInstructionMapper {
 
     @Override
-    public PlayerInstructionDto map(PlayerInstructions playerInstructions) {
-        PlayerInstructionDto result = new PlayerInstructionDto();
+    public PlayerInstructionDto map(final PlayerInstructions playerInstructions) {
+        final PlayerInstructionDto result = new PlayerInstructionDto();
         result.setOrders(playerInstructions.getOrders());
         return result;
     }
