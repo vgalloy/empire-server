@@ -32,7 +32,7 @@ public class RequestTimerFilter implements Filter {
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
-            long total = start - System.currentTimeMillis();
+            long total = System.currentTimeMillis() - start;
             LOGGER.info("Total execution time : " + total + " ms");
         }
     }
