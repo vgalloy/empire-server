@@ -45,4 +45,36 @@ public final class InMemoryTranslationServiceTest {
         Assert.assertEquals("RESULT", translation.getTranslation());
     }
 
+    @Test
+    public void franceDefineFrench() {
+        // GIVEN
+        TranslationService translationService = new InMemoryTranslationService();
+        translationService.addCode("CODE", Locale.FRANCE, "RESULT");
+
+        // WHEN
+        Translation translation = translationService.translate("CODE", Locale.FRENCH);
+
+        // THEN
+        Assert.assertTrue(translation.getLocale().isPresent());
+        Assert.assertEquals(Locale.FRENCH, translation.getLocale().get());
+        Assert.assertEquals("CODE", translation.getCode());
+        Assert.assertEquals("RESULT", translation.getTranslation());
+    }
+
+    @Test
+    public void franceUseFrench() {
+        // GIVEN
+        TranslationService translationService = new InMemoryTranslationService();
+        translationService.addCode("CODE", Locale.FRENCH, "RESULT");
+
+        // WHEN
+        Translation translation = translationService.translate("CODE", Locale.FRANCE);
+
+        // THEN
+        Assert.assertTrue(translation.getLocale().isPresent());
+        Assert.assertEquals(Locale.FRENCH, translation.getLocale().get());
+        Assert.assertEquals("CODE", translation.getCode());
+        Assert.assertEquals("RESULT", translation.getTranslation());
+    }
+
 }
