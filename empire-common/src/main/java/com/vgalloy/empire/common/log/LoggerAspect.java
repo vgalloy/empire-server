@@ -72,7 +72,7 @@ public final class LoggerAspect {
      * @return the wrapped method result
      * @throws Throwable forward method possible throwable
      */
-    @Around("(@within(methodLog) || @annotation(methodLog)) && (@annotation(classLog) || @within(classLog))")
+    @Around(value = "(@within(methodLog) || @annotation(methodLog)) && (@annotation(classLog) || @within(classLog))", argNames = "joinPoint, methodLog, classLog")
     public Object logForClass(final ProceedingJoinPoint joinPoint, final FullLog methodLog, final FullLog classLog) throws Throwable {
         if (methodLog != null) {
             return displayLog(joinPoint, methodLog.value());
