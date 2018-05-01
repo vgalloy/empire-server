@@ -1,6 +1,6 @@
 package com.vgalloy.empire.webservice.dto;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 /**
  * Created by Vincent Galloy on 20/08/17.

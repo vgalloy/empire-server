@@ -28,7 +28,7 @@ import com.vgalloy.empire.service.spi.dao.EmpireDao;
  * @author Vincent Galloy
  */
 @Component
-final class EmpireServiceImpl implements EmpireService {
+class EmpireServiceImpl implements EmpireService {
 
     private final EmpireDao empireDao;
 

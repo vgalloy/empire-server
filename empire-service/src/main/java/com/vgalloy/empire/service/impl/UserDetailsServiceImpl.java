@@ -20,7 +20,7 @@ import com.vgalloy.empire.service.spi.dao.UserDao;
  * @author Vincent Galloy
  */
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UserDao userDao;
 
@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      *
      * @param userDao the user dao
      */
-    public UserDetailsServiceImpl(final UserDao userDao) {
+    UserDetailsServiceImpl(final UserDao userDao) {
         this.userDao = Objects.requireNonNull(userDao);
     }
 

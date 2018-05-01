@@ -16,7 +16,7 @@ import com.vgalloy.empire.i18n.translation.Translation;
  * @author Vincent Galloy
  */
 @Service
-final class InMemoryTranslationService implements TranslationService {
+class InMemoryTranslationService implements TranslationService {
 
     /***
      * The first String represents the language.

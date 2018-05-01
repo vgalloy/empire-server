@@ -22,7 +22,7 @@ import com.vgalloy.empire.service.spi.dao.UserDao;
  */
 @FullLog
 @Component
-final class UserServiceImpl implements UserService {
+class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
 
