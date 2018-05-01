@@ -1,5 +1,7 @@
 package com.vgalloy.empire.webservice.controller;
 
+import java.lang.invoke.MethodHandles;
+
 import javax.validation.ConstraintViolationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +24,7 @@ import com.vgalloy.empire.webservice.exception.NotFoundException;
 @ControllerAdvice
 final class GlobalErrorHandler {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalErrorHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Handle error and set the correct response status.

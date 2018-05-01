@@ -1,6 +1,7 @@
 package com.vgalloy.empire.webservice.filter;
 
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RequestTimerFilter implements Filter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(RequestTimerFilter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     @Override
     public void init(final FilterConfig filterConfig) throws ServletException {
