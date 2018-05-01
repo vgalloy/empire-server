@@ -1,10 +1,14 @@
 package com.vgalloy.empire.common.log;
 
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.common.LogLevel;
@@ -22,6 +26,17 @@ import com.vgalloy.empire.common.LogLevel;
 @Component
 public final class LoggerAspect {
 
+    private final ILoggerFactory loggerFactory;
+
+    /**
+     * Constructor.
+     *
+     * @param loggerFactory the logger factory. Will be use for creating logger related to the wrapped class at runtime
+     */
+    public LoggerAspect(final ILoggerFactory loggerFactory) {
+        this.loggerFactory = Objects.requireNonNull(loggerFactory);
+    }
+
     /**
      * 1. Analyze pointcut to find arguments and display it
      * 2. Execute method
@@ -32,15 +47,16 @@ public final class LoggerAspect {
      * @return method result
      * @throws Throwable forward method throwable
      */
-    private static Object displayLog(final ProceedingJoinPoint joinPoint, final LogLevel logLevel) throws Throwable {
-        final Logger logger = LoggerFactory.getLogger(joinPoint.getTarget().getClass());
+    private Object displayLog(final ProceedingJoinPoint joinPoint, final LogLevel logLevel) throws Throwable {
+        final Logger logger = loggerFactory.getLogger(joinPoint.getTarget().getClass().getName());
+        final String args = Stream.of(joinPoint.getArgs())
+            .map(Object::toString)
+            .collect(Collectors.joining(", "));
         StringBuilder stringBuilder = new StringBuilder("[ START ] : ")
             .append(joinPoint.getSignature().getName())
-            .append('(');
-        for (final Object o : joinPoint.getArgs()) {
-            stringBuilder.append(o.toString());
-        }
-        stringBuilder.append(')');
+            .append('(')
+            .append(args)
+            .append(')');
         LogLevel.printLog(logger, logLevel, stringBuilder.toString());
 
         final Object result = joinPoint.proceed();

@@ -1,5 +1,6 @@
 dependencies {
     compile project(':empire-common')
+    compile project(':empire-i18n')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springBootVersion"
     testCompile group: 'junit', name: 'junit', version: "$junitVersion"

@@ -40,32 +40,68 @@ allprojects {
         mavenCentral()
     }
 
+    configurations {
+        integrationTestCompile.extendsFrom testCompile
+        integrationTestRuntime.extendsFrom testRuntime
+    }
+
+    sourceSets {
+        integrationTest {
+            java {
+                compileClasspath += main.output + test.output
+                runtimeClasspath += main.output + test.output
+                srcDir file('src/integration-test/java')
+            }
+            resources.srcDir file('src/integration-test/resources')
+        }
+    }
+
     checkstyle {
         toolVersion = "$checkstyleVersion"
         configFile = rootProject.file('config/checkstyle/checkstyle.xml')
         checkstyleTest.enabled = false
+        checkstyleIntegrationTest.enabled = false
     }
 
     pmd {
         consoleOutput = true
         ruleSetFiles = rootProject.files('config/pmd/pmd.xml')
         pmdTest.enabled = false
+        pmdIntegrationTest.enabled = false
     }
 
     findbugs {
         excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
         findbugsTest.enabled = false
+        findbugsIntegrationTest.enabled = false
     }
 
     compileJava {
         sourceCompatibility = "$javaVersion"
         targetCompatibility = "$javaVersion"
         options.encoding = "$encoding"
+        options.compilerArgs = ['-Xlint:all', '-Werror']
     }
 
     compileTestJava {
         sourceCompatibility = "$javaVersion"
         targetCompatibility = "$javaVersion"
         options.encoding = "$encoding"
+        options.compilerArgs = ['-Xlint:all', '-Werror']
     }
+
+    compileIntegrationTestJava {
+        sourceCompatibility = "$javaVersion"
+        targetCompatibility = "$javaVersion"
+        options.encoding = "$encoding"
+        options.compilerArgs = ['-Xlint:all', '-Werror']
+    }
+
+    task integrationTest(type: Test) {
+        testClassesDirs = sourceSets.integrationTest.output.classesDirs
+        classpath = sourceSets.integrationTest.runtimeClasspath
+    }
+
+    integrationTest.mustRunAfter test
+    check.dependsOn integrationTest
 }
