@@ -23,7 +23,7 @@ ext {
     checkstyleVersion = '8.10'
 
     springBootVersion = '2.0.1.RELEASE'
-    springFoxVersion = '2.7.0'
+    springFoxVersion = '2.8.0'
     junitVersion = '4.12'
 }
 

@@ -3,7 +3,9 @@ package com.vgalloy.empire.webservice.config;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Objects;
 
+import com.fasterxml.classmate.TypeResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -19,9 +21,7 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.ErrorDto;
-import com.vgalloy.empire.webservice.dto.UserIdDto;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -32,6 +32,17 @@ import com.vgalloy.empire.webservice.dto.UserIdDto;
 @EnableSwagger2
 public class SwaggerConfig {
 
+    private final TypeResolver typeResolver;
+
+    /**
+     * Constructor.
+     *
+     * @param typeResolver the type resolver
+     */
+    public SwaggerConfig(final TypeResolver typeResolver) {
+        this.typeResolver = Objects.requireNonNull(typeResolver);
+    }
+
     /**
      * Swagger Api configuration.
      *
@@ -40,13 +51,14 @@ public class SwaggerConfig {
     @Bean
     public Docket newsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
+            .additionalModels(typeResolver.resolve(ErrorDto.class))
             .select()
             .apis(RequestHandlerSelectors.any())
             .paths(PathSelectors.any())
             .build()
             .directModelSubstitute(LocalDate.class, String.class)
-            .directModelSubstitute(EmpireIdDto.class, String.class)
-            .directModelSubstitute(UserIdDto.class, String.class)
+            //.directModelSubstitute(EmpireIdDto.class, String.class)
+            //.directModelSubstitute(UserIdDto.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .securitySchemes(Collections.singletonList(new BasicAuth("")))
             .useDefaultResponseMessages(false)
@@ -67,7 +79,7 @@ public class SwaggerConfig {
     private ResponseMessage build(final HttpStatus httpStatus) {
         return new ResponseMessageBuilder()
             .code(httpStatus.value())
-            .message(HttpStatus.UNAUTHORIZED.getReasonPhrase())
+            .message(httpStatus.getReasonPhrase())
             .responseModel(new ModelRef(ErrorDto.class.getSimpleName()))
             .build();
     }
