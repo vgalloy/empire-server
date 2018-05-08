@@ -14,6 +14,6 @@ dependencies {
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.5'
 }
 
-configurations {
-    jar.archiveName = 'empire-server.jar'
+bootJar {
+    archiveName = 'empire-server.jar'
 }
