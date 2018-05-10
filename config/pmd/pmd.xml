@@ -10,8 +10,6 @@
     <rule ref="category/java/bestpractices.xml"/>
     <rule ref="category/java/codestyle.xml">
         <exclude name="AtLeastOneConstructor"/>
-        <exclude name="MethodArgumentCouldBeFinal"/>
-        <exclude name="LocalVariableCouldBeFinal"/>
         <exclude name="OnlyOneReturn"/>
         <exclude name="ShortMethodName"/>
         <exclude name="ShortVariable"/>
@@ -34,14 +32,12 @@
     </rule>
     <rule ref="category/java/documentation.xml">
         <exclude name="CommentSize"/>
-        <!-- TODO -->
+        <!-- No need to comment every single field-->
         <exclude name="CommentRequired"/>
     </rule>
     <rule ref="category/java/errorprone.xml">
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="BeanMembersShouldSerialize"/>
-        <!-- TODO -->
-        <exclude name="AvoidDuplicateLiterals"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
         <!-- TODO -->
         <exclude name="AvoidLiteralsInIfCondition"/>
