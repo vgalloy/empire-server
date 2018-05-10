@@ -1,3 +1,5 @@
+import net.jokubasdargis.buildtimer.BuildTimerPluginExtension
+
 buildscript {
     dependencies {
         classpath 'net.jokubasdargis.buildtimer:gradle-plugin:0.3.0'
@@ -14,13 +16,15 @@ apply plugin: 'net.jokubasdargis.build-timer'
 
 buildTimer {
     reportAbove = 100L
-    sort = 'desc'
+    sort = BuildTimerPluginExtension.SortOrder.DESC
 }
 
 ext {
     javaVersion = '1.8'
     encoding = 'UTF-8'
+
     checkstyleVersion = '8.10'
+    jacocoVersion = '0.8.1'
 
     springBootVersion = '2.0.1.RELEASE'
     springFoxVersion = '2.8.0'
@@ -32,6 +36,7 @@ allprojects {
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
+    apply plugin: 'jacoco'
 
     group = 'com.vgalloy'
 
@@ -102,6 +107,30 @@ allprojects {
         classpath = sourceSets.integrationTest.runtimeClasspath
     }
 
+    jacoco {
+        toolVersion = "$jacocoVersion"
+    }
+
+    jacocoTestReport {
+        dependsOn test
+        dependsOn integrationTest
+
+        reports {
+            html.enabled = true
+        }
+        Set<File> reportFiles = new HashSet<>()
+        File testReport = file("$buildDir/jacoco/test.exec")
+        if(testReport.exists()) {
+            reportFiles.add(testReport)
+        }
+        File integrationTestReport = file("$buildDir/jacoco/integrationTest.exec")
+        if(integrationTestReport.exists()) {
+            reportFiles.add(integrationTestReport)
+        }
+        executionData = files(reportFiles)
+    }
+
     integrationTest.mustRunAfter test
     check.dependsOn integrationTest
+    check.dependsOn jacocoTestReport
 }
