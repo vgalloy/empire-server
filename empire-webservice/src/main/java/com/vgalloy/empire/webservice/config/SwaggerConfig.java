@@ -63,7 +63,6 @@ public class SwaggerConfig {
             .securitySchemes(Collections.singletonList(new BasicAuth("")))
             .useDefaultResponseMessages(false)
             .globalResponseMessage(RequestMethod.GET, Arrays.asList(
-                new ResponseMessageBuilder().code(200).message("OK").responseModel(new ModelRef("Success")).build(),
                 build(HttpStatus.BAD_REQUEST),
                 build(HttpStatus.UNAUTHORIZED),
                 build(HttpStatus.NOT_FOUND),
