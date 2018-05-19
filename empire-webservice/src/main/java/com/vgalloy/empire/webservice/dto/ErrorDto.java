@@ -9,8 +9,6 @@ package com.vgalloy.empire.webservice.dto;
 // TODO : message can't be null -> define constructor
 public final class ErrorDto implements Dto {
 
-    private static final long serialVersionUID = 8094145595695749692L;
-
     private int code;
     private String message;
 

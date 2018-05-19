@@ -9,8 +9,6 @@ import javax.validation.constraints.NotEmpty;
  */
 public final class UserDto implements Dto {
 
-    private static final long serialVersionUID = -1914355807800734302L;
-
     @NotEmpty(message = "Invalid user login")
     private String login;
     @NotEmpty(message = "Invalid user password")

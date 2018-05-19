@@ -7,8 +7,6 @@ package com.vgalloy.empire.webservice.dto;
  */
 public final class RoundDto implements Dto {
 
-    private static final long serialVersionUID = -1914593785780456504L;
-
     private Integer year;
     private String month;
 

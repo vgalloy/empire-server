@@ -7,8 +7,6 @@ package com.vgalloy.empire.webservice.dto;
  */
 public final class StockDto implements Dto {
 
-    private static final long serialVersionUID = 5891980627889366133L;
-
     private Long current;
     private Long granary;
     private Long max;

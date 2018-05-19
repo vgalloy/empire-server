@@ -7,8 +7,6 @@ package com.vgalloy.empire.webservice.dto;
  */
 public final class EmpireDto implements Dto {
 
-    private static final long serialVersionUID = 7102663990613057803L;
-
     private EmpireIdDto empireId;
     private PlayerInstructionDto playerInstruction;
     private RoundDto round;

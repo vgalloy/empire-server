@@ -1,7 +1,5 @@
 package com.vgalloy.empire.webservice.dto;
 
-import java.io.Serializable;
-
 /**
  * Create by Vincent Galloy on 02/08/2017.
  * This class is the root interface for all information send and received by the application.
@@ -9,5 +7,5 @@ import java.io.Serializable;
  *
  * @author Vincent Galloy
  */
-public interface Dto extends Serializable {
+public interface Dto {
 }

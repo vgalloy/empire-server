@@ -9,8 +9,6 @@ import javax.validation.constraints.NotEmpty;
  */
 public final class UserIdDto implements Dto {
 
-    private static final long serialVersionUID = 190932754140605307L;
-
     @NotEmpty(message = "Invalid user id")
     private String userId;
 

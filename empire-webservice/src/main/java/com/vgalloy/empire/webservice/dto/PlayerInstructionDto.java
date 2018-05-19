@@ -11,8 +11,6 @@ import com.vgalloy.empire.service.model.order.OrderType;
  */
 public final class PlayerInstructionDto implements Dto {
 
-    private static final long serialVersionUID = -5119911425089528228L;
-
     private Map<OrderType, Long> orders;
 
     public Map<OrderType, Long> getOrders() {

@@ -9,8 +9,6 @@ import javax.validation.constraints.NotEmpty;
  */
 public final class EmpireIdDto implements Dto {
 
-    private static final long serialVersionUID = 7557642900297198139L;
-
     @NotEmpty(message = "Invalid empire id")
     private String empireId;
 
