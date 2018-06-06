@@ -27,7 +27,7 @@ ext {
     jacocoVersion = '0.8.1'
     pmdVersion = '6.1.0'
 
-    springBootVersion = '2.0.1.RELEASE'
+    springBootVersion = '2.0.2.RELEASE'
     springFoxVersion = '2.8.0'
     junitVersion = '4.12'
 }
