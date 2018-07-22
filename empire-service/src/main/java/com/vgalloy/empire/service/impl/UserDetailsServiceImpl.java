@@ -41,8 +41,8 @@ class UserDetailsServiceImpl implements UserDetailsService {
             .filter(user -> user.getLogin().equals(username))
             .collect(Collectors.toList());
 
-        if (users.size() != 1) {
-            throw new UsernameNotFoundException("");
+        if (users.isEmpty()) {
+            throw new UsernameNotFoundException(username);
         }
         final User user = users.get(0);
 

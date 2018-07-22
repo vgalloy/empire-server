@@ -39,8 +39,6 @@
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="BeanMembersShouldSerialize"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
-        <!-- TODO -->
-        <exclude name="AvoidLiteralsInIfCondition"/>
         <!-- Create an error -->
         <exclude name="InvalidSlf4jMessageFormat"/>
     </rule>

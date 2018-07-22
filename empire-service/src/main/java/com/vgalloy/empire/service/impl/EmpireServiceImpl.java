@@ -17,6 +17,7 @@ import com.vgalloy.empire.service.impl.step.StepManager;
 import com.vgalloy.empire.service.impl.step.TaxStep;
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
+import com.vgalloy.empire.service.model.PlayerInstructions;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.security.AuthorizeUser;
@@ -70,7 +71,8 @@ class EmpireServiceImpl implements EmpireService {
     @Override
     @AuthorizeUser
     public Empire updateOrders(final Empire empire, final Map<OrderType, Long> orders) {
-        final Empire newEmpire = empire.playerInstructions(empire.getPlayerInstructions().addOrders(orders));
+        final PlayerInstructions newPlayerInstructions = PlayerInstructions.fromOrders(orders);
+        final Empire newEmpire = empire.playerInstructions(newPlayerInstructions);
         empireDao.update(newEmpire);
         return newEmpire;
     }

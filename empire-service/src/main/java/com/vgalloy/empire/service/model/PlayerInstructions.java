@@ -3,7 +3,9 @@ package com.vgalloy.empire.service.model;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
+import com.vgalloy.empire.service.model.order.Order;
 import com.vgalloy.empire.service.model.order.OrderType;
 
 /**
@@ -26,12 +28,23 @@ public final class PlayerInstructions {
     }
 
     /**
-     * Build an empty set internalCreate instruction.
+     * Build an empty {@link PlayerInstructions}.
      *
-     * @return the empty player instruction
+     * @return the empty {@link PlayerInstructions}
      */
     public static PlayerInstructions newEmpty() {
         return new PlayerInstructions(new HashMap<>());
+    }
+
+    /**
+     * Build an {@link PlayerInstructions} with pre set orders.
+     *
+     * @param orders the list of order.
+     * @return the new {@link PlayerInstructions}
+     */
+    public static PlayerInstructions fromOrders(final Map<OrderType, Long> orders) {
+        Objects.requireNonNull(orders, "orders");
+        return new PlayerInstructions(orders);
     }
 
     public Map<OrderType, Long> getOrders() {
@@ -45,26 +58,22 @@ public final class PlayerInstructions {
      * @return a new empire build
      */
     public Empire apply(final Empire empire) {
-        Empire tmp = empire;
-        for (final Map.Entry<OrderType, Long> entry : orders.entrySet()) {
-            tmp = entry.getKey()
-                .build(entry.getValue())
-                .apply(tmp);
-        }
-        return tmp;
+        return orders.entrySet().stream()
+            .map(entry -> entry.getKey().build(entry.getValue()))
+            .reduce((o1, o2) -> Order.class.cast(o1.andThen(o2)))
+            .map(o -> o.apply(empire))
+            .orElse(empire);
     }
 
     /**
      * Add new orders.
      *
-     * @param orders the orders
+     * @param newOrder the new orders to add.
      * @return a new Player instruction
      */
-    public PlayerInstructions addOrders(final Map<OrderType, Long> orders) {
+    public PlayerInstructions addOrders(final Map<OrderType, Long> newOrder) {
         final Map<OrderType, Long> newOrders = new HashMap<>(orders);
-        for (final Map.Entry<OrderType, Long> order : orders.entrySet()) {
-            newOrders.put(order.getKey(), order.getValue());
-        }
+        newOrders.putAll(newOrder);
         return new PlayerInstructions(newOrders);
     }
 }

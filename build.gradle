@@ -24,8 +24,9 @@ ext {
     encoding = 'UTF-8'
 
     checkstyleVersion = '8.11'
+    pmdVersion = '6.5.0'
+    findbugsVersion = '3.0.1'
     jacocoVersion = '0.8.1'
-    pmdVersion = '6.1.0'
 
     springBootVersion = '2.0.3.RELEASE'
     springFoxVersion = '2.9.2'
@@ -79,6 +80,7 @@ allprojects {
     }
 
     findbugs {
+        toolVersion = "$findbugsVersion"
         excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
         findbugsTest.enabled = false
         findbugsIntegrationTest.enabled = false

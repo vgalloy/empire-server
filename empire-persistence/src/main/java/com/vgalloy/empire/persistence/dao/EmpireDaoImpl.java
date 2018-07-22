@@ -1,9 +1,9 @@
 package com.vgalloy.empire.persistence.dao;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ import com.vgalloy.empire.service.spi.dao.EmpireDao;
 final class EmpireDaoImpl implements EmpireDao {
 
     private final List<Empire> empires = new ArrayList<>();
-    private final Map<UserId, List<EmpireId>> map = new HashMap<>();
+    private final Map<UserId, List<EmpireId>> map = new ConcurrentHashMap<>();
 
     @Override
     public EmpireId createEmpire(final UserId userId) {
