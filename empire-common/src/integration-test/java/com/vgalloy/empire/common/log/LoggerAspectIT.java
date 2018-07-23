@@ -23,26 +23,29 @@ import com.vgalloy.empire.common.LogLevel;
 @RunWith(SpringRunner.class)
 public final class LoggerAspectIT {
 
+    private static final Logger LOGGER = BDDMockito.mock(Logger.class);
+
+    @Autowired
+    private SimpleClass simpleClass;
+
     public static class SimpleClass {
 
         @FullLog
-        public int add(int a, int b) {
+        public int add(final int a, final int b) {
             return a + b;
         }
 
         @FullLog(LogLevel.ERROR)
-        public int minus(int a, int b) {
+        public int minus(final int a, final int b) {
             return a - b;
         }
     }
 
     public static class CustomLoggerFactory implements ILoggerFactory {
 
-        private final Logger logger = BDDMockito.mock(Logger.class);
-
         @Override
         public Logger getLogger(final String name) {
-            return logger;
+            return LOGGER;
         }
     }
 
@@ -61,16 +64,10 @@ public final class LoggerAspectIT {
         }
 
         @Bean
-        public LoggerAspect loggerAspect(ILoggerFactory loggerFactory) {
+        public LoggerAspect loggerAspect(final ILoggerFactory loggerFactory) {
             return new LoggerAspect(loggerFactory);
         }
     }
-
-    @Autowired
-    private SimpleClass simpleClass;
-
-    @Autowired
-    private CustomLoggerFactory customLoggerFactory;
 
     @Test
     public void addWithTraceLevel() {
@@ -78,8 +75,8 @@ public final class LoggerAspectIT {
         simpleClass.add(1, 2);
 
         // THEN
-        BDDMockito.then(customLoggerFactory.logger).should(BDDMockito.times(1)).trace("[ START ] : add(1, 2)");
-        BDDMockito.then(customLoggerFactory.logger).should(BDDMockito.times(1)).trace("[ END   ] : add ==> 3");
+        BDDMockito.then(LOGGER).should(BDDMockito.times(1)).trace("[ START ] : add(1, 2)");
+        BDDMockito.then(LOGGER).should(BDDMockito.times(1)).trace("[ END   ] : add ==> 3");
     }
 
     @Test
@@ -88,7 +85,7 @@ public final class LoggerAspectIT {
         simpleClass.minus(1, 2);
 
         // THEN
-        BDDMockito.then(customLoggerFactory.logger).should(BDDMockito.times(1)).error("[ START ] : minus(1, 2)");
-        BDDMockito.then(customLoggerFactory.logger).should(BDDMockito.times(1)).error("[ END   ] : minus ==> -1");
+        BDDMockito.then(LOGGER).should(BDDMockito.times(1)).error("[ START ] : minus(1, 2)");
+        BDDMockito.then(LOGGER).should(BDDMockito.times(1)).error("[ END   ] : minus ==> -1");
     }
 }

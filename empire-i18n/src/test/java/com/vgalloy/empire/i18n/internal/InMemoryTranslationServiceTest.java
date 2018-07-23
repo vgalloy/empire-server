@@ -18,10 +18,10 @@ public final class InMemoryTranslationServiceTest {
     @Test
     public void noTranslation() {
         // GIVEN
-        TranslationService translationService = new InMemoryTranslationService();
+        final TranslationService translationService = new InMemoryTranslationService();
 
         // WHEN
-        Translation translation = translationService.translate("CODE", Locale.CANADA);
+        final Translation translation = translationService.translate("CODE", Locale.CANADA);
 
         // THEN
         Assert.assertFalse(translation.getLocale().isPresent());
@@ -32,11 +32,11 @@ public final class InMemoryTranslationServiceTest {
     @Test
     public void oneTranslation() {
         // GIVEN
-        TranslationService translationService = new InMemoryTranslationService();
+        final TranslationService translationService = new InMemoryTranslationService();
         translationService.addCode("CODE", Locale.CANADA, "RESULT");
 
         // WHEN
-        Translation translation = translationService.translate("CODE", Locale.CANADA);
+        final Translation translation = translationService.translate("CODE", Locale.CANADA);
 
         // THEN
         Assert.assertTrue(translation.getLocale().isPresent());
@@ -48,11 +48,11 @@ public final class InMemoryTranslationServiceTest {
     @Test
     public void franceDefineFrench() {
         // GIVEN
-        TranslationService translationService = new InMemoryTranslationService();
+        final TranslationService translationService = new InMemoryTranslationService();
         translationService.addCode("CODE", Locale.FRANCE, "RESULT");
 
         // WHEN
-        Translation translation = translationService.translate("CODE", Locale.FRENCH);
+        final Translation translation = translationService.translate("CODE", Locale.FRENCH);
 
         // THEN
         Assert.assertTrue(translation.getLocale().isPresent());
@@ -64,11 +64,11 @@ public final class InMemoryTranslationServiceTest {
     @Test
     public void franceUseFrench() {
         // GIVEN
-        TranslationService translationService = new InMemoryTranslationService();
+        final TranslationService translationService = new InMemoryTranslationService();
         translationService.addCode("CODE", Locale.FRENCH, "RESULT");
 
         // WHEN
-        Translation translation = translationService.translate("CODE", Locale.FRANCE);
+        final Translation translation = translationService.translate("CODE", Locale.FRANCE);
 
         // THEN
         Assert.assertTrue(translation.getLocale().isPresent());
@@ -76,5 +76,4 @@ public final class InMemoryTranslationServiceTest {
         Assert.assertEquals("CODE", translation.getCode());
         Assert.assertEquals("RESULT", translation.getTranslation());
     }
-
 }

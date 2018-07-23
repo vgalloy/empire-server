@@ -20,10 +20,16 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public final class NotNullApiAspectIT {
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
+    @Autowired
+    private SimpleClass simpleClass;
+
     @NotNullApi
     public static class SimpleClass {
 
-        public Integer add(Integer a, Integer b) {
+        public Integer add(final Integer a, final Integer b) {
             return 1;
         }
     }
@@ -42,12 +48,6 @@ public final class NotNullApiAspectIT {
             return new NotNullApiAspect();
         }
     }
-
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
-    @Autowired
-    private SimpleClass simpleClass;
 
     @Test
     public void notNullParameter() {
