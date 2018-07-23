@@ -19,9 +19,9 @@ import com.vgalloy.empire.common.LogLevel;
  *
  * @author Vincent Galloy
  */
-@Import(LoggerAspectTest.Config.class)
+@Import(LoggerAspectIT.Config.class)
 @RunWith(SpringRunner.class)
-public final class LoggerAspectTest {
+public final class LoggerAspectIT {
 
     public static class SimpleClass {
 

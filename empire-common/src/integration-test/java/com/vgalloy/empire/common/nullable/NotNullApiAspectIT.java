@@ -16,9 +16,9 @@ import org.springframework.test.context.junit4.SpringRunner;
  *
  * @author Vincent Galloy
  */
-@Import(NotNullApiAspectTest.Config.class)
+@Import(NotNullApiAspectIT.Config.class)
 @RunWith(SpringRunner.class)
-public final class NotNullApiAspectTest {
+public final class NotNullApiAspectIT {
 
     @NotNullApi
     public static class SimpleClass {
@@ -60,7 +60,7 @@ public final class NotNullApiAspectTest {
     @Test
     public void withNullParameter() {
         expectedException.expect(NullPointerException.class);
-        expectedException.expectMessage("com.vgalloy.empire.common.nullable.NotNullApiAspectTest$SimpleClass#add is mark as @NotNullApi and received 'null' for parameter arg0");
+        expectedException.expectMessage("com.vgalloy.empire.common.nullable.NotNullApiAspectIT$SimpleClass#add is mark as @NotNullApi and received 'null' for parameter arg0");
         simpleClass.add(null, 1);
     }
 }
