@@ -86,25 +86,11 @@ allprojects {
         findbugsIntegrationTest.enabled = false
     }
 
-    compileJava {
+    tasks.withType(JavaCompile) {
         sourceCompatibility = "$javaVersion"
         targetCompatibility = "$javaVersion"
         options.encoding = "$encoding"
-        options.compilerArgs = ['-Xlint:all', '-Werror']
-    }
-
-    compileTestJava {
-        sourceCompatibility = "$javaVersion"
-        targetCompatibility = "$javaVersion"
-        options.encoding = "$encoding"
-        options.compilerArgs = ['-Xlint:all', '-Werror']
-    }
-
-    compileIntegrationTestJava {
-        sourceCompatibility = "$javaVersion"
-        targetCompatibility = "$javaVersion"
-        options.encoding = "$encoding"
-        options.compilerArgs = ['-Xlint:all', '-Werror']
+        options.compilerArgs += ['-Xlint:all', '-Werror']
     }
 
     task integrationTest(type: Test) {
@@ -125,11 +111,11 @@ allprojects {
         }
         Set<File> reportFiles = new HashSet<>()
         File testReport = file("$buildDir/jacoco/test.exec")
-        if(testReport.exists()) {
+        if (testReport.exists()) {
             reportFiles.add(testReport)
         }
         File integrationTestReport = file("$buildDir/jacoco/integrationTest.exec")
-        if(integrationTestReport.exists()) {
+        if (integrationTestReport.exists()) {
             reportFiles.add(integrationTestReport)
         }
         executionData = files(reportFiles)
