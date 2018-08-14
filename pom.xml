@@ -34,30 +34,24 @@
 
         <!-- Checkstyle -->
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>8.11</checkstyle.version>
+        <checkstyle.version>8.12</checkstyle.version>
         <maven-checkstyle-plugin.checkstyle.location>config/checkstyle/checkstyle.xml</maven-checkstyle-plugin.checkstyle.location>
         <maven-checkstyle-plugin.suppressions.location>config/checkstyle/suppressions.xml</maven-checkstyle-plugin.suppressions.location>
 
         <!-- PMD -->
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
-        <pmd.version>6.5.0</pmd.version>
+        <pmd.version>6.6.0</pmd.version>
         <maven-pmd-plugin.configuration.location>../config/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
 
         <!-- Find bugs -->
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <findbugs.exception.location>../config/findbugs/findbugs-exception-filter.xml</findbugs.exception.location>
 
-        <!-- Log -->
+        <!-- Dependencies-->
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
-
-        <!-- Spring -->
-        <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
-
-        <!-- Springfox (Swagger)-->
+        <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
         <springfox.version>2.9.2</springfox.version>
-
-        <!-- Test -->
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -188,7 +182,7 @@
                 <plugin>
                     <groupId>org.springframework.boot</groupId>
                     <artifactId>spring-boot-maven-plugin</artifactId>
-                    <version>2.0.1.RELEASE</version>
+                    <version>${spring-boot.version}</version>
                     <executions>
                         <execution>
                             <goals>
