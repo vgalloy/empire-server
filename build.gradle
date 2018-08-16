@@ -20,7 +20,7 @@ buildTimer {
 }
 
 ext {
-    javaVersion = '1.8'
+    javaVersion = '9'
     encoding = 'UTF-8'
 
     checkstyleVersion = '8.12'
@@ -37,7 +37,7 @@ allprojects {
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
-    apply plugin: 'findbugs'
+//    apply plugin: 'findbugs'
     apply plugin: 'jacoco'
 
     group = 'com.vgalloy'
@@ -79,12 +79,12 @@ allprojects {
         pmdIntegrationTest.enabled = false
     }
 
-    findbugs {
-        toolVersion = "$findbugsVersion"
-        excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
-        findbugsTest.enabled = false
-        findbugsIntegrationTest.enabled = false
-    }
+//    findbugs {
+//        toolVersion = "$findbugsVersion"
+//        excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
+//        findbugsTest.enabled = false
+//        findbugsIntegrationTest.enabled = false
+//    }
 
     tasks.withType(JavaCompile) {
         sourceCompatibility = "$javaVersion"

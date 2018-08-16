@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Project -->
-        <java.version>1.8</java.version>
+        <java.version>9</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Maven -->
@@ -44,8 +44,8 @@
         <maven-pmd-plugin.configuration.location>../config/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
 
         <!-- Find bugs -->
-        <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
-        <findbugs.exception.location>../config/findbugs/findbugs-exception-filter.xml</findbugs.exception.location>
+        <!--<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>-->
+        <!--<findbugs.exception.location>../config/findbugs/findbugs-exception-filter.xml</findbugs.exception.location>-->
 
         <!-- Dependencies-->
         <slf4j-api.version>1.7.25</slf4j-api.version>
@@ -302,24 +302,24 @@
                     </dependency>
                 </dependencies>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>${findbugs-maven-plugin.version}</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <excludeFilterFile>${findbugs.exception.location}</excludeFilterFile>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.codehaus.mojo</groupId>-->
+                <!--<artifactId>findbugs-maven-plugin</artifactId>-->
+                <!--<version>${findbugs-maven-plugin.version}</version>-->
+                <!--<configuration>-->
+                    <!--<effort>Max</effort>-->
+                    <!--<threshold>Low</threshold>-->
+                    <!--<excludeFilterFile>${findbugs.exception.location}</excludeFilterFile>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<phase>compile</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>check</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>

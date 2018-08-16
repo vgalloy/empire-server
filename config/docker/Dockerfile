@@ -1,4 +1,4 @@
-FROM openjdk:8u171-jre
+FROM openjdk:10.0.2-jre
 
 WORKDIR server
 
