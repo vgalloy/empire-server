@@ -20,7 +20,7 @@ buildTimer {
 }
 
 ext {
-    javaVersion = '9'
+    javaVersion = '10'
     encoding = 'UTF-8'
 
     checkstyleVersion = '8.12'

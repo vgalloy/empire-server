@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Project -->
-        <java.version>9</java.version>
+        <java.version>10</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Maven -->
@@ -259,7 +259,6 @@
                 <version>${maven-pmd-plugin.version}</version>
                 <configuration>
                     <linkXRef>false</linkXRef>
-                    <targetJdk>${java.version}</targetJdk>
                     <minimumTokens>20</minimumTokens>
                     <skipEmptyReport>false</skipEmptyReport>
                     <failOnViolation>true</failOnViolation>
