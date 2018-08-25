@@ -52,20 +52,13 @@ public final class LoggerAspect {
         final String args = Stream.of(joinPoint.getArgs())
             .map(Object::toString)
             .collect(Collectors.joining(", "));
-        StringBuilder stringBuilder = new StringBuilder("[ START ] : ")
-            .append(joinPoint.getSignature().getName())
-            .append('(')
-            .append(args)
-            .append(')');
-        LogLevel.printLog(logger, logLevel, stringBuilder.toString());
+        final String arguments = "[ START ] : " + joinPoint.getSignature().getName() + '(' + args + ')';
+        logLevel.log(logger, arguments);
 
         final Object result = joinPoint.proceed();
 
-        stringBuilder = new StringBuilder("[ END   ] : ")
-            .append(joinPoint.getSignature().getName())
-            .append(" ==> ")
-            .append(result);
-        LogLevel.printLog(logger, logLevel, stringBuilder.toString());
+        final String endLogMessage = "[ END   ] : " + joinPoint.getSignature().getName() + " ==> " + result;
+        logLevel.log(logger, endLogMessage);
         return result;
     }
 

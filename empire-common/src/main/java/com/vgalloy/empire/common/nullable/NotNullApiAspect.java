@@ -31,12 +31,21 @@ public final class NotNullApiAspect {
         for (int i = 0; i < args.length; i++) {
             final Object arg = args[i];
             final int index = i;
-            Objects.requireNonNull(arg, () -> {
-                final String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
-                final Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-                final String paramName = method.getParameters()[index].getName();
-                return fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
-            });
+            Objects.requireNonNull(arg, () -> getErrorMessage(joinPoint, index));
         }
+    }
+
+    /**
+     * Build the error message.
+     *
+     * @param joinPoint the join point
+     * @param index     the index of the null argument
+     * @return the error message
+     */
+    private String getErrorMessage(final JoinPoint joinPoint, final int index) {
+        final String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
+        final Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        final String paramName = method.getParameters()[index].getName();
+        return fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
     }
 }

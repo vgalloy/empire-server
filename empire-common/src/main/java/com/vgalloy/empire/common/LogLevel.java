@@ -8,36 +8,48 @@ import org.slf4j.Logger;
  * @author Vincent Galloy
  */
 public enum LogLevel {
-    OFF, TRACE, DEBUG, INFO, WARNING, ERROR;
+    OFF {
+        @Override
+        public void log(final Logger logger, final String message) {
+            // do nothing
+        }
+    },
+    TRACE {
+        @Override
+        public void log(final Logger logger, final String message) {
+            logger.trace(message);
+        }
+    },
+    DEBUG {
+        @Override
+        public void log(final Logger logger, final String message) {
+            logger.debug(message);
+        }
+    },
+    INFO {
+        @Override
+        public void log(final Logger logger, final String message) {
+            logger.info(message);
+        }
+    },
+    WARN {
+        @Override
+        public void log(final Logger logger, final String message) {
+            logger.warn(message);
+        }
+    },
+    ERROR {
+        @Override
+        public void log(final Logger logger, final String message) {
+            logger.error(message);
+        }
+    };
 
     /**
-     * Print the message with the correct log level.
+     * Log the message with provided logger.
      *
-     * @param logger   The logger
-     * @param logLevel The log level
-     * @param message  The message
+     * @param logger  the logger to use
+     * @param message the message
      */
-    public static void printLog(final Logger logger, final LogLevel logLevel, final String message) {
-        switch (logLevel) {
-            case OFF:
-                break;
-            case TRACE:
-                logger.trace(message);
-                break;
-            case DEBUG:
-                logger.debug(message);
-                break;
-            case INFO:
-                logger.info(message);
-                break;
-            case WARNING:
-                logger.warn(message);
-                break;
-            case ERROR:
-                logger.error(message);
-                break;
-            default:
-                throw new IllegalArgumentException("The log level " + logger + " doesn't exist");
-        }
-    }
+    public abstract void log(Logger logger, String message);
 }
