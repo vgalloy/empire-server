@@ -24,11 +24,11 @@ ext {
     encoding = 'UTF-8'
 
     checkstyleVersion = '8.12'
-    pmdVersion = '6.6.0'
+    pmdVersion = '6.7.0'
     findbugsVersion = '3.0.1'
     jacocoVersion = '0.8.1'
 
-    springBootVersion = '2.0.4.RELEASE'
+    springBootVersion = '2.0.5.RELEASE'
     springFoxVersion = '2.9.2'
     junitVersion = '4.12'
 }
