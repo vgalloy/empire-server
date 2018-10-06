@@ -7,7 +7,7 @@
         </filter>
 
         <encoder>
-            <pattern>[ %highlight(%-6level)] %d{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX"} [%green(%-40logger{36})] - %X{requestUuid} - %msg%n</pattern>
+            <pattern>[%d{"yyyy-MM-dd'T'HH:mm:ss.SSSXXX"}][%highlight(%-5level)][%green(%-40logger{36})][%X{requestUuid}] - %msg%n</pattern>
         </encoder>
     </appender>
 
