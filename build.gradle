@@ -23,10 +23,10 @@ ext {
     javaVersion = '10'
     encoding = 'UTF-8'
 
-    checkstyleVersion = '8.12'
-    pmdVersion = '6.7.0'
+    checkstyleVersion = '8.13'
+    pmdVersion = '6.8.0'
     findbugsVersion = '3.0.1'
-    jacocoVersion = '0.8.1'
+    jacocoVersion = '0.8.2'
 
     springBootVersion = '2.0.5.RELEASE'
     springFoxVersion = '2.9.2'
