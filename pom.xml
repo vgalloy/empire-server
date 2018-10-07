@@ -61,6 +61,7 @@
         <module>empire-persistence</module>
         <module>empire-webservice</module>
         <module>empire-i18n</module>
+        <module>empire-feature</module>
     </modules>
 
     <dependencyManagement>
@@ -383,6 +384,20 @@
                             <sources>
                                 <source>src/integration-test/java</source>
                             </sources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>add-integration-test-resources</id>
+                        <phase>generate-test-resources</phase>
+                        <goals>
+                            <goal>add-test-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>src/integration-test/resources</directory>
+                                </resource>
+                            </resources>
                         </configuration>
                     </execution>
                 </executions>
