@@ -3,3 +3,39 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
     testCompile group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
 }
+compileJava {
+    inputs.property("moduleName", "empire-common")
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+        ]
+        classpath = files()
+    }
+}
+ext {
+    moduleName = "empire-common"
+}
+compileTestJava {
+    inputs.property("moduleName", "empire-common")
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'junit',
+                '--add-reads', "$moduleName=junit",
+                '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
+        ]
+        classpath = files()
+    }
+}
+compileIntegrationTestJava {
+    inputs.property("moduleName", "empire-common")
+    doFirst {
+        options.compilerArgs = [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'junit',
+                '--add-reads', "$moduleName=junit",
+                '--patch-module', "$moduleName=" + "empire-common",
+        ]
+        classpath = files()
+    }
+}

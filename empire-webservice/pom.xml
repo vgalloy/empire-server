@@ -21,6 +21,10 @@
         </dependency>
         <dependency>
             <groupId>com.vgalloy</groupId>
+            <artifactId>empire-i18n</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.vgalloy</groupId>
             <artifactId>empire-feature-web</artifactId>
         </dependency>
         <dependency>

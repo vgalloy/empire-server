@@ -20,6 +20,11 @@
     <!-- Checks for whitespace -->
     <module name="FileTabCharacter"/>
 
+    <!-- Exclude module-info.java -->
+    <module name="BeforeExecutionExclusionFileFilter">
+        <property name="fileNamePattern" value="module\-info\.java$"/>
+    </module>
+
     <!-- Checks no double empty line -->
     <module name="RegexpMultiline">
         <property name="format" value="\n\n\n"/>
