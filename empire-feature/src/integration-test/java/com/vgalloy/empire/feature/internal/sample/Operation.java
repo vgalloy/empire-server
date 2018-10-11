@@ -1,4 +1,4 @@
-package com.vgalloy.empire.feature.internal;
+package com.vgalloy.empire.feature.internal.sample;
 
 import com.vgalloy.empire.feature.api.Feature;
 
@@ -8,7 +8,7 @@ import com.vgalloy.empire.feature.api.Feature;
  * @author Vincent Galloy
  */
 @Feature("operation")
-public interface Ops {
+public interface Operation {
 
     int apply(int a, int b);
 }

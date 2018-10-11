@@ -1,4 +1,4 @@
-package com.vgalloy.empire.feature.internal;
+package com.vgalloy.empire.feature.internal.common;
 
 import java.util.Objects;
 

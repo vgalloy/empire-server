@@ -11,6 +11,8 @@ import org.mockito.BDDMockito;
 import org.springframework.context.ApplicationContext;
 
 import com.vgalloy.empire.feature.api.FeatureStore;
+import com.vgalloy.empire.feature.internal.common.ApplicationProperties;
+import com.vgalloy.empire.feature.internal.common.FeatureStoreImpl;
 import com.vgalloy.empire.feature.internal.operation.AddOperation;
 import com.vgalloy.empire.feature.internal.operation.FakeOperation;
 import com.vgalloy.empire.feature.internal.operation.MinusOperation;

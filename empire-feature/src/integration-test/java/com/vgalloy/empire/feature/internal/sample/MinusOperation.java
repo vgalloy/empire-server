@@ -1,6 +1,4 @@
-package com.vgalloy.empire.feature.internal;
-
-import org.springframework.stereotype.Component;
+package com.vgalloy.empire.feature.internal.sample;
 
 import com.vgalloy.empire.feature.api.Implementation;
 
@@ -9,9 +7,9 @@ import com.vgalloy.empire.feature.api.Implementation;
  *
  * @author Vincent Galloy
  */
-@Component
 @Implementation("Minus")
-public class MinusOps implements Ops {
+public class MinusOperation implements Operation {
+
     @Override
     public int apply(final int a, final int b) {
         return a  + b;
