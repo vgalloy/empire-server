@@ -14,6 +14,19 @@
     <packaging>pom</packaging>
     <version>1.1-SNAPSHOT</version>
 
+    <properties>
+        <!-- Checkstyle -->
+        <maven-checkstyle-plugin.checkstyle.location>quality/checkstyle/checkstyle.xml</maven-checkstyle-plugin.checkstyle.location>
+        <maven-checkstyle-plugin.suppressions.location>quality/checkstyle/suppressions.xml</maven-checkstyle-plugin.suppressions.location>
+
+        <!-- PMD -->
+        <maven-pmd-plugin.configuration.location>quality/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
+
+        <!-- Find bugs -->
+        <!--<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>-->
+        <!--<findbugs.exception.location>../config/findbugs/findbugs-exception-filter.xml</findbugs.exception.location>-->
+    </properties>
+
     <modules>
         <module>empire-configuration</module>
         <module>empire-common</module>
