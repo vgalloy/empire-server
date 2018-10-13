@@ -23,6 +23,7 @@ ext {
     javaVersion = '10'
     encoding = 'UTF-8'
 
+    qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
     checkstyleVersion = '8.13'
     pmdVersion = '6.8.0'
     findbugsVersion = '3.0.1'
@@ -65,7 +66,7 @@ allprojects {
 
     checkstyle {
         toolVersion = "$checkstyleVersion"
-        configFile = rootProject.file('config/checkstyle/checkstyle.xml')
+        configFile = rootProject.file("$qualityConfigurationPath/checkstyle/checkstyle.xml")
         checkstyleTest.enabled = false
         checkstyleIntegrationTest.enabled = false
     }
@@ -74,14 +75,14 @@ allprojects {
         toolVersion = "$pmdVersion"
         consoleOutput = true
         ruleSets = []
-        ruleSetFiles = rootProject.files('config/pmd/pmd.xml')
+        ruleSetFiles = rootProject.files("$qualityConfigurationPath/pmd/pmd.xml")
         pmdTest.enabled = false
         pmdIntegrationTest.enabled = false
     }
 
 //    findbugs {
 //        toolVersion = "$findbugsVersion"
-//        excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exception-filter.xml")
+//        excludeFilter = file("$qualityConfigurationPath/findbugs/findbugs-exception-filter.xml")
 //        findbugsTest.enabled = false
 //        findbugsIntegrationTest.enabled = false
 //    }

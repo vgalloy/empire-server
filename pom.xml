@@ -35,13 +35,13 @@
         <!-- Checkstyle -->
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
         <checkstyle.version>8.13</checkstyle.version>
-        <maven-checkstyle-plugin.checkstyle.location>config/checkstyle/checkstyle.xml</maven-checkstyle-plugin.checkstyle.location>
-        <maven-checkstyle-plugin.suppressions.location>config/checkstyle/suppressions.xml</maven-checkstyle-plugin.suppressions.location>
+        <maven-checkstyle-plugin.checkstyle.location>quality/checkstyle/checkstyle.xml</maven-checkstyle-plugin.checkstyle.location>
+        <maven-checkstyle-plugin.suppressions.location>quality/checkstyle/suppressions.xml</maven-checkstyle-plugin.suppressions.location>
 
         <!-- PMD -->
         <maven-pmd-plugin.version>3.10.0</maven-pmd-plugin.version>
         <pmd.version>6.8.0</pmd.version>
-        <maven-pmd-plugin.configuration.location>../config/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
+        <maven-pmd-plugin.configuration.location>quality/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
 
         <!-- Find bugs -->
         <!--<findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>-->
@@ -56,6 +56,7 @@
     </properties>
 
     <modules>
+        <module>empire-configuration</module>
         <module>empire-common</module>
         <module>empire-service</module>
         <module>empire-persistence</module>
@@ -67,6 +68,11 @@
     <dependencyManagement>
         <dependencies>
             <!-- Module -->
+            <dependency>
+                <groupId>com.vgalloy</groupId>
+                <artifactId>empire-configuration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>com.vgalloy</groupId>
                 <artifactId>empire-common</artifactId>
@@ -228,6 +234,10 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
                 <executions>
                     <execution>
@@ -261,6 +271,11 @@
                     <failsOnError>true</failsOnError>
                 </configuration>
                 <dependencies>
+                    <dependency>
+                        <groupId>com.vgalloy</groupId>
+                        <artifactId>empire-configuration</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
                     <dependency>
                         <groupId>com.puppycrawl.tools</groupId>
                         <artifactId>checkstyle</artifactId>
@@ -302,6 +317,11 @@
                     </execution>
                 </executions>
                 <dependencies>
+                    <dependency>
+                        <groupId>com.vgalloy</groupId>
+                        <artifactId>empire-configuration</artifactId>
+                        <version>${project.version}</version>
+                    </dependency>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-core</artifactId>
