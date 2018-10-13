@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.vgalloy.empire.webservice.dto.ErrorDto;
-import com.vgalloy.empire.webservice.exception.NotFoundException;
+import com.vgalloy.empire.webservice.exception.NotFoundUrlException;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -32,7 +32,7 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(Throwable.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final Throwable e) {
         LOGGER.error("", e);
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Ups ... unexpected error occurred ! !");
@@ -44,7 +44,7 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(AccessDeniedException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final AccessDeniedException e) {
         LOGGER.error("", e);
         return buildResponse(HttpStatus.FORBIDDEN);
@@ -56,7 +56,7 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final ConstraintViolationException e) {
         LOGGER.warn("", e);
         return buildResponse(HttpStatus.BAD_REQUEST);
@@ -68,9 +68,9 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorDto> handle(final NotFoundException e) {
-        LOGGER.warn("NotFoundException : {}", HttpStatus.NOT_FOUND.getReasonPhrase());
+    @ExceptionHandler
+    public ResponseEntity<ErrorDto> handle(final NotFoundUrlException e) {
+        LOGGER.warn("NotFoundUrlException : {}", e.getUrl());
         return buildResponse(HttpStatus.NOT_FOUND);
     }
 
@@ -80,7 +80,7 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final HttpMessageNotReadableException e) {
         LOGGER.warn("{}", e.getMessage());
         return buildResponse(HttpStatus.BAD_REQUEST, "Invalid json");
@@ -92,7 +92,7 @@ final class GlobalErrorHandler {
      * @param e The handle exception
      * @return The error message for web user
      */
-    @ExceptionHandler(MissingPathVariableException.class)
+    @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final MissingPathVariableException e) {
         LOGGER.warn("{}", e.getMessage());
         return buildResponse(HttpStatus.BAD_REQUEST, e.getMessage());
