@@ -26,6 +26,17 @@ public class InMemoryFeatureConfigurationStore implements FeatureConfigurationSt
      *
      * @param featureConfigurations the first configurations
      */
+    public InMemoryFeatureConfigurationStore(final Collection<FeatureConfiguration> featureConfigurations) {
+        for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
+            map.put(featureConfiguration.getName(), featureConfiguration);
+        }
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param featureConfigurations the first configurations
+     */
     public InMemoryFeatureConfigurationStore(final FeatureConfiguration... featureConfigurations) {
         for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
             map.put(featureConfiguration.getName(), featureConfiguration);
