@@ -8,14 +8,14 @@ import java.lang.annotation.Target;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
-import com.vgalloy.empire.feature.internal.common.FeatureSwitcherConfiguration;
+import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfiguration;
 
 /**
  * Created by Vincent Galloy on 12/10/18.
  *
  * @author Vincent Galloy
  */
-@Import(FeatureSwitcherConfiguration.class)
+@Import(FeatureSwitcherSpringConfiguration.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @Configuration

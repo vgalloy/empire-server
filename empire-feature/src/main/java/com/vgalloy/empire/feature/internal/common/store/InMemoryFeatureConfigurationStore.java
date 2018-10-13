@@ -9,6 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import com.vgalloy.empire.feature.api.FeatureAdder;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 
 /**
@@ -19,25 +20,17 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 @Service
 public class InMemoryFeatureConfigurationStore implements FeatureConfigurationStore {
 
+    private final FeatureAdder featureAdder;
     private final Map<String, FeatureConfiguration> map = new ConcurrentHashMap<>();
 
     /**
      * Constructor.
      *
-     * @param featureConfigurations the first configurations
+     * @param featureAdder          not null
+     * @param featureConfigurations not null
      */
-    public InMemoryFeatureConfigurationStore(final Collection<FeatureConfiguration> featureConfigurations) {
-        for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
-            map.put(featureConfiguration.getName(), featureConfiguration);
-        }
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param featureConfigurations the first configurations
-     */
-    public InMemoryFeatureConfigurationStore(final FeatureConfiguration... featureConfigurations) {
+    public InMemoryFeatureConfigurationStore(final FeatureAdder featureAdder, final FeatureConfiguration... featureConfigurations) {
+        this.featureAdder = featureAdder;
         for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
             map.put(featureConfiguration.getName(), featureConfiguration);
         }
@@ -46,7 +39,13 @@ public class InMemoryFeatureConfigurationStore implements FeatureConfigurationSt
     @Override
     public Optional<FeatureConfiguration> getById(final String featureId) {
         Objects.requireNonNull(featureId);
-        return Optional.ofNullable(map.get(featureId));
+        final FeatureConfiguration featureConfiguration = map.get(featureId);
+        if (Objects.nonNull(featureConfiguration)) {
+            return Optional.of(featureConfiguration);
+        }
+        final Optional<FeatureConfiguration> newFeature = featureAdder.addFeature(featureId);
+        newFeature.ifPresent(this::add);
+        return newFeature;
     }
 
     @Override

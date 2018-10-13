@@ -1,9 +1,10 @@
 package com.vgalloy.empire.feature.api.config;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import com.vgalloy.empire.feature.internal.common.PackageScanner;
+import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -12,16 +13,27 @@ import java.util.Objects;
  */
 public class FeatureSwitcherModuleConfiguration {
 
-    private final List<String> basePackages;
+    private final PackageScanner packageScanner;
+    private final FeatureConfigurationStore featureConfigurationStore;
+
+    /**
+     * Return the buildStore for this object.
+     *
+     * @return a new builder instance
+     */
+    public static FeatureSwitcherModuleBuilder builder() {
+        return new FeatureSwitcherModuleBuilder();
+    }
 
     /**
      * Constructor.
-     * Private to avoid non managed instantiation
      *
-     * @param builder the builder
+     * @param packageScanner            not null
+     * @param featureConfigurationStore not null
      */
-    private FeatureSwitcherModuleConfiguration(final Builder builder) {
-        this.basePackages = Collections.unmodifiableList(builder.basePackages);
+    FeatureSwitcherModuleConfiguration(final PackageScanner packageScanner, final FeatureConfigurationStore featureConfigurationStore) {
+        this.packageScanner = Objects.requireNonNull(packageScanner, "No base package defined");
+        this.featureConfigurationStore = Objects.requireNonNull(featureConfigurationStore, "No feature configuration store");
     }
 
     /**
@@ -29,45 +41,11 @@ public class FeatureSwitcherModuleConfiguration {
      *
      * @return a list with all package to scan
      */
-    public List<String> getBasePackages() {
-        if (basePackages.isEmpty()) {
-            return Collections.singletonList("");
-        }
-        return basePackages;
+    public List<String> getPackages() {
+        return packageScanner.getPackage();
     }
 
-    /**
-     * Builder for the module configuration.
-     *
-     * @return a new builder
-     */
-    public static Builder builder() {
-        return new Builder();
-    }
-
-    public static class Builder {
-
-        private final List<String> basePackages = new ArrayList<>();
-
-        /**
-         * Add a new package to scan.
-         *
-         * @param basePackage the package path, not null
-         * @return this
-         */
-        public Builder addBasePackage(final String basePackage) {
-            Objects.requireNonNull(basePackage, "Can't scan null package");
-            this.basePackages.add(basePackage);
-            return this;
-        }
-
-        /**
-         * Build the module.
-         *
-         * @return a new configuration module
-         */
-        public FeatureSwitcherModuleConfiguration build() {
-            return new FeatureSwitcherModuleConfiguration(this);
-        }
+    public FeatureConfigurationStore getFeatureConfigurationStore() {
+        return featureConfigurationStore;
     }
 }

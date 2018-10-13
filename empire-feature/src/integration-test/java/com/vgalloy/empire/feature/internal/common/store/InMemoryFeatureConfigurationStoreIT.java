@@ -11,6 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import com.vgalloy.empire.feature.internal.common.aspect.FeatureAspect;
 
@@ -30,7 +31,7 @@ public class InMemoryFeatureConfigurationStoreIT {
 
         @Bean
         public FeatureConfigurationStore featureConfigurationStore() {
-            return new InMemoryFeatureConfigurationStore(
+            return new InMemoryFeatureConfigurationStore(FeatureAdderNoop.INSTANCE,
                 new FeatureConfiguration(SampleBean.FEATURE_OK, true),
                 new FeatureConfiguration(SampleBean.FEATURE_KO, false)
             );

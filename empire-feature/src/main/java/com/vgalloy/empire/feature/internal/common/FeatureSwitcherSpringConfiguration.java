@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Import;
 
 import com.vgalloy.empire.feature.api.config.FeatureSwitcherModuleConfiguration;
 import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigurationStore;
 import com.vgalloy.empire.feature.internal.web.FeatureSwitcherWebConfiguration;
 
 /**
@@ -17,7 +16,7 @@ import com.vgalloy.empire.feature.internal.web.FeatureSwitcherWebConfiguration;
  */
 @Import(FeatureSwitcherWebConfiguration.class)
 @Configuration
-public class FeatureSwitcherConfiguration {
+public class FeatureSwitcherSpringConfiguration {
 
     /**
      * Create a default module configuration if doesn't exist.
@@ -28,16 +27,18 @@ public class FeatureSwitcherConfiguration {
     @Bean
     public FeatureSwitcherModuleConfiguration featureSwitcherModuleConfiguration() {
         return FeatureSwitcherModuleConfiguration.builder()
+            .inMemoryStoreBuilder().buildStore()
             .build();
     }
 
     /**
      * Build feature store.
      *
+     * @param configuration the module configuration
      * @return the feature store
      */
     @Bean
-    public FeatureConfigurationStore featureConfigurationStore() {
-        return new InMemoryFeatureConfigurationStore();
+    public FeatureConfigurationStore featureConfigurationStore(final FeatureSwitcherModuleConfiguration configuration) {
+        return configuration.getFeatureConfigurationStore();
     }
 }

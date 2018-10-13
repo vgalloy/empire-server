@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vgalloy.empire.feature.api.EnableFeatureSwitcher;
+import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigurationStore;
@@ -36,7 +37,7 @@ public class FeatureRestControllerIT {
 
         @Bean
         public FeatureConfigurationStore featureConfigurationStore() {
-            return new InMemoryFeatureConfigurationStore(new FeatureConfiguration(FEATURE_NAME, true));
+            return new InMemoryFeatureConfigurationStore(FeatureAdderNoop.INSTANCE, new FeatureConfiguration(FEATURE_NAME, true));
         }
     }
 
