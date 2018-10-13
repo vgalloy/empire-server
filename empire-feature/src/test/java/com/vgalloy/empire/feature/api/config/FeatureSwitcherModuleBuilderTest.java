@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigurationStore;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -17,12 +17,12 @@ public final class FeatureSwitcherModuleBuilderTest {
     public void inMemoryBuilder() {
         // WHEN
         final FeatureSwitcherModuleConfiguration configuration = FeatureSwitcherModuleConfiguration.builder()
-                .inMemoryStoreBuilder()
-                .buildStore()
+            .inMemoryFeatureManager()
+            .buildManager()
             .build();
 
         // THEN
-        Assert.assertTrue(configuration.getFeatureConfigurationStore() instanceof InMemoryFeatureConfigurationStore);
+        Assert.assertTrue(configuration.getFeatureManager() instanceof InMemoryFeatureManager);
     }
 
     @Test

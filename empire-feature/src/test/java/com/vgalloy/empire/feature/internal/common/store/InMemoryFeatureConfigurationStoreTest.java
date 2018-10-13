@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderEnabler;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
@@ -19,7 +20,7 @@ public final class InMemoryFeatureConfigurationStoreTest {
     @Test
     public void noFeatureAdded() {
         // GIVEN
-        final FeatureConfigurationStore store = new InMemoryFeatureConfigurationStore(FeatureAdderNoop.INSTANCE);
+        final FeatureManager store = new InMemoryFeatureManager(FeatureAdderNoop.INSTANCE);
         store.getById("Noop");
 
         // WHEN
@@ -32,7 +33,7 @@ public final class InMemoryFeatureConfigurationStoreTest {
     @Test
     public void featureAddAndEnable() {
         // GIVEN
-        final FeatureConfigurationStore store = new InMemoryFeatureConfigurationStore(new FeatureAdderEnabler());
+        final FeatureManager store = new InMemoryFeatureManager(new FeatureAdderEnabler());
         store.getById("Noop");
 
         // WHEN

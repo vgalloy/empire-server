@@ -3,8 +3,8 @@ package com.vgalloy.empire.feature.api.config;
 import java.util.List;
 import java.util.Objects;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.PackageScanner;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -14,26 +14,26 @@ import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStor
 public class FeatureSwitcherModuleConfiguration {
 
     private final PackageScanner packageScanner;
-    private final FeatureConfigurationStore featureConfigurationStore;
+    private final FeatureManager featureManager;
 
     /**
-     * Return the buildStore for this object.
+     * Constructor.
+     *
+     * @param packageScanner not null
+     * @param featureManager not null
+     */
+    FeatureSwitcherModuleConfiguration(final PackageScanner packageScanner, final FeatureManager featureManager) {
+        this.packageScanner = Objects.requireNonNull(packageScanner, "No base package defined");
+        this.featureManager = Objects.requireNonNull(featureManager, "No feature configuration store");
+    }
+
+    /**
+     * Return the buildManager for this object.
      *
      * @return a new builder instance
      */
     public static FeatureSwitcherModuleBuilder builder() {
         return new FeatureSwitcherModuleBuilder();
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param packageScanner            not null
-     * @param featureConfigurationStore not null
-     */
-    FeatureSwitcherModuleConfiguration(final PackageScanner packageScanner, final FeatureConfigurationStore featureConfigurationStore) {
-        this.packageScanner = Objects.requireNonNull(packageScanner, "No base package defined");
-        this.featureConfigurationStore = Objects.requireNonNull(featureConfigurationStore, "No feature configuration store");
     }
 
     /**
@@ -45,7 +45,7 @@ public class FeatureSwitcherModuleConfiguration {
         return packageScanner.getPackage();
     }
 
-    public FeatureConfigurationStore getFeatureConfigurationStore() {
-        return featureConfigurationStore;
+    public FeatureManager getFeatureManager() {
+        return featureManager;
     }
 }

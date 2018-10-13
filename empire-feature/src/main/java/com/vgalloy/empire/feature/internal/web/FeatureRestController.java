@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.exception.WebNotFoundException;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 
 /**
  * Created by Vincent Galloy on 11/10/18.
@@ -26,15 +26,15 @@ import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStor
 @RestController
 public class FeatureRestController {
 
-    private final FeatureConfigurationStore featureConfigurationStore;
+    private final FeatureManager featureManager;
 
     /**
      * Constructor.
      *
-     * @param featureConfigurationStore feature store, not null
+     * @param featureManager feature store, not null
      */
-    public FeatureRestController(final FeatureConfigurationStore featureConfigurationStore) {
-        this.featureConfigurationStore = Objects.requireNonNull(featureConfigurationStore);
+    public FeatureRestController(final FeatureManager featureManager) {
+        this.featureManager = Objects.requireNonNull(featureManager);
     }
 
     /**
@@ -44,7 +44,7 @@ public class FeatureRestController {
      */
     @GetMapping
     public Collection<FeatureConfiguration> getAll() {
-        return featureConfigurationStore.getAll();
+        return featureManager.getAll();
     }
 
     /**
@@ -55,7 +55,7 @@ public class FeatureRestController {
      */
     @GetMapping("{featureId}")
     public FeatureConfiguration getById(final @PathVariable String featureId) {
-        return featureConfigurationStore.getById(featureId).orElseThrow(() -> new WebNotFoundException(featureId));
+        return featureManager.getById(featureId).orElseThrow(() -> new WebNotFoundException(featureId));
     }
 
     /**
@@ -69,6 +69,6 @@ public class FeatureRestController {
     public FeatureConfiguration update(final @PathVariable String featureId, final @RequestBody FeatureConfiguration featureConfiguration) {
         // TODO
         final FeatureConfiguration newfeature = new FeatureConfiguration(featureId, featureConfiguration.isEnable());
-        return featureConfigurationStore.update(newfeature);
+        return featureManager.update(newfeature);
     }
 }

@@ -1,4 +1,4 @@
-package com.vgalloy.empire.feature.internal.common.store;
+package com.vgalloy.empire.feature.api;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -10,7 +10,7 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
  *
  * @author Vincent Galloy
  */
-public interface FeatureConfigurationStore {
+public interface FeatureManager {
 
     /**
      * Return corresponding feature.

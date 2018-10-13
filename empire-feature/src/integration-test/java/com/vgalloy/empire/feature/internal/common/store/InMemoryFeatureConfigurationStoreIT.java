@@ -11,6 +11,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import com.vgalloy.empire.feature.internal.common.aspect.FeatureAspect;
@@ -24,29 +25,6 @@ import com.vgalloy.empire.feature.internal.common.aspect.FeatureAspect;
 @RunWith(SpringRunner.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class InMemoryFeatureConfigurationStoreIT {
-
-    @Configuration
-    @EnableAspectJAutoProxy
-    public static class Config {
-
-        @Bean
-        public FeatureConfigurationStore featureConfigurationStore() {
-            return new InMemoryFeatureConfigurationStore(FeatureAdderNoop.INSTANCE,
-                new FeatureConfiguration(SampleBean.FEATURE_OK, true),
-                new FeatureConfiguration(SampleBean.FEATURE_KO, false)
-            );
-        }
-
-        @Bean
-        public FeatureAspect featureAspect(final FeatureConfigurationStore featureConfigurationStore) {
-            return new FeatureAspect(featureConfigurationStore);
-        }
-
-        @Bean
-        public SampleBean sampleBean() {
-            return new SampleBean();
-        }
-    }
 
     @Autowired
     private SampleBean sampleBean;
@@ -76,5 +54,28 @@ public class InMemoryFeatureConfigurationStoreIT {
 
         // THEN
         Assert.assertFalse(sampleBean.isUsed());
+    }
+
+    @Configuration
+    @EnableAspectJAutoProxy
+    public static class Config {
+
+        @Bean
+        public FeatureManager featureConfigurationStore() {
+            return new InMemoryFeatureManager(FeatureAdderNoop.INSTANCE,
+                new FeatureConfiguration(SampleBean.FEATURE_OK, true),
+                new FeatureConfiguration(SampleBean.FEATURE_KO, false)
+            );
+        }
+
+        @Bean
+        public FeatureAspect featureAspect(final FeatureManager featureManager) {
+            return new FeatureAspect(featureManager);
+        }
+
+        @Bean
+        public SampleBean sampleBean() {
+            return new SampleBean();
+        }
     }
 }

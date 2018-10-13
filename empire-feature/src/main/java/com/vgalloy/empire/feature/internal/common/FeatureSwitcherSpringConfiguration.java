@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.config.FeatureSwitcherModuleConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 import com.vgalloy.empire.feature.internal.web.FeatureSwitcherWebConfiguration;
 
 /**
@@ -27,7 +27,7 @@ public class FeatureSwitcherSpringConfiguration {
     @Bean
     public FeatureSwitcherModuleConfiguration featureSwitcherModuleConfiguration() {
         return FeatureSwitcherModuleConfiguration.builder()
-            .inMemoryStoreBuilder().buildStore()
+            .inMemoryFeatureManager().buildManager()
             .build();
     }
 
@@ -38,7 +38,7 @@ public class FeatureSwitcherSpringConfiguration {
      * @return the feature store
      */
     @Bean
-    public FeatureConfigurationStore featureConfigurationStore(final FeatureSwitcherModuleConfiguration configuration) {
-        return configuration.getFeatureConfigurationStore();
+    public FeatureManager featureConfigurationStore(final FeatureSwitcherModuleConfiguration configuration) {
+        return configuration.getFeatureManager();
     }
 }

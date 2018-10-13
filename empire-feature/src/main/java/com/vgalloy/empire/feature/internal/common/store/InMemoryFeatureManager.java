@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import com.vgalloy.empire.feature.api.FeatureAdder;
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 
 /**
@@ -18,7 +19,7 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
  * @author Vincent Galloy
  */
 @Service
-public class InMemoryFeatureConfigurationStore implements FeatureConfigurationStore {
+public class InMemoryFeatureManager implements FeatureManager {
 
     private final FeatureAdder featureAdder;
     private final Map<String, FeatureConfiguration> map = new ConcurrentHashMap<>();
@@ -29,7 +30,7 @@ public class InMemoryFeatureConfigurationStore implements FeatureConfigurationSt
      * @param featureAdder          not null
      * @param featureConfigurations not null
      */
-    public InMemoryFeatureConfigurationStore(final FeatureAdder featureAdder, final FeatureConfiguration... featureConfigurations) {
+    public InMemoryFeatureManager(final FeatureAdder featureAdder, final FeatureConfiguration... featureConfigurations) {
         this.featureAdder = featureAdder;
         for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
             map.put(featureConfiguration.getName(), featureConfiguration);

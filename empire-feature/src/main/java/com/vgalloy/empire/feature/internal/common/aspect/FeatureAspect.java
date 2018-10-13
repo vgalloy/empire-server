@@ -8,9 +8,9 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.FeatureMethod;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 
 /**
  * Created by Vincent Galloy on 11/10/18.
@@ -21,21 +21,21 @@ import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStor
 @Component
 public class FeatureAspect {
 
-    private final FeatureConfigurationStore featureConfigurationStore;
+    private final FeatureManager featureManager;
 
     /**
      * Constructor.
      *
-     * @param featureConfigurationStore the store, not null
+     * @param featureManager the store, not null
      */
-    public FeatureAspect(final FeatureConfigurationStore featureConfigurationStore) {
-        this.featureConfigurationStore = Objects.requireNonNull(featureConfigurationStore);
+    public FeatureAspect(final FeatureManager featureManager) {
+        this.featureManager = Objects.requireNonNull(featureManager);
     }
 
     /**
      * Execute the method if the feature is active.
      *
-     * @param joinPoint   the jointPoint
+     * @param joinPoint     the jointPoint
      * @param featureMethod the feature Name
      * @return method result
      * @throws Throwable forward method throwable
@@ -43,7 +43,7 @@ public class FeatureAspect {
     @Around("@annotation(featureMethod)")
     public Object logExecutionTime(final ProceedingJoinPoint joinPoint, final FeatureMethod featureMethod) throws Throwable {
         final String name = featureMethod.value();
-        final Optional<FeatureConfiguration> featureConfiguration = this.featureConfigurationStore.getById(name);
+        final Optional<FeatureConfiguration> featureConfiguration = this.featureManager.getById(name);
         if (featureConfiguration.isPresent() && featureConfiguration.get().isEnable()) {
             return joinPoint.proceed();
         }

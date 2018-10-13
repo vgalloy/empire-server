@@ -23,8 +23,8 @@ public class FeatureStoreImpl implements FeatureStore {
     /**
      * Constructor.
      *
-     * @param applicationContext the applicationContext
-     * @param applicationProperties           the features
+     * @param applicationContext    the applicationContext
+     * @param applicationProperties the features
      */
     public FeatureStoreImpl(final ApplicationContext applicationContext, final ApplicationProperties applicationProperties) {
         this.applicationContext = Objects.requireNonNull(applicationContext);

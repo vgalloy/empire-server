@@ -13,10 +13,10 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vgalloy.empire.feature.api.EnableFeatureSwitcher;
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigurationStore;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -29,18 +29,6 @@ import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigura
 public class FeatureRestControllerIT {
 
     private static final String FEATURE_NAME = "web.feature";
-
-    @EnableFeatureSwitcher
-    @SpringBootConfiguration
-    @EnableAutoConfiguration
-    public static class Config {
-
-        @Bean
-        public FeatureConfigurationStore featureConfigurationStore() {
-            return new InMemoryFeatureConfigurationStore(FeatureAdderNoop.INSTANCE, new FeatureConfiguration(FEATURE_NAME, true));
-        }
-    }
-
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -56,5 +44,16 @@ public class FeatureRestControllerIT {
         Assert.assertNotNull(result);
         Assert.assertEquals(FEATURE_NAME, result.getName());
         Assert.assertTrue(result.isEnable());
+    }
+
+    @EnableFeatureSwitcher
+    @SpringBootConfiguration
+    @EnableAutoConfiguration
+    public static class Config {
+
+        @Bean
+        public FeatureManager featureConfigurationStore() {
+            return new InMemoryFeatureManager(FeatureAdderNoop.INSTANCE, new FeatureConfiguration(FEATURE_NAME, true));
+        }
     }
 }

@@ -26,16 +26,6 @@ import com.vgalloy.empire.feature.internal.sample.TestConfig;
 @RunWith(SpringRunner.class)
 public class FeatureStoreImplIT {
 
-    @Configuration
-    @Import({ApplicationProperties.class, TestConfig.class})
-    public static class Config {
-
-        @Bean
-        public FeatureStore featureStore(final ApplicationContext applicationContext, final ApplicationProperties applicationProperties) {
-            return new FeatureStoreImpl(applicationContext, applicationProperties);
-        }
-    }
-
     @Autowired
     private FeatureStore featureStore;
 
@@ -47,5 +37,15 @@ public class FeatureStoreImplIT {
         // THEN
         Assert.assertNotNull(operation);
         Assert.assertEquals(3, operation.apply(1, 2));
+    }
+
+    @Configuration
+    @Import({ApplicationProperties.class, TestConfig.class})
+    public static class Config {
+
+        @Bean
+        public FeatureStore featureStore(final ApplicationContext applicationContext, final ApplicationProperties applicationProperties) {
+            return new FeatureStoreImpl(applicationContext, applicationProperties);
+        }
     }
 }

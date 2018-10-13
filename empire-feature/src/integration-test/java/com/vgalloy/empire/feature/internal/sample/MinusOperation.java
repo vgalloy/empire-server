@@ -12,6 +12,6 @@ public class MinusOperation implements Operation {
 
     @Override
     public int apply(final int a, final int b) {
-        return a  + b;
+        return a + b;
     }
 }

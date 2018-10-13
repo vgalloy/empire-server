@@ -4,10 +4,10 @@ import java.util.Arrays;
 import java.util.Objects;
 
 import com.vgalloy.empire.feature.api.FeatureAdder;
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderEnabler;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureConfigurationStore;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -56,12 +56,12 @@ public class InMemoryStoreBuilder {
     }
 
     /**
-     * Build the {@link FeatureConfigurationStore} and set it to the parent.
+     * Build the {@link FeatureManager} and set it to the parent.
      *
      * @return the parent
      */
-    public FeatureSwitcherModuleBuilder buildStore() {
-        final FeatureConfigurationStore featureStore = new InMemoryFeatureConfigurationStore(featureAdder, featureConfigurations);
+    public FeatureSwitcherModuleBuilder buildManager() {
+        final FeatureManager featureStore = new InMemoryFeatureManager(featureAdder, featureConfigurations);
         return parent.featureConfigurationStore(featureStore);
     }
 }

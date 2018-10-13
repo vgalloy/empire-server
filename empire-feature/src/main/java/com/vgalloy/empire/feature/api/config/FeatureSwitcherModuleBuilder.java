@@ -2,8 +2,8 @@ package com.vgalloy.empire.feature.api.config;
 
 import java.util.Objects;
 
+import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.PackageScanner;
-import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStore;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -13,7 +13,7 @@ import com.vgalloy.empire.feature.internal.common.store.FeatureConfigurationStor
 public class FeatureSwitcherModuleBuilder {
 
     private final PackageScanner packageScanner = new PackageScanner();
-    private FeatureConfigurationStore featureConfigurationStore;
+    private FeatureManager featureManager;
 
     /**
      * Add a new package to scan.
@@ -28,23 +28,23 @@ public class FeatureSwitcherModuleBuilder {
     }
 
     /**
-     * Return a builder for {@link FeatureConfigurationStore}.
+     * Return a builder for {@link FeatureManager}.
      *
      * @return the corresponding builder
      */
-    public InMemoryStoreBuilder inMemoryStoreBuilder() {
+    public InMemoryStoreBuilder inMemoryFeatureManager() {
         return new InMemoryStoreBuilder(this);
     }
 
     /**
-     * Define the {@link FeatureConfigurationStore} for the module.
+     * Define the {@link FeatureManager} for the module.
      * Invoking this method twice will override the first invocation
      *
-     * @param featureConfigurationStore the featureConfigurationStore for this module.
+     * @param featureManager the featureManager for this module.
      * @return this
      */
-    public FeatureSwitcherModuleBuilder featureConfigurationStore(final FeatureConfigurationStore featureConfigurationStore) {
-        this.featureConfigurationStore = Objects.requireNonNull(featureConfigurationStore, "featureConfigurationStore");
+    public FeatureSwitcherModuleBuilder featureConfigurationStore(final FeatureManager featureManager) {
+        this.featureManager = Objects.requireNonNull(featureManager, "featureManager");
         return this;
     }
 
@@ -54,6 +54,6 @@ public class FeatureSwitcherModuleBuilder {
      * @return the final configuration
      */
     public FeatureSwitcherModuleConfiguration build() {
-        return new FeatureSwitcherModuleConfiguration(this.packageScanner, this.featureConfigurationStore);
+        return new FeatureSwitcherModuleConfiguration(this.packageScanner, this.featureManager);
     }
 }
