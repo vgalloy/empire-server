@@ -84,12 +84,17 @@
             </dependency>
             <dependency>
                 <groupId>com.vgalloy</groupId>
-                <artifactId>empire-webservice</artifactId>
+                <artifactId>empire-feature</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.vgalloy</groupId>
                 <artifactId>empire-i18n</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vgalloy</groupId>
+                <artifactId>empire-webservice</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
