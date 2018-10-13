@@ -1,5 +1,10 @@
 package com.vgalloy.empire.feature.internal.common;
 
+import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Created by Vincent Galloy on 11/10/18.
  *
@@ -16,8 +21,9 @@ public class FeatureConfiguration {
      * @param name   the feature name. Used as id, not null, not empty
      * @param enable the feature state : on or off
      */
-    public FeatureConfiguration(final String name, final boolean enable) {
-        this.name = name;
+    @JsonCreator
+    public FeatureConfiguration(final @JsonProperty("name") String name, final @JsonProperty("enable") boolean enable) {
+        this.name = Objects.requireNonNull(name);
         this.enable = enable;
     }
 

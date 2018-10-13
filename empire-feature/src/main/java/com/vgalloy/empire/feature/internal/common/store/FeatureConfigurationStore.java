@@ -29,6 +29,14 @@ public interface FeatureConfigurationStore {
     FeatureConfiguration update(FeatureConfiguration featureConfiguration);
 
     /**
+     * Create the corresponding feature configuration.
+     *
+     * @param featureConfiguration the feature configuration, not null
+     * @return the updated feature configuration, not null
+     */
+    FeatureConfiguration add(FeatureConfiguration featureConfiguration);
+
+    /**
      * Get all the feature in the store.
      *
      * @return all the feature as a collection, not null

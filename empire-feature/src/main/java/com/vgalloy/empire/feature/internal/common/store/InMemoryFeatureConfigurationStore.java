@@ -52,7 +52,15 @@ public class InMemoryFeatureConfigurationStore implements FeatureConfigurationSt
     @Override
     public FeatureConfiguration update(final FeatureConfiguration featureConfiguration) {
         Objects.requireNonNull(featureConfiguration);
-        Assert.state(map.containsKey(featureConfiguration.getName()), "Can update an non existing feature configuration");
+        Assert.state(map.containsKey(featureConfiguration.getName()), "Can't update an non existing feature configuration");
+        map.put(featureConfiguration.getName(), featureConfiguration);
+        return featureConfiguration;
+    }
+
+    @Override
+    public FeatureConfiguration add(final FeatureConfiguration featureConfiguration) {
+        Objects.requireNonNull(featureConfiguration);
+        Assert.state(!map.containsKey(featureConfiguration.getName()), "Can create a exiting feature configuration");
         map.put(featureConfiguration.getName(), featureConfiguration);
         return featureConfiguration;
     }
