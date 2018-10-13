@@ -7,7 +7,7 @@ apply plugin: 'org.springframework.boot'
 dependencies {
     compile project(':empire-service')
     compile project(':empire-persistence')
-    compile project(':empire-feature')
+    compile project(':empire-feature:empire-feature-web')
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-web', version: "$springBootVersion"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version: "$springBootVersion"
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-hateoas', version: "$springBootVersion"

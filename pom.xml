@@ -117,6 +117,7 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${maven-pmd-plugin.version}</version>
                 <configuration>
+                    <skip>true</skip>
                     <linkXRef>false</linkXRef>
                     <minimumTokens>20</minimumTokens>
                     <skipEmptyReport>false</skipEmptyReport>
