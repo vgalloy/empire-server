@@ -91,10 +91,10 @@ allprojects {
         sourceCompatibility = "$javaVersion"
         targetCompatibility = "$javaVersion"
         options.encoding = "$encoding"
-//        options.compilerArgs += [
-//                '-Xlint:all',
+        options.compilerArgs += [
+                '-Xlint:all',
 //                '-Werror'
-//        ]
+        ]
     }
 
     task integrationTest(type: Test) {
