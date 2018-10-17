@@ -2,10 +2,12 @@ package com.vgalloy.empire.webservice.controller;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +24,9 @@ import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.UserDto;
-import com.vgalloy.empire.webservice.dto.UserIdDto;
 import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
-import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
+import com.vgalloy.empire.webservice.resource.DataResource;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -42,7 +43,6 @@ public class UserController {
     private final UserMapper userMapper;
     private final EmpireService empireService;
     private final EmpireIdMapper empireIdMapper;
-    private final UserIdMapper userIdMapper;
 
     /**
      * Constructor.
@@ -51,40 +51,39 @@ public class UserController {
      * @param userMapper     the user mapper
      * @param empireService  the empire service
      * @param empireIdMapper the empireId mapper
-     * @param userIdMapper the userId mapper
      */
-    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService, final EmpireIdMapper empireIdMapper, final UserIdMapper userIdMapper) {
+    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService, final EmpireIdMapper empireIdMapper) {
         this.userService = Objects.requireNonNull(userService);
         this.userMapper = Objects.requireNonNull(userMapper);
         this.empireService = Objects.requireNonNull(empireService);
         this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
-        this.userIdMapper = Objects.requireNonNull(userIdMapper);
     }
 
     /**
      * Get the user by id.
      *
-     * @param userIdDto the user id dto
+     * @param userId the user id
      * @return the User
      */
-    @GetMapping("{userIdDto}")
-    public UserDto getById(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto) {
-        final UserId userId = userIdMapper.unmap(userIdDto);
-        final User user = userService.getById(userId);
-        return userMapper.map(user);
+    @GetMapping("{userId}")
+    public DataResource<UserDto> getById(@PathVariable @Valid @NotNull(message = "User id can't be null") final UUID userId) {
+        final User user = userService.getById(UserId.of(userId));
+        final UserDto userDto = userMapper.map(user);
+        final DataResource<UserDto> resource = new DataResource<>(userId, userDto);
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        return resource;
     }
 
     /**
      * Get the user by id.
      *
-     * @param userIdDto the user id
+     * @param userId the user id
      * @return the User
      */
-    @GetMapping("{userIdDto}/empires")
-    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto) {
-        final UserId userId = userIdMapper.unmap(userIdDto);
-
-        return empireService.getEmpireIdByUserId(userId).stream()
+    @GetMapping("{userId}/empires")
+    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = "User id can't be null") final UUID userId) {
+        return empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
             .map(empireIdMapper::map)
             .collect(Collectors.toList());
     }
@@ -96,23 +95,30 @@ public class UserController {
      * @return the user id
      */
     @PostMapping
-    public UserIdDto create(@RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
+    public DataResource<UserDto> create(@RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
         final User user = userService.create(userDto.getLogin(), userDto.getPassword());
-        return userIdMapper.map(user.getId());
+        final UUID userId = user.getId().getId();
+        final DataResource<UserDto> resource = new DataResource<>(userId, userDto);
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        return resource;
     }
 
     /**
      * Update the user.
      *
-     * @param userIdDto  the user id
-     * @param userDto the user to update
+     * @param userId the user id
+     * @param userDto   the user to update
      * @return the new user
      */
-    @PutMapping("{userIdDto}")
-    public UserDto update(@PathVariable @Valid @NotNull(message = "User id can't be null") final UserIdDto userIdDto, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
-        final User user = userMapper.unmap(userIdDto, userDto);
+    @PutMapping("{userId}")
+    public DataResource<UserDto> update(@PathVariable @Valid @NotNull(message = "User id can't be null") final UUID userId, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
+        final User user = userMapper.unmap(userId, userDto);
         userService.update(user);
-        return userMapper.map(user);
+        final DataResource<UserDto> resource = new DataResource<>(user.getId().getId(), userDto);
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(user.getId().getId())).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        return resource;
     }
 
     /**
@@ -121,10 +127,10 @@ public class UserController {
      * @return the list internalCreate user id
      */
     @GetMapping
-    public List<UserIdDto> getAll() {
+    public List<UUID> getAll() {
         return userService.getAll().stream()
             .map(User::getId)
-            .map(userIdMapper::map)
+            .map(UserId::getId)
             .collect(Collectors.toList());
     }
 }

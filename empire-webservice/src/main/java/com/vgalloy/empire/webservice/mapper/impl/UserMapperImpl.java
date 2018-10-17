@@ -1,12 +1,12 @@
 package com.vgalloy.empire.webservice.mapper.impl;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
-import com.vgalloy.empire.webservice.dto.UserIdDto;
-import com.vgalloy.empire.webservice.mapper.UserIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
 
 /**
@@ -17,17 +17,6 @@ import com.vgalloy.empire.webservice.mapper.UserMapper;
 @Component
 final class UserMapperImpl implements UserMapper {
 
-    private final UserIdMapper userIdMapper;
-
-    /**
-     * Constructor.
-     *
-     * @param userIdMapper the user id mapper
-     */
-    UserMapperImpl(final UserIdMapper userIdMapper) {
-        this.userIdMapper = userIdMapper;
-    }
-
     @Override
     public UserDto map(final User user) {
         final UserDto result = new UserDto();
@@ -37,8 +26,8 @@ final class UserMapperImpl implements UserMapper {
     }
 
     @Override
-    public User unmap(final UserIdDto userIdDto, final UserDto userDto) {
-        final UserId userId = userIdMapper.unmap(userIdDto);
+    public User unmap(final UUID userIdDto, final UserDto userDto) {
+        final UserId userId = UserId.of(userIdDto);
         return User.of(userId, userDto.getLogin(), userDto.getPassword());
     }
 }

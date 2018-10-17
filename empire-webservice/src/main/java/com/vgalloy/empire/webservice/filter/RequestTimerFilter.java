@@ -30,13 +30,12 @@ public class RequestTimerFilter implements Filter {
 
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-        final long start = System.currentTimeMillis();
+        TimerContextHolder.start();
         try {
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
-            final long total = System.currentTimeMillis() - start;
             if (LOGGER.isInfoEnabled()) {
-                LOGGER.info("Total execution time : " + total + " ms");
+                LOGGER.info("Total execution time : {} ms", TimerContextHolder.getExecutionTimeMillis());
             }
         }
     }

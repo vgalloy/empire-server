@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public final class UserId {
 
-    private final String id;
+    private final UUID id;
 
     /**
      * Constructor.
@@ -18,7 +18,7 @@ public final class UserId {
      *
      * @param id the is of the user
      */
-    private UserId(final String id) {
+    private UserId(final UUID id) {
         this.id = id;
     }
 
@@ -28,7 +28,7 @@ public final class UserId {
      * @param id the id
      * @return a new {@link UserId}
      */
-    public static UserId of(final String id) {
+    public static UserId of(final UUID id) {
         Objects.requireNonNull(id);
 
         return new UserId(id);
@@ -40,11 +40,10 @@ public final class UserId {
      * @return a new {@link UserId}
      */
     public static UserId newInstance() {
-        final String id = UUID.randomUUID().toString();
-        return new UserId(id);
+        return new UserId(UUID.randomUUID());
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 

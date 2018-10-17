@@ -1,8 +1,9 @@
 package com.vgalloy.empire.webservice.mapper;
 
+import java.util.UUID;
+
 import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.webservice.dto.UserDto;
-import com.vgalloy.empire.webservice.dto.UserIdDto;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -18,5 +19,5 @@ public interface UserMapper extends Mapper<User, UserDto> {
      * @param userDto the user dto
      * @return the User
      */
-    User unmap(UserIdDto userIdDto, UserDto userDto);
+    User unmap(UUID userIdDto, UserDto userDto);
 }

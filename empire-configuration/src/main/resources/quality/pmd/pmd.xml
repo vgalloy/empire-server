@@ -18,7 +18,7 @@
         <exclude name="CommentDefaultAccessModifier"/>
         <exclude name="ShortClassName"/>
         <exclude name="CallSuperInConstructor"/>
-        <!--<exclude name="ClassNamingConventions"/>-->
+        <exclude name="ClassNamingConventions"/>
         <exclude name="FieldNamingConventions" />
     </rule>
     <rule ref="category/java/design.xml">
