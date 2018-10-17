@@ -29,7 +29,7 @@ ext {
     findbugsVersion = '3.0.1'
     jacocoVersion = '0.8.2'
 
-    springBootVersion = '2.0.5.RELEASE'
+    springBootVersion = '2.0.6.RELEASE'
     springFoxVersion = '2.9.2'
     junitVersion = '4.12'
 }

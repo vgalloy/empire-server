@@ -259,8 +259,8 @@
 
             <!--
                 Mojo Version Checker
-                Checks dependencies version : mvn versions:display-dependency-updates
-                Checks plugin  version : mvn versions:display-plugin-updates
+                Checks dependencies version : ./mvnw versions:display-dependency-updates
+                Checks plugin  version : ./mvnw versions:display-plugin-updates
             -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
