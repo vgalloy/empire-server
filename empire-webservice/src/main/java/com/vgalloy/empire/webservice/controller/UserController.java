@@ -71,7 +71,7 @@ public class UserController {
         final UserDto userDto = userMapper.map(user);
         final DataResource<UserDto> resource = new DataResource<>(userId, userDto);
         resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
-        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withRel("update"));
         return resource;
     }
 
@@ -100,7 +100,7 @@ public class UserController {
         final UUID userId = user.getId().getId();
         final DataResource<UserDto> resource = new DataResource<>(userId, userDto);
         resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
-        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withRel("update"));
         return resource;
     }
 
@@ -117,7 +117,7 @@ public class UserController {
         userService.update(user);
         final DataResource<UserDto> resource = new DataResource<>(user.getId().getId(), userDto);
         resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(user.getId().getId())).withSelfRel());
-        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withSelfRel());
+        resource.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)).withRel("update"));
         return resource;
     }
 
