@@ -4,6 +4,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.springframework.hateoas.ResourceSupport;
 
 /**
@@ -11,8 +12,10 @@ import org.springframework.hateoas.ResourceSupport;
  *
  * @author Vincent Galloy
  */
+@JsonPropertyOrder({"_metadata", "_id", "resource"})
 public class DataResource<T> extends ResourceSupport {
 
+    private final ResourceMetaData metaData = ResourceMetaData.fromNow();
     private final UUID uuid;
     private final T resource;
 
@@ -25,6 +28,11 @@ public class DataResource<T> extends ResourceSupport {
     public DataResource(final UUID uuid, final T resource) {
         this.uuid = Objects.requireNonNull(uuid, "uuid");
         this.resource = Objects.requireNonNull(resource, "resource");
+    }
+
+    @JsonProperty("_metadata")
+    public ResourceMetaData getMetaData() {
+        return metaData;
     }
 
     @JsonProperty("_id")

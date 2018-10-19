@@ -9,6 +9,8 @@ import java.util.stream.Stream;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.springframework.hateoas.MediaTypes;
+import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,6 +28,8 @@ import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
+import com.vgalloy.empire.webservice.resource.DataResource;
+import com.vgalloy.empire.webservice.resource.LinkWithMethod;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -35,7 +39,7 @@ import com.vgalloy.empire.webservice.mapper.EmpireMapper;
 @NotNullApi
 @Validated
 @RestController
-@RequestMapping("empires")
+@RequestMapping(value = "empires", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class EmpireController {
 
     private final EmpireMapper empireMapper;
@@ -72,13 +76,17 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    public EmpireDto getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
+    public DataResource<EmpireDto> getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
         // EXTRACT
         final EmpireId id = EmpireId.of(empireId);
         // DO
         final Empire empire = empireService.getEmpireById(id);
         // MAP
-        return empireMapper.map(empire);
+        final EmpireDto empireDto = empireMapper.map(empire);
+
+        final DataResource<EmpireDto> resource = new DataResource<>(empireId, empireDto);
+        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getById(empireId)).withSelfRel());
+        return resource;
     }
 
     /**

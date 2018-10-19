@@ -1,13 +1,14 @@
 package com.vgalloy.empire.webservice.filter;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Created by Vincent Galloy on 17/10/18.
  *
  * @author Vincent Galloy
  */
-final class TimerContextHolder {
+public final class TimerContextHolder {
 
     private static final ThreadLocal<Long> START_TIME = new ThreadLocal<>();
 
@@ -19,15 +20,22 @@ final class TimerContextHolder {
     }
 
     /**
-     * Get the execution time since the {@link #start()} method. Or zero if it haven't been call.
+     * Remove the current timer.
+     */
+    static void reset() {
+        START_TIME.remove();
+    }
+
+    /**
+     * Get the execution time since the {@link #start()} method. Or {@link Optional#empty()} if it haven't been call.
      *
      * @return execution time or zero.
      */
-    static long getExecutionTimeMillis() {
+    public static Optional<Long> getExecutionTimeMillis() {
         final Long startTime = START_TIME.get();
         if (Objects.isNull(startTime)) {
-            return 0;
+            return Optional.empty();
         }
-        return System.currentTimeMillis() - startTime;
+        return Optional.of(System.currentTimeMillis() - startTime);
     }
 }
