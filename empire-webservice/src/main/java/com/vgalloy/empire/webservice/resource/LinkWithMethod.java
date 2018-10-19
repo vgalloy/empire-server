@@ -38,6 +38,11 @@ public class LinkWithMethod extends Link {
         return Arrays.copyOf(methods, methods.length);
     }
 
+    @Override
+    public LinkWithMethod withSelfRel() {
+        return new LinkWithMethod(this.getTemplate(), REL_SELF, methods);
+    }
+
     /**
      * Build a {@link LinkWithMethod} for the given proxy.
      *
