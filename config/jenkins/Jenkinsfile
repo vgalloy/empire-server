@@ -1,121 +1,104 @@
-pipeline {
-    agent any
-
-    stages {
-        stage('Init volume') {
-            steps {
-                sh '''
-                    if [ -e $(docker volume list -q -f "name=empire-source-volume") ]
-                    then
-                    	docker volume create --name=empire-source-volume
-                    	docker run \
-                            --rm \
-                            -v empire-source-volume:/git \
-                            alpine/git clone https://github.com/vgalloy/empire-server.git
-                    fi
-                    if [ -e $(docker volume list -q -f "name=empire-m2-volume") ]
-                    then
-                        docker volume create --name=empire-m2-volume
-                    fi
-                    if [ -e $(docker volume list -q -f "name=empire-gradle-volume") ]
-                    then
-                        docker volume create --name=empire-gradle-volume
-                    fi
-                    docker run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        ubuntu rm -rf target
-                '''
-            }
-        }
-
-        stage('Git fetch') {
-            steps {
-                sh '''
-                    docker run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        alpine/git fetch
-
-                    docker run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        alpine/git checkout --force origin/master
-                '''
-            }
-        }
-
-        stage('Maven clean install') {
-            steps {
-                sh '''
-                     docker container run \
-                         --rm \
-                         -v empire-m2-volume:/root/.m2 \
-                         -v empire-source-volume:/src/maven \
-                         -w /src/maven/empire-server \
-                        openjdk:10.0.2-jdk ./mvnw clean install
-                 '''
-            }
-        }
-
-        stage('Gradle build') {
-            steps {
-                sh '''
-                docker container run \
+node {
+    stage('Init volume') {
+        sh '''
+            if [ -e $(docker volume list -q -f "name=empire-source-volume") ]
+            then
+                docker volume create --name=empire-source-volume
+                docker run \
                     --rm \
-                    -v empire-m2-volume:/root/.m2 \
-                    -v empire-gradle-volume:/root/.gradle \
-                    -v empire-source-volume:/home/gradle \
-                    -w /home/gradle/empire-server \
-                    openjdk:10.0.2-jdk ./gradlew build
-                '''
-            }
-        }
+                    -v empire-source-volume:/git \
+                    alpine/git clone https://github.com/vgalloy/empire-server.git
+            fi
+            if [ -e $(docker volume list -q -f "name=empire-m2-volume") ]
+            then
+                docker volume create --name=empire-m2-volume
+            fi
+            if [ -e $(docker volume list -q -f "name=empire-gradle-volume") ]
+            then
+                docker volume create --name=empire-gradle-volume
+            fi
+            docker run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                ubuntu rm -rf target
+        '''
+    }
 
-        stage('Docker build image') {
-            steps {
-                sh '''
-                    docker container run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        ubuntu mkdir -p target
-                    docker container run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        ubuntu cp empire-webservice/build/libs/empire-server.jar target/empire-server.jar
-                    docker container run \
-                        --rm \
-                        -v empire-source-volume:/home/ \
-                        -w /home/empire-server \
-                        -v /var/run/docker.sock:/var/run/docker.sock \
-                        docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
-                    docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
-                '''
-            }
-        }
+    stage('Git fetch') {
+        sh '''
+            docker run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                alpine/git fetch
 
-        stage('Docker push image to registry') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh '''
-                        docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
-                        docker push registry.vgalloy.com/empire-server:1.$BUILD_NUMBER
-                        docker push registry.vgalloy.com/empire-server:latest
-                        docker logout registry.vgalloy.com
-                    '''
-                }
-            }
-        }
+            docker run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                alpine/git checkout --force origin/master
+        '''
+    }
 
-        stage('Deploy') {
-            steps {
-                sh "ssh ubuntu@api.empire.vgalloy.com container/empire/deploy.sh"
-            }
+    stage('Maven clean install') {
+        sh '''
+                 docker container run \
+                     --rm \
+                     -v empire-m2-volume:/root/.m2 \
+                     -v empire-source-volume:/src/maven \
+                     -w /src/maven/empire-server \
+                    openjdk:10.0.2-jdk ./mvnw clean install
+             '''
+    }
+
+    stage('Gradle build') {
+        sh '''
+            docker container run \
+                --rm \
+                -v empire-m2-volume:/root/.m2 \
+                -v empire-gradle-volume:/root/.gradle \
+                -v empire-source-volume:/home/gradle \
+                -w /home/gradle/empire-server \
+                openjdk:10.0.2-jdk ./gradlew build
+        '''
+    }
+
+    stage('Docker build image') {
+        sh '''
+            docker container run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                ubuntu mkdir -p target
+            docker container run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                ubuntu cp empire-webservice/build/libs/empire-server.jar target/empire-server.jar
+            docker container run \
+                --rm \
+                -v empire-source-volume:/home/ \
+                -w /home/empire-server \
+                -v /var/run/docker.sock:/var/run/docker.sock \
+                docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
+            docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
+        '''
+    }
+
+    stage('Docker push image to registry') {
+        withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
+            sh '''
+                docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
+                docker push registry.vgalloy.com/empire-server:1.$BUILD_NUMBER
+                docker push registry.vgalloy.com/empire-server:latest
+                docker logout registry.vgalloy.com
+            '''
         }
     }
+
+    stage('Deploy') {
+        sh "ssh ubuntu@api.empire.vgalloy.com container/empire/deploy.sh"
+    }
 }
+
