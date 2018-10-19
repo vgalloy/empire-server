@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
-import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
 import com.vgalloy.empire.webservice.mapper.PlayerInstructionMapper;
 import com.vgalloy.empire.webservice.mapper.RoundMapper;
@@ -22,7 +21,6 @@ final class EmpireMapperImpl implements EmpireMapper {
 
     private final RoundMapper roundMapper;
     private final StockMapper stockMapper;
-    private final EmpireIdMapper empireIdMapper;
     private final PlayerInstructionMapper playerInstructionMapper;
 
     /**
@@ -30,20 +28,18 @@ final class EmpireMapperImpl implements EmpireMapper {
      *
      * @param roundMapper             the round Mapper
      * @param stockMapper             the stock mapper
-     * @param empireIdMapper          empire id mapper
      * @param playerInstructionMapper the playerInstructionMapper
      */
-    EmpireMapperImpl(final RoundMapper roundMapper, final StockMapper stockMapper, final EmpireIdMapper empireIdMapper, final PlayerInstructionMapper playerInstructionMapper) {
+    EmpireMapperImpl(final RoundMapper roundMapper, final StockMapper stockMapper, final PlayerInstructionMapper playerInstructionMapper) {
         this.roundMapper = Objects.requireNonNull(roundMapper);
         this.stockMapper = Objects.requireNonNull(stockMapper);
-        this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
         this.playerInstructionMapper = Objects.requireNonNull(playerInstructionMapper);
     }
 
     @Override
     public EmpireDto map(final Empire empire) {
         final EmpireDto result = new EmpireDto();
-        result.setEmpireId(empireIdMapper.map(empire.getEmpireId()));
+        result.setEmpireId(empire.getEmpireId().getId());
         result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstructions()));
         result.setRound(roundMapper.map(empire.getRound()));
         result.setGold(empire.getGold());

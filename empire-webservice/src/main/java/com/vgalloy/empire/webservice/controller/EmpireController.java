@@ -3,6 +3,7 @@ package com.vgalloy.empire.webservice.controller;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,8 +25,6 @@ import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
-import com.vgalloy.empire.webservice.dto.EmpireIdDto;
-import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
 
 /**
@@ -40,7 +39,6 @@ import com.vgalloy.empire.webservice.mapper.EmpireMapper;
 public class EmpireController {
 
     private final EmpireMapper empireMapper;
-    private final EmpireIdMapper empireIdMapper;
     private final EmpireService empireService;
     private final EmpireDao empireDao;
 
@@ -48,13 +46,11 @@ public class EmpireController {
      * Constructor.
      *
      * @param empireMapper   the empireMapper
-     * @param empireIdMapper the empireIdMapper
      * @param empireService  the empireService
      * @param empireDao      the empireDao
      */
-    public EmpireController(final EmpireMapper empireMapper, final EmpireIdMapper empireIdMapper, final EmpireService empireService, final EmpireDao empireDao) {
+    public EmpireController(final EmpireMapper empireMapper, final EmpireService empireService, final EmpireDao empireDao) {
         this.empireMapper = Objects.requireNonNull(empireMapper);
-        this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
         this.empireService = Objects.requireNonNull(empireService);
         this.empireDao = Objects.requireNonNull(empireDao);
     }
@@ -76,9 +72,9 @@ public class EmpireController {
      * @return the empire
      */
     @GetMapping("{empireId}")
-    public EmpireDto getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final EmpireIdDto empireId) {
+    public EmpireDto getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
         // EXTRACT
-        final EmpireId id = this.empireIdMapper.unmap(empireId);
+        final EmpireId id = EmpireId.of(empireId);
         // DO
         final Empire empire = empireService.getEmpireById(id);
         // MAP
@@ -91,9 +87,9 @@ public class EmpireController {
      * @param empireId the empireId
      */
     @PutMapping("{empireId}/nextRound")
-    public void nextRound(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final EmpireIdDto empireId) {
+    public void nextRound(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
         // EXTRACT
-        final EmpireId id = this.empireIdMapper.unmap(empireId);
+        final EmpireId id = EmpireId.of(empireId);
         // DO
         final Empire empire = empireService.getEmpireById(id);
         final Empire newEmpire = empireService.computeNextRound(empire);
@@ -107,9 +103,9 @@ public class EmpireController {
      * @param orders   the new orders
      */
     @PatchMapping("{empireId}/order")
-    public void updateOrder(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final EmpireIdDto empireId, @Valid @NotNull @RequestBody final Map<OrderType, Long> orders) {
+    public void updateOrder(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId, @Valid @NotNull @RequestBody final Map<OrderType, Long> orders) {
         // EXTRACT
-        final EmpireId id = this.empireIdMapper.unmap(empireId);
+        final EmpireId id = EmpireId.of(empireId);
         // DO
         final Empire empire = empireService.getEmpireById(id);
         empireService.updateOrders(empire, orders);

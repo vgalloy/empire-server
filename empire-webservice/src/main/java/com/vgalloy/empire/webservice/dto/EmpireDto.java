@@ -1,5 +1,7 @@
 package com.vgalloy.empire.webservice.dto;
 
+import java.util.UUID;
+
 /**
  * Create by Vincent Galloy on 02/08/2017.
  *
@@ -7,7 +9,7 @@ package com.vgalloy.empire.webservice.dto;
  */
 public final class EmpireDto implements Dto {
 
-    private EmpireIdDto empireId;
+    private UUID empireId;
     private PlayerInstructionDto playerInstruction;
     private RoundDto round;
     private Long population;
@@ -15,11 +17,11 @@ public final class EmpireDto implements Dto {
     private Long tax;
     private StockDto stock;
 
-    public EmpireIdDto getEmpireId() {
+    public UUID getEmpireId() {
         return empireId;
     }
 
-    public void setEmpireId(final EmpireIdDto empireId) {
+    public void setEmpireId(final UUID empireId) {
         this.empireId = empireId;
     }
 

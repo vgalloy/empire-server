@@ -21,12 +21,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vgalloy.empire.common.nullable.NotNullApi;
 import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.UserService;
+import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
-import com.vgalloy.empire.webservice.dto.EmpireIdDto;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.exception.NotFoundResourceException;
-import com.vgalloy.empire.webservice.mapper.EmpireIdMapper;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
 import com.vgalloy.empire.webservice.resource.DataResource;
 import com.vgalloy.empire.webservice.resource.LinkWithMethod;
@@ -47,7 +46,6 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final EmpireService empireService;
-    private final EmpireIdMapper empireIdMapper;
 
     /**
      * Constructor.
@@ -55,13 +53,11 @@ public class UserController {
      * @param userService    the user service
      * @param userMapper     the user mapper
      * @param empireService  the empire service
-     * @param empireIdMapper the empireId mapper
      */
-    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService, final EmpireIdMapper empireIdMapper) {
+    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService) {
         this.userService = Objects.requireNonNull(userService);
         this.userMapper = Objects.requireNonNull(userMapper);
         this.empireService = Objects.requireNonNull(empireService);
-        this.empireIdMapper = Objects.requireNonNull(empireIdMapper);
     }
 
     /**
@@ -84,9 +80,9 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userId}/empires")
-    public List<EmpireIdDto> getEmpiresByUser(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
+    public List<UUID> getEmpiresByUser(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
         return empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
-            .map(empireIdMapper::map)
+            .map(EmpireId::getId)
             .collect(Collectors.toList());
     }
 

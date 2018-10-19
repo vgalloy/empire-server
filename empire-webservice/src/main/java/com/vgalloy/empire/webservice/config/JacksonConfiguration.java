@@ -1,12 +1,7 @@
 package com.vgalloy.empire.webservice.config;
 
-import java.util.List;
-import java.util.Objects;
-
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,17 +13,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JacksonConfiguration {
 
-    private final List<StdSerializer<?>> serializers;
-
-    /**
-     * Constructor.
-     *
-     * @param serializers the serializers
-     */
-    public JacksonConfiguration(final List<StdSerializer<?>> serializers) {
-        this.serializers = Objects.requireNonNull(serializers);
-    }
-
     /**
      * Create Jackson mapper bean.
      *
@@ -36,13 +20,7 @@ public class JacksonConfiguration {
      */
     @Bean
     public ObjectMapper objectMapper() {
-        final SimpleModule module = new SimpleModule();
-        for (final StdSerializer<?> serializer : serializers) {
-            module.addSerializer(serializer);
-        }
-
         return new ObjectMapper()
-            .setSerializationInclusion(JsonInclude.Include.NON_NULL)
-            .registerModule(module);
+            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
     }
 }

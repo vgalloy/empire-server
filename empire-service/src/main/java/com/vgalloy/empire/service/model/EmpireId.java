@@ -10,7 +10,7 @@ import java.util.UUID;
  */
 public final class EmpireId {
 
-    private final String id;
+    private final UUID id;
 
     /**
      * Constructor.
@@ -18,7 +18,7 @@ public final class EmpireId {
      *
      * @param id the id of empire
      */
-    private EmpireId(final String id) {
+    private EmpireId(final UUID id) {
         this.id = Objects.requireNonNull(id);
     }
 
@@ -28,7 +28,7 @@ public final class EmpireId {
      * @param empireId the empire id as string
      * @return a new instance of empire id
      */
-    public static EmpireId of(final String empireId) {
+    public static EmpireId of(final UUID empireId) {
         return new EmpireId(empireId);
     }
 
@@ -38,10 +38,10 @@ public final class EmpireId {
      * @return a new instance of empire id
      */
     public static EmpireId newInstance() {
-        return new EmpireId(UUID.randomUUID().toString());
+        return new EmpireId(UUID.randomUUID());
     }
 
-    public String getId() {
+    public UUID getId() {
         return id;
     }
 
