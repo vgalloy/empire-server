@@ -27,8 +27,9 @@ import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.exception.NotFoundResourceException;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
-import com.vgalloy.empire.webservice.resource.DataResource;
 import com.vgalloy.empire.webservice.resource.LinkWithMethod;
+import com.vgalloy.empire.webservice.resource.ResourceData;
+import com.vgalloy.empire.webservice.resource.ResourceList;
 
 /**
  * Create by Vincent Galloy on 02/08/2017.
@@ -50,9 +51,9 @@ public class UserController {
     /**
      * Constructor.
      *
-     * @param userService    the user service
-     * @param userMapper     the user mapper
-     * @param empireService  the empire service
+     * @param userService   the user service
+     * @param userMapper    the user mapper
+     * @param empireService the empire service
      */
     public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService) {
         this.userService = Objects.requireNonNull(userService);
@@ -67,7 +68,7 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userId}")
-    public DataResource<UserDto> getById(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
+    public ResourceData<UserDto> getById(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
         final User user = userService.getById(UserId.of(userId)).orElseThrow(() -> new NotFoundResourceException(userId));
         final UserDto userDto = userMapper.map(user);
         return buildResource(userId, userDto);
@@ -80,10 +81,11 @@ public class UserController {
      * @return the User
      */
     @GetMapping("{userId}/empires")
-    public List<UUID> getEmpiresByUser(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
-        return empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
+    public ResourceList<UUID> getEmpiresByUser(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
+        final List<UUID> ids = empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
             .map(EmpireId::getId)
             .collect(Collectors.toList());
+        return new ResourceList<>(ids);
     }
 
     /**
@@ -93,7 +95,7 @@ public class UserController {
      * @return the user id
      */
     @PostMapping
-    public DataResource<UserDto> create(@RequestBody @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UserDto userDto) {
+    public ResourceData<UserDto> create(@RequestBody @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UserDto userDto) {
         final User user = userService.create(userDto.getLogin(), userDto.getPassword());
         final UUID userId = user.getId().getId();
         return buildResource(userId, userDto);
@@ -107,7 +109,7 @@ public class UserController {
      * @return the new user
      */
     @PutMapping("{userId}")
-    public DataResource<UserDto> update(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
+    public ResourceData<UserDto> update(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
         final User user = userMapper.unmap(userId, userDto);
         userService.update(user);
         return buildResource(userId, userDto);
@@ -120,10 +122,10 @@ public class UserController {
      * @return the new user
      */
     @DeleteMapping("{userId}")
-    public DataResource<UserDto> delete(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
+    public ResourceData<UserDto> delete(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
         final User user = userService.remove(UserId.of(userId));
         final UserDto userDto = userMapper.map(user);
-        return new DataResource<>(userId, userDto);
+        return new ResourceData<>(userId, userDto);
     }
 
     /**
@@ -132,11 +134,11 @@ public class UserController {
      * @return the list internalCreate user id
      */
     @GetMapping
-    public List<UUID> getAll() {
-        return userService.getAll().stream()
-            .map(User::getId)
-            .map(UserId::getId)
+    public ResourceList<UserDto> getAll() {
+        final List<UserDto> users = userService.getAll().stream()
+            .map(userMapper::map)
             .collect(Collectors.toList());
+        return new ResourceList<>(users);
     }
 
     /**
@@ -146,11 +148,12 @@ public class UserController {
      * @param userDto the user dto
      * @return the wrapper
      */
-    private DataResource<UserDto> buildResource(final UUID userId, final UserDto userDto) {
-        final DataResource<UserDto> resource = new DataResource<>(userId, userDto);
+    private ResourceData<UserDto> buildResource(final UUID userId, final UserDto userDto) {
+        final ResourceData<UserDto> resource = new ResourceData<>(userId, userDto);
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)));
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).delete(userId)));
+        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getEmpiresByUser(userId)));
         return resource;
     }
 }

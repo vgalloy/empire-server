@@ -13,9 +13,9 @@ import org.springframework.hateoas.ResourceSupport;
  * @author Vincent Galloy
  */
 @JsonPropertyOrder({"_metadata", "_id", "resource"})
-public class DataResource<T> extends ResourceSupport {
+public class ResourceData<T> extends ResourceSupport {
 
-    private final ResourceMetaData metaData = ResourceMetaData.fromNow();
+    private final ResourceMetadata metaData = ResourceMetadata.fromNow();
     private final UUID uuid;
     private final T resource;
 
@@ -25,13 +25,13 @@ public class DataResource<T> extends ResourceSupport {
      * @param uuid     the unique id of the resource, not null
      * @param resource the resource, no null
      */
-    public DataResource(final UUID uuid, final T resource) {
+    public ResourceData(final UUID uuid, final T resource) {
         this.uuid = Objects.requireNonNull(uuid, "uuid");
         this.resource = Objects.requireNonNull(resource, "resource");
     }
 
     @JsonProperty("_metadata")
-    public ResourceMetaData getMetaData() {
+    public ResourceMetadata getMetaData() {
         return metaData;
     }
 
@@ -41,7 +41,7 @@ public class DataResource<T> extends ResourceSupport {
     }
 
     @JsonProperty("resource")
-    public T getSource() {
+    public T getResource() {
         return resource;
     }
 }

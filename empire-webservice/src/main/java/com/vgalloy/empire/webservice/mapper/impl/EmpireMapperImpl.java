@@ -39,7 +39,6 @@ final class EmpireMapperImpl implements EmpireMapper {
     @Override
     public EmpireDto map(final Empire empire) {
         final EmpireDto result = new EmpireDto();
-        result.setEmpireId(empire.getEmpireId().getId());
         result.setPlayerInstruction(playerInstructionMapper.map(empire.getPlayerInstructions()));
         result.setRound(roundMapper.map(empire.getRound()));
         result.setGold(empire.getGold());

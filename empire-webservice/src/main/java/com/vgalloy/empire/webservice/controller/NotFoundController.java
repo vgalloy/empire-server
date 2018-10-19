@@ -2,7 +2,7 @@ package com.vgalloy.empire.webservice.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vgalloy.empire.webservice.exception.NotFoundUrlException;
@@ -23,7 +23,7 @@ public class NotFoundController implements ErrorController {
      *
      * @param request the request
      */
-    @RequestMapping(ERROR_PATH)
+    @GetMapping(ERROR_PATH)
     public void handleErrors(final HttpServletRequest request) {
         throw new NotFoundUrlException(request.getRequestURL().toString());
     }

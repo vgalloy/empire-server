@@ -9,7 +9,7 @@ import com.vgalloy.empire.webservice.filter.TimerContextHolder;
  *
  * @author Vincent Galloy
  */
-public class ResourceMetaData {
+public class ResourceMetadata {
 
     @Nullable
     private final Long executionTime;
@@ -17,7 +17,7 @@ public class ResourceMetaData {
     /**
      * Constructor.
      */
-    public ResourceMetaData() {
+    public ResourceMetadata() {
         this(null);
     }
 
@@ -26,7 +26,7 @@ public class ResourceMetaData {
      *
      * @param executionTime the request execution time
      */
-    public ResourceMetaData(final Long executionTime) {
+    public ResourceMetadata(final Long executionTime) {
         this.executionTime = executionTime;
     }
 
@@ -40,9 +40,9 @@ public class ResourceMetaData {
      *
      * @return a new meta data
      */
-    public static ResourceMetaData fromNow() {
+    public static ResourceMetadata fromNow() {
         return TimerContextHolder.getExecutionTimeMillis()
-            .map(ResourceMetaData::new)
-            .orElseGet(ResourceMetaData::new);
+            .map(ResourceMetadata::new)
+            .orElseGet(ResourceMetadata::new);
     }
 }

@@ -52,8 +52,8 @@ public class LinkWithMethod extends Link {
     public static LinkWithMethod linkTo(final Object invocationValue) {
         final Method method = extractMethod(invocationValue);
         final String methodName = method.getName();
-        final RequestMapping type = AnnotationUtils.findAnnotation(method, RequestMapping.class);
         final Link link = ControllerLinkBuilder.linkTo(invocationValue).withRel(methodName);
+        final RequestMapping type = AnnotationUtils.findAnnotation(method, RequestMapping.class);
         return new LinkWithMethod(link.getTemplate(), methodName, type.method());
     }
 
