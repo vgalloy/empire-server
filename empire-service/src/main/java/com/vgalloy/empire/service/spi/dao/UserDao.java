@@ -1,5 +1,6 @@
 package com.vgalloy.empire.service.spi.dao;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +15,7 @@ public interface UserDao {
      * @param userId the userId
      * @return the corresponding user
      */
-    User getById(UserId userId);
+    Optional<User> getById(UserId userId);
 
     /**
      * Create a user.
@@ -38,15 +39,16 @@ public interface UserDao {
      * User the user.
      *
      * @param user the user to update
+     * @return the updated user
      */
-    void update(User user);
+    User update(User user);
 
     /**
      * Retrieve all users in data base.
      *
      * @return the users list
      */
-    List<User> getAll();
+    Collection<User> getAll();
 
     /**
      * Get users matching with login.
@@ -55,4 +57,12 @@ public interface UserDao {
      * @return the user
      */
     List<User> getByLogin(String login);
+
+    /**
+     * Remove a user.
+     *
+     * @param userId the user id
+     * @return the removed user
+     */
+    User remove(UserId userId);
 }

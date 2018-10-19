@@ -1,7 +1,9 @@
 package com.vgalloy.empire.persistence.dao;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -19,46 +21,48 @@ import com.vgalloy.empire.service.spi.dao.UserDao;
 @Repository
 final class UserDaoImpl implements UserDao {
 
-    private final List<User> users = new ArrayList<>();
+    private final Map<UserId, User> users = new HashMap<>();
 
     @Override
-    public User getById(final UserId userId) {
-        return users.stream()
-            .filter(user -> user.getId().equals(userId))
-            .findFirst()
-            .orElseThrow(() -> new IllegalStateException("No user found for the given id"));
+    public Optional<User> getById(final UserId userId) {
+        return Optional.ofNullable(users.get(userId));
     }
 
     @Override
     public User create(final String login, final String password) {
         final User user = User.of(login, password);
-        users.add(user);
+        users.put(user.getId(), user);
         return user;
     }
 
     @Override
     public Optional<User> findByLoginAndPassword(final String login, final String password) {
-        return users.stream()
+        return users.values().stream()
             .filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password))
             .findFirst();
     }
 
     @Override
-    public void update(final User user) {
-        final User userToUpdate = getById(user.getId());
-        users.remove(userToUpdate);
-        users.add(user);
+    public User update(final User user) {
+        users.remove(user.getId());
+        users.put(user.getId(), user);
+        return user;
     }
 
     @Override
-    public List<User> getAll() {
-        return new ArrayList<>(users);
+    public Collection<User> getAll() {
+        return users.values();
     }
 
     @Override
     public List<User> getByLogin(final String login) {
-        return users.stream()
+        return getAll().stream()
             .filter(user -> user.getLogin().equals(login))
             .collect(Collectors.toList());
+    }
+
+    @Override
+    public User remove(final UserId userId) {
+        return users.remove(userId);
     }
 }

@@ -1,6 +1,6 @@
 package com.vgalloy.empire.service.impl;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -37,7 +37,7 @@ class UserServiceImpl implements UserService {
 
     @Override
     @AuthorizeUser
-    public User getById(final UserId userId) {
+    public Optional<User> getById(final UserId userId) {
         return userDao.getById(userId);
     }
 
@@ -61,7 +61,12 @@ class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
+    public Collection<User> getAll() {
         return userDao.getAll();
+    }
+
+    @Override
+    public User remove(final UserId userId) {
+        return userDao.remove(userId);
     }
 }

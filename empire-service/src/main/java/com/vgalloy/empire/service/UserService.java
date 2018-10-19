@@ -1,6 +1,6 @@
 package com.vgalloy.empire.service;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
 import com.vgalloy.empire.service.model.User;
@@ -19,7 +19,7 @@ public interface UserService {
      * @param userId the userId
      * @return the corresponding user
      */
-    User getById(UserId userId);
+    Optional<User> getById(UserId userId);
 
     /**
      * Create a user.
@@ -51,5 +51,13 @@ public interface UserService {
      *
      * @return the users list
      */
-    List<User> getAll();
+    Collection<User> getAll();
+
+    /**
+     * Remove a user.
+     *
+     * @param userId the user id
+     * @return the removed user
+     */
+    User remove(UserId userId);
 }

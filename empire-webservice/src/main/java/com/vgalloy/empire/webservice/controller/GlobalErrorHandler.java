@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.vgalloy.empire.webservice.dto.ErrorDto;
+import com.vgalloy.empire.webservice.exception.NotFoundResourceException;
 import com.vgalloy.empire.webservice.exception.NotFoundUrlException;
 
 /**
@@ -71,6 +72,18 @@ final class GlobalErrorHandler {
     @ExceptionHandler
     public ResponseEntity<ErrorDto> handle(final NotFoundUrlException e) {
         LOGGER.warn("NotFoundUrlException : {}", e.getUrl());
+        return buildResponse(HttpStatus.NOT_FOUND);
+    }
+
+    /**
+     * Handle error and set the correct response status.
+     *
+     * @param e The handle exception
+     * @return The error message for web user
+     */
+    @ExceptionHandler
+    public ResponseEntity<ErrorDto> handle(final NotFoundResourceException e) {
+        LOGGER.warn("Resource with id {} doesn't exist", e.getId());
         return buildResponse(HttpStatus.NOT_FOUND);
     }
 
