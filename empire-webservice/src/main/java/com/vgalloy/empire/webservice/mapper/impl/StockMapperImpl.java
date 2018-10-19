@@ -16,7 +16,7 @@ final class StockMapperImpl implements StockMapper {
 
     @Override
     public StockDto map(final Stock stock) {
-        final StockDto result = new StockDto();
+        final var result = new StockDto();
         result.setCurrent(stock.getCurrent());
         result.setGranary(stock.getGranary());
         result.setMax(stock.getMax());

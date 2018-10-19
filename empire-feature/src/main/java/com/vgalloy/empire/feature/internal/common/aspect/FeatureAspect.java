@@ -1,7 +1,6 @@
 package com.vgalloy.empire.feature.internal.common.aspect;
 
 import java.util.Objects;
-import java.util.Optional;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.FeatureMethod;
-import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 
 /**
  * Created by Vincent Galloy on 11/10/18.
@@ -42,8 +40,8 @@ public class FeatureAspect {
      */
     @Around("@annotation(featureMethod)")
     public Object logExecutionTime(final ProceedingJoinPoint joinPoint, final FeatureMethod featureMethod) throws Throwable {
-        final String name = featureMethod.value();
-        final Optional<FeatureConfiguration> featureConfiguration = this.featureManager.getById(name);
+        final var name = featureMethod.value();
+        final var featureConfiguration = this.featureManager.getById(name);
         if (featureConfiguration.isPresent() && featureConfiguration.get().isEnable()) {
             return joinPoint.proceed();
         }

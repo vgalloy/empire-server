@@ -68,7 +68,7 @@ public class FeatureRestController {
     @PutMapping("{featureId}")
     public FeatureConfiguration update(final @PathVariable String featureId, final @RequestBody FeatureConfiguration featureConfiguration) {
         // TODO
-        final FeatureConfiguration newfeature = new FeatureConfiguration(featureId, featureConfiguration.isEnable());
+        final var newfeature = new FeatureConfiguration(featureId, featureConfiguration.isEnable());
         return featureManager.update(newfeature);
     }
 }

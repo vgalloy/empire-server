@@ -25,8 +25,8 @@ final class EmpireDaoImpl implements EmpireDao {
 
     @Override
     public EmpireId createEmpire(final UserId userId) {
-        final Empire empire = Empire.newInstance();
-        final EmpireId empireId = empire.getEmpireId();
+        final var empire = Empire.newInstance();
+        final var empireId = empire.getEmpireId();
 
         map.computeIfAbsent(userId, id -> new ArrayList<>()).add(empireId);
         return empireId;
@@ -47,7 +47,7 @@ final class EmpireDaoImpl implements EmpireDao {
 
     @Override
     public Empire update(final Empire empire) {
-        final Empire previous = getEmpireById(empire.getEmpireId());
+        final var previous = getEmpireById(empire.getEmpireId());
         empires.remove(previous);
         empires.add(empire);
         return empire;

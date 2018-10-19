@@ -23,9 +23,9 @@ final class BuyFoodOrder implements Order {
 
     @Override
     public Empire apply(final Empire empire) {
-        final long maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / FOOD_UNIT_PRICE));
-        final long buy = Math.min(food, maxAllowed);
-        final long totalPrice = Math.round(Math.ceil(1.0 * buy * FOOD_UNIT_PRICE));
+        final var maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / FOOD_UNIT_PRICE));
+        final var buy = Math.min(food, maxAllowed);
+        final var totalPrice = Math.round(Math.ceil(1.0 * buy * FOOD_UNIT_PRICE));
         return empire.gold(empire.getGold() - totalPrice)
             .stock(empire.getStock().resource(empire.getStock().getCurrent() + buy));
     }

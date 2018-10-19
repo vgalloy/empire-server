@@ -16,7 +16,7 @@ public final class FeatureSwitcherModuleBuilderTest {
     @Test
     public void inMemoryBuilder() {
         // WHEN
-        final FeatureSwitcherModuleConfiguration configuration = FeatureSwitcherModuleConfiguration.builder()
+        final var configuration = FeatureSwitcherModuleConfiguration.builder()
             .inMemoryFeatureManager()
             .buildManager()
             .build();

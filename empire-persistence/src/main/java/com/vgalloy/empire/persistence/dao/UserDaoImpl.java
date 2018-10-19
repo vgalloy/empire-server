@@ -30,7 +30,7 @@ final class UserDaoImpl implements UserDao {
 
     @Override
     public User create(final String login, final String password) {
-        final User user = User.of(login, password);
+        final var user = User.of(login, password);
         users.put(user.getId(), user);
         return user;
     }

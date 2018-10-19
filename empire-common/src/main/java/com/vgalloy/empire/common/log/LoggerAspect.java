@@ -8,7 +8,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.ILoggerFactory;
-import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.common.LogLevel;
@@ -48,16 +47,16 @@ public final class LoggerAspect {
      * @throws Throwable forward method throwable
      */
     private Object displayLog(final ProceedingJoinPoint joinPoint, final LogLevel logLevel) throws Throwable {
-        final Logger logger = loggerFactory.getLogger(joinPoint.getTarget().getClass().getName());
-        final String args = Stream.of(joinPoint.getArgs())
+        final var logger = loggerFactory.getLogger(joinPoint.getTarget().getClass().getName());
+        final var args = Stream.of(joinPoint.getArgs())
             .map(Object::toString)
             .collect(Collectors.joining(", "));
-        final String arguments = "[ START ] : " + joinPoint.getSignature().getName() + '(' + args + ')';
+        final var arguments = "[ START ] : " + joinPoint.getSignature().getName() + '(' + args + ')';
         logLevel.log(logger, arguments);
 
-        final Object result = joinPoint.proceed();
+        final var result = joinPoint.proceed();
 
-        final String endLogMessage = "[ END   ] : " + joinPoint.getSignature().getName() + " ==> " + result;
+        final var endLogMessage = "[ END   ] : " + joinPoint.getSignature().getName() + " ==> " + result;
         logLevel.log(logger, endLogMessage);
         return result;
     }

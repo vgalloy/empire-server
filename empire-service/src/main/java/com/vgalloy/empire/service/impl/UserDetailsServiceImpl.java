@@ -1,7 +1,6 @@
 package com.vgalloy.empire.service.impl;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -11,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.spi.dao.UserDao;
 
 /**
@@ -37,14 +35,14 @@ class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
         Objects.requireNonNull(username);
 
-        final List<User> users = userDao.getByLogin(username).stream()
+        final var users = userDao.getByLogin(username).stream()
             .filter(user -> user.getLogin().equals(username))
             .collect(Collectors.toList());
 
         if (users.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
-        final User user = users.get(0);
+        final var user = users.get(0);
 
         return new org.springframework.security.core.userdetails.User(user.getPassword(), user.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
     }

@@ -1,7 +1,6 @@
 package com.vgalloy.empire.feature.internal.common;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -37,7 +36,7 @@ final class ImplementationExtractor<T> {
     T getImplementation(final String implementationKey) {
         Objects.requireNonNull(implementationKey, "implementationKey");
 
-        final List<T> features = implementation.stream()
+        final var features = implementation.stream()
             .filter(impl -> this.filterImplementation(implementationKey, impl))
             .collect(Collectors.toList());
 
@@ -53,8 +52,8 @@ final class ImplementationExtractor<T> {
      * @return {@link Optional#empty()} if the provided implementation is not annotated with {@link Implementation}
      */
     private Optional<String> extractImplementationKey(final Object implementation) {
-        final Class<?> implementationClass = implementation.getClass();
-        final Implementation implementationAnnotation = implementationClass.getAnnotation(Implementation.class);
+        final var implementationClass = implementation.getClass();
+        final var implementationAnnotation = implementationClass.getAnnotation(Implementation.class);
         if (Objects.isNull(implementationAnnotation)) {
             return Optional.empty();
         }
@@ -72,7 +71,7 @@ final class ImplementationExtractor<T> {
      * @return true if the object {@link Implementation} value match with the provided key
      */
     private boolean filterImplementation(final String key, final Object implementation) {
-        final Optional<String> implementationKey = extractImplementationKey(implementation);
+        final var implementationKey = extractImplementationKey(implementation);
         return implementationKey.filter(s -> Objects.equals(key, s)).isPresent();
     }
 }

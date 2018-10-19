@@ -28,8 +28,8 @@ final class CorsFilter implements Filter {
 
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain chain) throws IOException, ServletException {
-        final HttpServletRequest req = (HttpServletRequest) servletRequest;
-        final HttpServletResponse res = (HttpServletResponse) servletResponse;
+        final var req = (HttpServletRequest) servletRequest;
+        final var res = (HttpServletResponse) servletResponse;
 
         res.setHeader("Access-Control-Allow-Origin", req.getHeader("Origin"));
         res.setHeader("Access-Control-Allow-Credentials", "true");

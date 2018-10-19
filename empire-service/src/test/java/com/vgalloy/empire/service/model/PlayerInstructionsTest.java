@@ -25,7 +25,7 @@ public final class PlayerInstructionsTest {
         startOrder.put(OrderType.BUY_GRANARY, 10L);
 
         // WHEN
-        final PlayerInstructions result = PlayerInstructions.newEmpty()
+        final var result = PlayerInstructions.newEmpty()
             .addOrders(startOrder)
             .addOrders(newOrder);
 

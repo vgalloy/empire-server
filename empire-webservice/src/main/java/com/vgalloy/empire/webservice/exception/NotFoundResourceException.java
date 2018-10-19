@@ -9,6 +9,7 @@ import java.util.UUID;
  * @author Vincent Galloy
  */
 public class NotFoundResourceException extends RuntimeException {
+
     private static final long serialVersionUID = 1758689475032606727L;
 
     private final UUID id;

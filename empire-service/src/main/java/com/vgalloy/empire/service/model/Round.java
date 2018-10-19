@@ -23,7 +23,7 @@ public final class Round {
      */
     private Round(final int numberOfRound) {
         this.numberOfRound = numberOfRound;
-        final LocalDate zero = LocalDate.of(0, 1, 1);
+        final var zero = LocalDate.of(0, 1, 1);
         currentDate = zero.plus(numberOfRound, ChronoUnit.MONTHS);
     }
 

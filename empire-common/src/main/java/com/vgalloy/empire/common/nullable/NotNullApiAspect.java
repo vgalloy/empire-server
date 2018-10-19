@@ -1,6 +1,5 @@
 package com.vgalloy.empire.common.nullable;
 
-import java.lang.reflect.Method;
 import java.util.Objects;
 
 import org.aspectj.lang.JoinPoint;
@@ -27,10 +26,10 @@ public final class NotNullApiAspect {
      */
     @Before("@within(methodLog)")
     public void logExecutionTime(final JoinPoint joinPoint, final NotNullApi methodLog) {
-        final Object[] args = joinPoint.getArgs();
+        final var args = joinPoint.getArgs();
         for (int i = 0; i < args.length; i++) {
-            final Object arg = args[i];
-            final int index = i;
+            final var arg = args[i];
+            final var index = i;
             Objects.requireNonNull(arg, () -> getErrorMessage(joinPoint, index));
         }
     }
@@ -43,9 +42,9 @@ public final class NotNullApiAspect {
      * @return the error message
      */
     private String getErrorMessage(final JoinPoint joinPoint, final int index) {
-        final String fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
-        final Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
-        final String paramName = method.getParameters()[index].getName();
+        final var fullName = joinPoint.getSignature().getDeclaringType().getName() + "#" + joinPoint.getSignature().getName();
+        final var method = ((MethodSignature) joinPoint.getSignature()).getMethod();
+        final var paramName = method.getParameters()[index].getName();
         return fullName + " is mark as @NotNullApi and received 'null' for parameter " + paramName;
     }
 }

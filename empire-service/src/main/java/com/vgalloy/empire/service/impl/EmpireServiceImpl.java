@@ -51,7 +51,7 @@ class EmpireServiceImpl implements EmpireService {
     @Override
     @AuthorizeUser
     public EmpireId createEmpire(final UserId userId) {
-        return null;
+        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -71,8 +71,8 @@ class EmpireServiceImpl implements EmpireService {
     @Override
     @AuthorizeUser
     public Empire updateOrders(final Empire empire, final Map<OrderType, Long> orders) {
-        final PlayerInstructions newPlayerInstructions = PlayerInstructions.fromOrders(orders);
-        final Empire newEmpire = empire.playerInstructions(newPlayerInstructions);
+        final var newPlayerInstructions = PlayerInstructions.fromOrders(orders);
+        final var newEmpire = empire.playerInstructions(newPlayerInstructions);
         empireDao.update(newEmpire);
         return newEmpire;
     }

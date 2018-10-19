@@ -16,7 +16,7 @@ final class RoundMapperImpl implements RoundMapper {
 
     @Override
     public RoundDto map(final Round round) {
-        final RoundDto result = new RoundDto();
+        final var result = new RoundDto();
         result.setMonth(round.getCurrentDate().getMonth().name());
         result.setYear(round.getCurrentDate().getYear());
         return result;

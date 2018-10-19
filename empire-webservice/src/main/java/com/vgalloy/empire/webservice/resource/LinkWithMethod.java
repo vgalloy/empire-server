@@ -50,10 +50,10 @@ public class LinkWithMethod extends Link {
      * @return a new link
      */
     public static LinkWithMethod linkTo(final Object invocationValue) {
-        final Method method = extractMethod(invocationValue);
-        final String methodName = method.getName();
-        final Link link = ControllerLinkBuilder.linkTo(invocationValue).withRel(methodName);
-        final RequestMapping type = AnnotationUtils.findAnnotation(method, RequestMapping.class);
+        final var method = extractMethod(invocationValue);
+        final var methodName = method.getName();
+        final var link = ControllerLinkBuilder.linkTo(invocationValue).withRel(methodName);
+        final var type = AnnotationUtils.findAnnotation(method, RequestMapping.class);
         return new LinkWithMethod(link.getTemplate(), methodName, type.method());
     }
 
@@ -65,8 +65,8 @@ public class LinkWithMethod extends Link {
      */
     private static Method extractMethod(final Object invocationValue) {
         Assert.isInstanceOf(DummyInvocationUtils.LastInvocationAware.class, invocationValue);
-        final DummyInvocationUtils.LastInvocationAware invocations = (DummyInvocationUtils.LastInvocationAware) invocationValue;
-        final DummyInvocationUtils.MethodInvocation invocation = invocations.getLastInvocation();
+        final var invocations = (DummyInvocationUtils.LastInvocationAware) invocationValue;
+        final var invocation = invocations.getLastInvocation();
         return invocation.getMethod();
     }
 }

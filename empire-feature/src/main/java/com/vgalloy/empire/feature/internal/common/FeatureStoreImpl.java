@@ -35,8 +35,8 @@ public class FeatureStoreImpl implements FeatureStore {
     public <T> T loadFeature(final Class<T> featureClass) {
         Objects.requireNonNull(featureClass, "featureClass");
 
-        final String featureKey = extractAndValidateFeatureKey(featureClass);
-        final String implementationKey = applicationProperties.getFeatures().get(featureKey);
+        final var featureKey = extractAndValidateFeatureKey(featureClass);
+        final var implementationKey = applicationProperties.getFeatures().get(featureKey);
         Assert.notNull(implementationKey, "Enable to find features." + featureKey + " in properties");
 
         return loadFeature(featureClass, implementationKey);
@@ -47,7 +47,7 @@ public class FeatureStoreImpl implements FeatureStore {
         Objects.requireNonNull(featureClass, "featureClass");
         Objects.requireNonNull(implementationKey, "implementationKey");
 
-        final ImplementationExtractor<T> implementationExtractor = new ImplementationExtractor<>(applicationContext.getBeansOfType(featureClass).values());
+        final var implementationExtractor = new ImplementationExtractor<>(applicationContext.getBeansOfType(featureClass).values());
         return implementationExtractor.getImplementation(implementationKey);
     }
 
@@ -58,7 +58,7 @@ public class FeatureStoreImpl implements FeatureStore {
      * @return the value, not null, not empty
      */
     private String extractAndValidateFeatureKey(final Class<?> featureClass) {
-        final Feature feature = featureClass.getAnnotation(Feature.class);
+        final var feature = featureClass.getAnnotation(Feature.class);
         Assert.notNull(feature, featureClass.getCanonicalName() + " is not annotated with @" + Feature.class.getSimpleName());
         if (feature.value().isEmpty()) {
             return featureClass.getCanonicalName();

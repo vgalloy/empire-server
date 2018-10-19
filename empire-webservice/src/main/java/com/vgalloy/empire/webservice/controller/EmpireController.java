@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.vgalloy.empire.common.nullable.NotNullApi;
 import com.vgalloy.empire.service.EmpireService;
-import com.vgalloy.empire.service.model.Empire;
 import com.vgalloy.empire.service.model.EmpireId;
 import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
@@ -78,11 +77,11 @@ public class EmpireController {
     @GetMapping("{empireId}")
     public ResourceData<EmpireDto> getById(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
         // EXTRACT
-        final EmpireId id = EmpireId.of(empireId);
+        final var id = EmpireId.of(empireId);
         // DO
-        final Empire empire = empireService.getEmpireById(id);
+        final var empire = empireService.getEmpireById(id);
         // MAP
-        final EmpireDto empireDto = empireMapper.map(empire);
+        final var empireDto = empireMapper.map(empire);
 
         return buildResource(empireId, empireDto);
     }
@@ -96,11 +95,11 @@ public class EmpireController {
     @PutMapping("{empireId}/nextRound")
     public ResourceData<EmpireDto> nextRound(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId) {
         // EXTRACT
-        final EmpireId id = EmpireId.of(empireId);
+        final var id = EmpireId.of(empireId);
         // DO
-        final Empire empire = empireService.getEmpireById(id);
-        final Empire newEmpire = empireService.computeNextRound(empire);
-        final EmpireDto empireDto = empireMapper.map(this.empireDao.update(newEmpire));
+        final var empire = empireService.getEmpireById(id);
+        final var newEmpire = empireService.computeNextRound(empire);
+        final var empireDto = empireMapper.map(this.empireDao.update(newEmpire));
         return buildResource(empireId, empireDto);
     }
 
@@ -114,10 +113,10 @@ public class EmpireController {
     @PatchMapping("{empireId}/order")
     public ResourceData<EmpireDto> updateOrder(@PathVariable @Valid @NotNull(message = "Empire id can't be null") final UUID empireId, @Valid @NotNull @RequestBody final Map<OrderType, Long> orders) {
         // EXTRACT
-        final EmpireId id = EmpireId.of(empireId);
+        final var id = EmpireId.of(empireId);
         // DO
-        final Empire empire = empireService.getEmpireById(id);
-        final EmpireDto empireDto = empireMapper.map(empireService.updateOrders(empire, orders));
+        final var empire = empireService.getEmpireById(id);
+        final var empireDto = empireMapper.map(empireService.updateOrders(empire, orders));
 
         return buildResource(empireId, empireDto);
     }
@@ -130,7 +129,7 @@ public class EmpireController {
      * @return the wrapper
      */
     private ResourceData<EmpireDto> buildResource(final UUID empireId, final EmpireDto empireDto) {
-        final ResourceData<EmpireDto> resource = new ResourceData<>(empireId, empireDto);
+        final var resource = new ResourceData<>(empireId, empireDto);
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getById(empireId)).withSelfRel());
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getOrdersTypes()));
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).nextRound(empireId)));

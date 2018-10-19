@@ -31,7 +31,7 @@ public class RequestUuidFilter implements Filter {
 
     @Override
     public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-        final String requestUuid = UUID.randomUUID().toString();
+        final var requestUuid = UUID.randomUUID().toString();
         MDC.put("requestUuid", requestUuid);
         LOGGER.info("add correlation Id : {}", requestUuid);
         filterChain.doFilter(servletRequest, servletResponse);

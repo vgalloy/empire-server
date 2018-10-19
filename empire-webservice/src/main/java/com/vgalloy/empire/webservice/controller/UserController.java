@@ -1,6 +1,5 @@
 package com.vgalloy.empire.webservice.controller;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,7 +21,6 @@ import com.vgalloy.empire.common.nullable.NotNullApi;
 import com.vgalloy.empire.service.EmpireService;
 import com.vgalloy.empire.service.UserService;
 import com.vgalloy.empire.service.model.EmpireId;
-import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.exception.NotFoundResourceException;
@@ -69,8 +67,8 @@ public class UserController {
      */
     @GetMapping("{userId}")
     public ResourceData<UserDto> getById(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
-        final User user = userService.getById(UserId.of(userId)).orElseThrow(() -> new NotFoundResourceException(userId));
-        final UserDto userDto = userMapper.map(user);
+        final var user = userService.getById(UserId.of(userId)).orElseThrow(() -> new NotFoundResourceException(userId));
+        final var userDto = userMapper.map(user);
         return buildResource(userId, userDto);
     }
 
@@ -82,7 +80,7 @@ public class UserController {
      */
     @GetMapping("{userId}/empires")
     public ResourceList<UUID> getEmpiresByUser(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
-        final List<UUID> ids = empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
+        final var ids = empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
             .map(EmpireId::getId)
             .collect(Collectors.toList());
         return new ResourceList<>(ids);
@@ -96,8 +94,8 @@ public class UserController {
      */
     @PostMapping
     public ResourceData<UserDto> create(@RequestBody @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UserDto userDto) {
-        final User user = userService.create(userDto.getLogin(), userDto.getPassword());
-        final UUID userId = user.getId().getId();
+        final var user = userService.create(userDto.getLogin(), userDto.getPassword());
+        final var userId = user.getId().getId();
         return buildResource(userId, userDto);
     }
 
@@ -110,7 +108,7 @@ public class UserController {
      */
     @PutMapping("{userId}")
     public ResourceData<UserDto> update(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId, @RequestBody @Valid @NotNull(message = "User can't be null") final UserDto userDto) {
-        final User user = userMapper.unmap(userId, userDto);
+        final var user = userMapper.unmap(userId, userDto);
         userService.update(user);
         return buildResource(userId, userDto);
     }
@@ -123,8 +121,8 @@ public class UserController {
      */
     @DeleteMapping("{userId}")
     public ResourceData<UserDto> delete(@PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
-        final User user = userService.remove(UserId.of(userId));
-        final UserDto userDto = userMapper.map(user);
+        final var user = userService.remove(UserId.of(userId));
+        final var userDto = userMapper.map(user);
         return new ResourceData<>(userId, userDto);
     }
 
@@ -135,7 +133,7 @@ public class UserController {
      */
     @GetMapping
     public ResourceList<UserDto> getAll() {
-        final List<UserDto> users = userService.getAll().stream()
+        final var users = userService.getAll().stream()
             .map(userMapper::map)
             .collect(Collectors.toList());
         return new ResourceList<>(users);
@@ -149,7 +147,7 @@ public class UserController {
      * @return the wrapper
      */
     private ResourceData<UserDto> buildResource(final UUID userId, final UserDto userDto) {
-        final ResourceData<UserDto> resource = new ResourceData<>(userId, userDto);
+        final var resource = new ResourceData<>(userId, userDto);
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)));
         resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).delete(userId)));

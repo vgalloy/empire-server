@@ -61,7 +61,7 @@ public class InMemoryStoreBuilder {
      * @return the parent
      */
     public FeatureSwitcherModuleBuilder buildManager() {
-        final FeatureManager featureStore = new InMemoryFeatureManager(featureAdder, featureConfigurations);
+        final var featureStore = new InMemoryFeatureManager(featureAdder, featureConfigurations);
         return parent.featureConfigurationStore(featureStore);
     }
 }

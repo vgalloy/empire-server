@@ -32,7 +32,7 @@ public final class TimerContextHolder {
      * @return execution time or zero.
      */
     public static Optional<Long> getExecutionTimeMillis() {
-        final Long startTime = START_TIME.get();
+        final var startTime = START_TIME.get();
         if (Objects.isNull(startTime)) {
             return Optional.empty();
         }

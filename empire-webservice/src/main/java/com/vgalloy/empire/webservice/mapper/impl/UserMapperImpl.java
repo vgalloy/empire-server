@@ -19,7 +19,7 @@ final class UserMapperImpl implements UserMapper {
 
     @Override
     public UserDto map(final User user) {
-        final UserDto result = new UserDto();
+        final var result = new UserDto();
         result.setLogin(user.getLogin());
         result.setPassword(user.getPassword());
         return result;
@@ -27,7 +27,7 @@ final class UserMapperImpl implements UserMapper {
 
     @Override
     public User unmap(final UUID userIdDto, final UserDto userDto) {
-        final UserId userId = UserId.of(userIdDto);
+        final var userId = UserId.of(userIdDto);
         return User.of(userId, userDto.getLogin(), userDto.getPassword());
     }
 }

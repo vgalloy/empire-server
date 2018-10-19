@@ -31,15 +31,15 @@ class InMemoryTranslationService implements TranslationService {
         Objects.requireNonNull(code, "code");
         Objects.requireNonNull(locale, "locale");
 
-        final Map<String, Map<String, String>> byLanguageTranslation = translationTable.computeIfAbsent(locale.getLanguage(), c -> new ConcurrentHashMap<>());
-        final Map<String, String> byLanguageAndCountryTranslation = byLanguageTranslation.computeIfAbsent(locale.getCountry(), country -> new ConcurrentHashMap<>());
-        final String translation = byLanguageAndCountryTranslation.get(code);
+        final var byLanguageTranslation = translationTable.computeIfAbsent(locale.getLanguage(), c -> new ConcurrentHashMap<>());
+        final var byLanguageAndCountryTranslation = byLanguageTranslation.computeIfAbsent(locale.getCountry(), country -> new ConcurrentHashMap<>());
+        final var translation = byLanguageAndCountryTranslation.get(code);
 
         if (Objects.nonNull(translation)) {
             return new CorrectTranslation(code, locale, translation);
         }
-        final Map<String, String> byLanguageAndNoCountryTranslation = byLanguageTranslation.computeIfAbsent("", country -> new ConcurrentHashMap<>());
-        final String noCountryTranslation = byLanguageAndNoCountryTranslation.get(code);
+        final var byLanguageAndNoCountryTranslation = byLanguageTranslation.computeIfAbsent("", country -> new ConcurrentHashMap<>());
+        final var noCountryTranslation = byLanguageAndNoCountryTranslation.get(code);
         if (Objects.isNull(noCountryTranslation)) {
             return new EmptyTranslationResult(code);
         } else {
@@ -53,10 +53,10 @@ class InMemoryTranslationService implements TranslationService {
         Objects.requireNonNull(locale, "locale");
         Objects.requireNonNull(translation, "translation");
 
-        final Map<String, Map<String, String>> byLanguageTranslation = translationTable.computeIfAbsent(locale.getLanguage(), c -> new ConcurrentHashMap<>());
-        final Map<String, String> byLanguageAndCountryTranslation = byLanguageTranslation.computeIfAbsent(locale.getCountry(), country -> new ConcurrentHashMap<>());
+        final var byLanguageTranslation = translationTable.computeIfAbsent(locale.getLanguage(), c -> new ConcurrentHashMap<>());
+        final var byLanguageAndCountryTranslation = byLanguageTranslation.computeIfAbsent(locale.getCountry(), country -> new ConcurrentHashMap<>());
         byLanguageAndCountryTranslation.put(code, translation);
-        final Map<String, String> byLanguageAndNoCountryTranslation = byLanguageTranslation.computeIfAbsent("", country -> new ConcurrentHashMap<>());
+        final var byLanguageAndNoCountryTranslation = byLanguageTranslation.computeIfAbsent("", country -> new ConcurrentHashMap<>());
         byLanguageAndNoCountryTranslation.put(code, translation);
     }
 }

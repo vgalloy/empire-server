@@ -1,7 +1,6 @@
 package com.vgalloy.empire.webservice.security;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.Objects;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,12 +40,12 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
         response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName());
         response.addHeader("Content-Type", "application/json");
 
-        final ErrorDto errorDto = new ErrorDto();
+        final var errorDto = new ErrorDto();
         errorDto.setCode(HttpStatus.UNAUTHORIZED.value());
         errorDto.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
-        final String errorAsString = objectMapper.writeValueAsString(errorDto);
+        final var errorAsString = objectMapper.writeValueAsString(errorDto);
 
-        final PrintWriter writer = response.getWriter();
+        final var writer = response.getWriter();
         writer.println(errorAsString);
     }
 

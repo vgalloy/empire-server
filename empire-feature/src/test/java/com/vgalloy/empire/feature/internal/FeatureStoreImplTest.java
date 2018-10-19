@@ -10,7 +10,6 @@ import org.junit.rules.ExpectedException;
 import org.mockito.BDDMockito;
 import org.springframework.context.ApplicationContext;
 
-import com.vgalloy.empire.feature.api.FeatureStore;
 import com.vgalloy.empire.feature.internal.common.ApplicationProperties;
 import com.vgalloy.empire.feature.internal.common.FeatureStoreImpl;
 import com.vgalloy.empire.feature.internal.operation.AddOperation;
@@ -31,9 +30,9 @@ public final class FeatureStoreImplTest {
     @Test
     public void correctCaseWithParameter() {
         // GIVEN
-        final ApplicationProperties applicationProperties = new ApplicationProperties();
-        final ApplicationContext applicationContext = BDDMockito.mock(ApplicationContext.class);
-        final FeatureStore featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
+        final var applicationProperties = new ApplicationProperties();
+        final var applicationContext = BDDMockito.mock(ApplicationContext.class);
+        final var featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
         final Map<String, Operation> operationMap = new HashMap<>();
 
         BDDMockito.given(applicationContext.getBeansOfType(Operation.class)).willReturn(operationMap);
@@ -43,7 +42,7 @@ public final class FeatureStoreImplTest {
         operationMap.put(MinusOperation.class.getName(), new MinusOperation());
 
         // WHEN
-        final Operation operation = featureStore.loadFeature(Operation.class);
+        final var operation = featureStore.loadFeature(Operation.class);
 
         // THEN
         Assert.assertNotNull(operation);
@@ -53,9 +52,9 @@ public final class FeatureStoreImplTest {
     @Test
     public void correctCaseWithClassName() {
         // GIVEN
-        final ApplicationProperties applicationProperties = new ApplicationProperties();
-        final ApplicationContext applicationContext = BDDMockito.mock(ApplicationContext.class);
-        final FeatureStore featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
+        final var applicationProperties = new ApplicationProperties();
+        final var applicationContext = BDDMockito.mock(ApplicationContext.class);
+        final var featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
         final Map<String, Operation> operationMap = new HashMap<>();
 
         BDDMockito.given(applicationContext.getBeansOfType(Operation.class)).willReturn(operationMap);
@@ -65,7 +64,7 @@ public final class FeatureStoreImplTest {
         operationMap.put(MinusOperation.class.getName(), new MinusOperation());
 
         // WHEN
-        final Operation operation = featureStore.loadFeature(Operation.class);
+        final var operation = featureStore.loadFeature(Operation.class);
 
         // THEN
         Assert.assertNotNull(operation);
@@ -75,9 +74,9 @@ public final class FeatureStoreImplTest {
     @Test
     public void notAFeatureClass() {
         // GIVEN
-        final ApplicationProperties applicationProperties = new ApplicationProperties();
-        final ApplicationContext applicationContext = BDDMockito.mock(ApplicationContext.class);
-        final FeatureStore featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
+        final var applicationProperties = new ApplicationProperties();
+        final var applicationContext = BDDMockito.mock(ApplicationContext.class);
+        final var featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
 
         // EXCEPTION
         expectedException.expect(IllegalArgumentException.class);
@@ -90,9 +89,9 @@ public final class FeatureStoreImplTest {
     @Test
     public void noClassAvailable() {
         // GIVEN
-        final ApplicationProperties applicationProperties = new ApplicationProperties();
-        final ApplicationContext applicationContext = BDDMockito.mock(ApplicationContext.class);
-        final FeatureStore featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
+        final var applicationProperties = new ApplicationProperties();
+        final var applicationContext = BDDMockito.mock(ApplicationContext.class);
+        final var featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
         final Map<String, Operation> operationMap = new HashMap<>();
 
         BDDMockito.given(applicationContext.getBeansOfType(Operation.class)).willReturn(operationMap);

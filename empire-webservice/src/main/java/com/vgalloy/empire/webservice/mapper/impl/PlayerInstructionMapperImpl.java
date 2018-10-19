@@ -16,7 +16,7 @@ final class PlayerInstructionMapperImpl implements PlayerInstructionMapper {
 
     @Override
     public PlayerInstructionDto map(final PlayerInstructions playerInstructions) {
-        final PlayerInstructionDto result = new PlayerInstructionDto();
+        final var result = new PlayerInstructionDto();
         result.setOrders(playerInstructions.getOrders());
         return result;
     }

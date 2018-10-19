@@ -32,7 +32,7 @@ public class InMemoryFeatureManager implements FeatureManager {
      */
     public InMemoryFeatureManager(final FeatureAdder featureAdder, final FeatureConfiguration... featureConfigurations) {
         this.featureAdder = featureAdder;
-        for (final FeatureConfiguration featureConfiguration : featureConfigurations) {
+        for (final var featureConfiguration : featureConfigurations) {
             map.put(featureConfiguration.getName(), featureConfiguration);
         }
     }
@@ -40,11 +40,11 @@ public class InMemoryFeatureManager implements FeatureManager {
     @Override
     public Optional<FeatureConfiguration> getById(final String featureId) {
         Objects.requireNonNull(featureId);
-        final FeatureConfiguration featureConfiguration = map.get(featureId);
+        final var featureConfiguration = map.get(featureId);
         if (Objects.nonNull(featureConfiguration)) {
             return Optional.of(featureConfiguration);
         }
-        final Optional<FeatureConfiguration> newFeature = featureAdder.addFeature(featureId);
+        final var newFeature = featureAdder.addFeature(featureId);
         newFeature.ifPresent(this::add);
         return newFeature;
     }
