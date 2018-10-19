@@ -51,7 +51,9 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
-                    <compilerArgs>-Xlint:all</compilerArgs>
+                    <compilerArgs>
+                        <arg>-Xlint:all</arg>
+                    </compilerArgs>
                     <failOnWarning>false</failOnWarning>
                 </configuration>
             </plugin>
