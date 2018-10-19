@@ -48,7 +48,7 @@ node {
                      -v empire-m2-volume:/root/.m2 \
                      -v empire-source-volume:/src/maven \
                      -w /src/maven/empire-server \
-                    openjdk:10.0.2-jdk ./mvnw clean install
+                    openjdk:11.0.1-oracle ./mvnw clean install
              '''
     }
 
@@ -60,7 +60,7 @@ node {
                 -v empire-gradle-volume:/root/.gradle \
                 -v empire-source-volume:/home/gradle \
                 -w /home/gradle/empire-server \
-                openjdk:10.0.2-jdk ./gradlew build
+                openjdk:11.0.1-oracle ./gradlew build
         '''
     }
 

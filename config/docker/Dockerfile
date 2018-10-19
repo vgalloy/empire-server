@@ -1,4 +1,4 @@
-FROM openjdk:10.0.2-jre
+FROM openjdk:11.0.1-oracle
 
 WORKDIR server
 
