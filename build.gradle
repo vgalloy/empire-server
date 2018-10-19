@@ -39,7 +39,6 @@ allprojects {
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
-//    apply plugin: 'findbugs'
     apply plugin: 'jacoco'
 
     group = 'com.vgalloy'
@@ -80,13 +79,6 @@ allprojects {
         pmdTest.enabled = false
         pmdIntegrationTest.enabled = false
     }
-
-//    findbugs {
-//        toolVersion = "$findbugsVersion"
-//        excludeFilter = file("$qualityConfigurationPath/findbugs/findbugs-exception-filter.xml")
-//        findbugsTest.enabled = false
-//        findbugsIntegrationTest.enabled = false
-//    }
 
     tasks.withType(JavaCompile) {
         sourceCompatibility = "$javaVersion"
