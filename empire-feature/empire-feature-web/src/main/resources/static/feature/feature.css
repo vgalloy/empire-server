@@ -20,7 +20,7 @@ input {
 
 .search {
     font-size: 0;
-    border: 1px solid black;
+    border: 1px solid grey;
     height: 41px;
     display: flex;
 }
@@ -47,10 +47,39 @@ input {
 .row {
     display: flex;
     flex-direction: row;
-    margin: 10px;
+    /*margin: 20px 0 20px 0;*/
+    padding: 15px;
+    /*background-color: #f0f0f0;*/
+    border-bottom: 1px solid grey;
+    transition: 0.3s background-color;
+}
+
+.row:hover {
+    background-color: #ccc;
+    /*box-shadow: 0 4px 4px 0 #f0f0f0;*/
 }
 
 .feature-name {
-    width: 70%;
+    width: 80%;
 }
 
+.footer {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.footer button {
+    background-color: green;
+    border: none;
+    width: 20%;
+    padding: 15px;
+    margin: 20px 0 20px 0;
+    box-shadow: 0 2px 2px 0 #9E9E9E;
+    border-radius: 2px;
+}
+
+.footer button:hover {
+    background-color: forestgreen;
+    border: none;
+    box-shadow: 0 4px 4px 0 #9E9E9E;
+}
