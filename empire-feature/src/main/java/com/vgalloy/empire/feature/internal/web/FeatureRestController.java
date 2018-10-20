@@ -22,7 +22,7 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
  * @author Vincent Galloy
  */
 @ConditionalOnClass(HttpServlet.class)
-@RequestMapping("features")
+@RequestMapping(WebConstant.FEATURE_API + "/features")
 @RestController
 public class FeatureRestController {
 

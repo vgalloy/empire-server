@@ -35,7 +35,7 @@ public class FeatureRestControllerIT {
     @Test
     public void getOneFeature() {
         // GIVEN
-        final String nonExistingUrl = "/features/" + FEATURE_NAME;
+        final String nonExistingUrl = WebConstant.FEATURE_API + "/features/" + FEATURE_NAME;
 
         // WHEN
         final FeatureConfiguration result = restTemplate.getForObject(nonExistingUrl, FeatureConfiguration.class);
