@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -35,14 +36,11 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
 
     @Override
     public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException) throws IOException, ServletException {
-        // Authentication failed, send error response.
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName());
-        response.addHeader("Content-Type", "application/json");
+        response.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
 
-        final var errorDto = new ErrorDto();
-        errorDto.setCode(HttpStatus.UNAUTHORIZED.value());
-        errorDto.setMessage(HttpStatus.UNAUTHORIZED.getReasonPhrase());
+        final var errorDto = new ErrorDto(HttpStatus.UNAUTHORIZED.value(), HttpStatus.UNAUTHORIZED.getReasonPhrase());
         final var errorAsString = objectMapper.writeValueAsString(errorDto);
 
         final var writer = response.getWriter();

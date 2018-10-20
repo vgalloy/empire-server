@@ -129,9 +129,7 @@ final class GlobalErrorHandler {
      * @return the ResponseEntity with an ErrorDto
      */
     private ResponseEntity<ErrorDto> buildResponse(final HttpStatus httpStatus, final String message) {
-        final var errorDto = new ErrorDto();
-        errorDto.setCode(httpStatus.value());
-        errorDto.setMessage(message);
+        final var errorDto = new ErrorDto(httpStatus.value(), message);
         return new ResponseEntity<>(errorDto, httpStatus);
     }
 }
