@@ -1,6 +1,7 @@
 package com.vgalloy.empire.webservice.filter;
 
-import java.util.Objects;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 /**
@@ -10,13 +11,13 @@ import java.util.Optional;
  */
 public final class TimerContextHolder {
 
-    private static final ThreadLocal<Long> START_TIME = new ThreadLocal<>();
+    private static final ThreadLocal<LocalDateTime> START_TIME = new ThreadLocal<>();
 
     /**
      * Start a thread timer.
      */
     static void start() {
-        START_TIME.set(System.currentTimeMillis());
+        START_TIME.set(LocalDateTime.now());
     }
 
     /**
@@ -31,11 +32,17 @@ public final class TimerContextHolder {
      *
      * @return execution time or zero.
      */
-    public static Optional<Long> getExecutionTimeMillis() {
-        final var startTime = START_TIME.get();
-        if (Objects.isNull(startTime)) {
-            return Optional.empty();
-        }
-        return Optional.of(System.currentTimeMillis() - startTime);
+    public static Optional<Duration> getTimerDuration() {
+        return getStartTime()
+            .map(startTime -> Duration.between(startTime, LocalDateTime.now()));
+    }
+
+    /**
+     * Get the time start time if exist.
+     *
+     * @return {@link Optional#empty()} if {@link #start()} haven't been call before.
+     */
+    public static Optional<LocalDateTime> getStartTime() {
+        return Optional.ofNullable(START_TIME.get());
     }
 }

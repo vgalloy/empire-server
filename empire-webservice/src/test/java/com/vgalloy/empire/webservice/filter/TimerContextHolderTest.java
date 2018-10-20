@@ -1,6 +1,6 @@
 package com.vgalloy.empire.webservice.filter;
 
-import java.util.Optional;
+import java.time.Duration;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public final class TimerContextHolderTest {
     @Test
     public void noTimerDefined() {
         // WHEN
-        final Optional<Long> result = TimerContextHolder.getExecutionTimeMillis();
+        final var result = TimerContextHolder.getTimerDuration();
 
         // THEN
         Assert.assertFalse(result.isPresent());
@@ -30,15 +30,16 @@ public final class TimerContextHolderTest {
     @Test
     public void correctTimeCount() {
         // GIVEN
-        final long beforeStart = System.currentTimeMillis();
+        final var beforeStart = System.currentTimeMillis();
         TimerContextHolder.start();
-        final long afterStart = System.currentTimeMillis();
+        final var afterStart = System.currentTimeMillis();
 
         // WHEN
-        final long beforeResult = System.currentTimeMillis();
-        final long result = TimerContextHolder.getExecutionTimeMillis()
+        final var beforeResult = System.currentTimeMillis();
+        final var result = TimerContextHolder.getTimerDuration()
+            .map(Duration::toMillis)
             .orElseThrow(() -> new AssertionError("Timer doesn't start"));
-        final long afterResult = System.currentTimeMillis();
+        final var afterResult = System.currentTimeMillis();
 
         // THEN
         Assert.assertTrue(result <= afterResult - beforeStart);

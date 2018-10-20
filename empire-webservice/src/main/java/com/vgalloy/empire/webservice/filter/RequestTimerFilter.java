@@ -35,8 +35,8 @@ public class RequestTimerFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
         } finally {
             if (LOGGER.isInfoEnabled()) {
-                TimerContextHolder.getExecutionTimeMillis()
-                    .ifPresent(executionTime -> LOGGER.info("Total execution time : {} ms", executionTime));
+                TimerContextHolder.getTimerDuration()
+                    .ifPresent(executionTime -> LOGGER.info("Total execution time : {} ms", executionTime.toMillis()));
             }
         }
     }

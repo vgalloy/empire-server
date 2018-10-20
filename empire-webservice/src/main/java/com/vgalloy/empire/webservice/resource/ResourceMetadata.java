@@ -1,5 +1,7 @@
 package com.vgalloy.empire.webservice.resource;
 
+import java.time.Duration;
+
 import org.springframework.lang.Nullable;
 
 import com.vgalloy.empire.webservice.filter.TimerContextHolder;
@@ -41,7 +43,8 @@ public class ResourceMetadata {
      * @return a new meta data
      */
     public static ResourceMetadata fromNow() {
-        return TimerContextHolder.getExecutionTimeMillis()
+        return TimerContextHolder.getTimerDuration()
+            .map(Duration::toMillis)
             .map(ResourceMetadata::new)
             .orElseGet(ResourceMetadata::new);
     }
