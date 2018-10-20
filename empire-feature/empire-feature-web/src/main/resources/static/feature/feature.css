@@ -1,0 +1,56 @@
+input {
+    font-family: 'Open Sans,sans-serif', monospace;
+}
+
+.nav {
+    width: 100%;
+    background-color: #477aff;
+    color: aliceblue;
+    padding: 20px;
+    box-shadow: 0 3px 3px 0 #9E9E9E;
+}
+
+.title {
+    font-size: 2em;
+}
+
+.container {
+    margin: 45px;
+}
+
+.search {
+    font-size: 0;
+    border: 1px solid black;
+    height: 41px;
+    display: flex;
+}
+
+.search input {
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    width: 90%;
+}
+
+.search button {
+    background-color: #ccc;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    width: 10%;
+}
+
+.search button:hover {
+    background: grey;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.feature-name {
+    width: 70%;
+}
+
