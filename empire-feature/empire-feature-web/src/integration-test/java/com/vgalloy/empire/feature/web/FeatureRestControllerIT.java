@@ -29,6 +29,7 @@ import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
 public class FeatureRestControllerIT {
 
     private static final String FEATURE_NAME = "web.feature";
+
     @Autowired
     private TestRestTemplate restTemplate;
 

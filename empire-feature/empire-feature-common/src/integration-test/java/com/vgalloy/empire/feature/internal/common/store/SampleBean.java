@@ -7,7 +7,7 @@ import com.vgalloy.empire.feature.api.FeatureMethod;
  *
  * @author Vincent Galloy
  */
-public class SampleBean {
+class SampleBean {
 
     static final String FEATURE_OK = "sample.feature.for.test.ok";
     static final String FEATURE_KO = "sample.feature.for.test.ko";
