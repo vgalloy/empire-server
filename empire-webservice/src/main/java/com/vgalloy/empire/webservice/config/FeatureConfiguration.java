@@ -8,5 +8,5 @@ import com.vgalloy.empire.feature.api.EnableFeatureSwitcher;
  * @author Vincent Galloy
  */
 @EnableFeatureSwitcher
-public class FeatureConfig {
+public class FeatureConfiguration {
 }

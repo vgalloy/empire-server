@@ -30,7 +30,7 @@ import com.vgalloy.empire.webservice.dto.ErrorDto;
  */
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
+public class SwaggerConfiguration {
 
     private final TypeResolver typeResolver;
 
@@ -39,7 +39,7 @@ public class SwaggerConfig {
      *
      * @param typeResolver the type resolver
      */
-    public SwaggerConfig(final TypeResolver typeResolver) {
+    public SwaggerConfiguration(final TypeResolver typeResolver) {
         this.typeResolver = Objects.requireNonNull(typeResolver);
     }
 
@@ -57,8 +57,6 @@ public class SwaggerConfig {
             .paths(PathSelectors.any())
             .build()
             .directModelSubstitute(LocalDate.class, String.class)
-            //.directModelSubstitute(EmpireIdDto.class, String.class)
-            //.directModelSubstitute(UserIdDto.class, String.class)
             .genericModelSubstitutes(ResponseEntity.class)
             .securitySchemes(Collections.singletonList(new BasicAuth("")))
             .useDefaultResponseMessages(false)
