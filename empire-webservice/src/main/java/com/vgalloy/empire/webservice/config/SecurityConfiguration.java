@@ -2,7 +2,6 @@ package com.vgalloy.empire.webservice.config;
 
 import java.util.Objects;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -36,14 +35,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         this.userDetailsService = Objects.requireNonNull(userDetailsService);
     }
 
-    /**
-     * Configuration for {@link org.springframework.security.authentication.AuthenticationManager}.
-     *
-     * @param auth the builder
-     * @throws Exception if an error occurs when adding the in memory authentication
-     */
-    @Autowired
-    public void configureGlobal(final AuthenticationManagerBuilder auth) throws Exception {
+    @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
     }
 
