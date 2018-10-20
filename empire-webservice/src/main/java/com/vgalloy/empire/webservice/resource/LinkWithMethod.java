@@ -2,10 +2,10 @@ package com.vgalloy.empire.webservice.resource;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.UriTemplate;
 import org.springframework.hateoas.core.DummyInvocationUtils;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.util.Assert;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  *
  * @author Vincent Galloy
  */
-public class LinkWithMethod extends Link {
+public final class LinkWithMethod extends Link {
 
     private static final long serialVersionUID = -8181120740085864378L;
     private final RequestMethod[] methods;
@@ -25,12 +25,11 @@ public class LinkWithMethod extends Link {
     /**
      * Constructor.
      *
-     * @param template the template
-     * @param href     the href
-     * @param methods  the methods for request
+     * @param link    the link
+     * @param methods the methods for request
      */
-    public LinkWithMethod(final UriTemplate template, final String href, final RequestMethod... methods) {
-        super(template, href);
+    private LinkWithMethod(final Link link, final RequestMethod... methods) {
+        super(link.getHref(), link.getRel());
         this.methods = Arrays.copyOf(methods, methods.length);
     }
 
@@ -40,7 +39,12 @@ public class LinkWithMethod extends Link {
 
     @Override
     public LinkWithMethod withSelfRel() {
-        return new LinkWithMethod(this.getTemplate(), REL_SELF, methods);
+        return new LinkWithMethod(super.withSelfRel(), methods);
+    }
+
+    @Override
+    public LinkWithMethod withHref(final String href) {
+        return new LinkWithMethod(super.withHref(href), methods);
     }
 
     /**
@@ -54,7 +58,10 @@ public class LinkWithMethod extends Link {
         final var methodName = method.getName();
         final var link = ControllerLinkBuilder.linkTo(invocationValue).withRel(methodName);
         final var type = AnnotationUtils.findAnnotation(method, RequestMapping.class);
-        return new LinkWithMethod(link.getTemplate(), methodName, type.method());
+        if (Objects.isNull(type) || type.method().length == 0) {
+            return new LinkWithMethod(link, RequestMethod.values());
+        }
+        return new LinkWithMethod(link, type.method());
     }
 
     /**
