@@ -22,7 +22,7 @@ import com.vgalloy.empire.webservice.dto.ErrorDto;
 @RunWith(SpringRunner.class)
 @Import(ServerConfig.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SimpleTest {
+public class ErrorTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
@@ -30,13 +30,14 @@ public class SimpleTest {
     @Test
     public void error404() {
         // GIVEN
-        String nonExistingUrl = "/azeaz";
+        final String nonExistingUrl = "/azeaz";
 
         // WHEN
-        ResponseEntity<ErrorDto> result = restTemplate.getForEntity(nonExistingUrl, ErrorDto.class);
+        final ResponseEntity<ErrorDto> result = restTemplate.getForEntity(nonExistingUrl, ErrorDto.class);
 
         // THEN
         Assert.assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+        Assert.assertNotNull(result.getBody());
         Assert.assertEquals(HttpStatus.NOT_FOUND.value(), result.getBody().getCode());
         Assert.assertEquals(HttpStatus.NOT_FOUND.getReasonPhrase(), result.getBody().getMessage());
     }

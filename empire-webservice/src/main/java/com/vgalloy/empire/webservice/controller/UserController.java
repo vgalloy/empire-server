@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,7 +38,7 @@ import com.vgalloy.empire.webservice.resource.ResourceList;
 @NotNullApi
 @Validated
 @RestController
-@RequestMapping("users")
+@RequestMapping(value = "users", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
 public class UserController {
 
     private static final String USER_ID_MUST_BE_NOT_NULL = "User id can't be null";
