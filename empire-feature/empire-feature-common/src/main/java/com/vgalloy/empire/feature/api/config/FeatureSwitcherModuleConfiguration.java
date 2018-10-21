@@ -3,8 +3,11 @@ package com.vgalloy.empire.feature.api.config;
 import java.util.List;
 import java.util.Objects;
 
+import com.vgalloy.empire.feature.api.FeatureAdder;
+import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.PackageScanner;
+import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -14,17 +17,20 @@ import com.vgalloy.empire.feature.internal.common.PackageScanner;
 public class FeatureSwitcherModuleConfiguration {
 
     private final PackageScanner packageScanner;
+    private final FeatureDao featureDao;
     private final FeatureManager featureManager;
 
     /**
      * Constructor.
      *
      * @param packageScanner not null
-     * @param featureManager not null
+     * @param featureDao     not null
+     * @param featureAdder   not null
      */
-    FeatureSwitcherModuleConfiguration(final PackageScanner packageScanner, final FeatureManager featureManager) {
+    FeatureSwitcherModuleConfiguration(final PackageScanner packageScanner, final FeatureDao featureDao, final FeatureAdder featureAdder) {
         this.packageScanner = Objects.requireNonNull(packageScanner, "No base package defined");
-        this.featureManager = Objects.requireNonNull(featureManager, "No feature configuration store");
+        this.featureDao = Objects.requireNonNull(featureDao, "No feature dao defined");
+        this.featureManager = new StandardFeatureManager(featureAdder, featureDao);
     }
 
     /**
@@ -43,6 +49,10 @@ public class FeatureSwitcherModuleConfiguration {
      */
     public List<String> getPackages() {
         return packageScanner.getPackage();
+    }
+
+    public FeatureDao getFeatureDao() {
+        return featureDao;
     }
 
     public FeatureManager getFeatureManager() {

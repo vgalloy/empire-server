@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderEnabler;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
@@ -20,11 +21,12 @@ public final class InMemoryFeatureConfigurationStoreTest {
     @Test
     public void noFeatureAdded() {
         // GIVEN
-        final FeatureManager store = new InMemoryFeatureManager(FeatureAdderNoop.INSTANCE);
-        store.getById("Noop");
+        final FeatureDao featureDao = new InMemoryFeatureDao();
+        final FeatureManager store = new StandardFeatureManager(FeatureAdderNoop.INSTANCE, featureDao);
+        store.isEnable("Noop");
 
         // WHEN
-        final Optional<FeatureConfiguration> result = store.getById("Noop");
+        final Optional<FeatureConfiguration> result = featureDao.getById("Noop");
 
         // THEN
         Assert.assertFalse(result.isPresent());
@@ -33,11 +35,12 @@ public final class InMemoryFeatureConfigurationStoreTest {
     @Test
     public void featureAddAndEnable() {
         // GIVEN
-        final FeatureManager store = new InMemoryFeatureManager(new FeatureAdderEnabler());
-        store.getById("Noop");
+        final FeatureDao featureDao = new InMemoryFeatureDao();
+        final FeatureManager store = new StandardFeatureManager(new FeatureAdderEnabler(), featureDao);
+        store.isEnable("Noop");
 
         // WHEN
-        final Optional<FeatureConfiguration> result = store.getById("Noop");
+        final Optional<FeatureConfiguration> result = featureDao.getById("Noop");
 
         // THEN
         Assert.assertTrue(result.isPresent());

@@ -3,22 +3,19 @@ package com.vgalloy.empire.feature.api.config;
 import java.util.Arrays;
 import java.util.Objects;
 
-import com.vgalloy.empire.feature.api.FeatureAdder;
 import com.vgalloy.empire.feature.api.FeatureManager;
-import com.vgalloy.empire.feature.internal.common.FeatureAdderEnabler;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
  *
  * @author Vincent Galloy
  */
-public class InMemoryStoreBuilder {
+public class InMemoryDaoBuilder {
 
     private final FeatureSwitcherModuleBuilder parent;
 
-    private FeatureAdder featureAdder = new FeatureAdderEnabler();
     private FeatureConfiguration[] featureConfigurations = new FeatureConfiguration[0];
 
     /**
@@ -26,20 +23,8 @@ public class InMemoryStoreBuilder {
      *
      * @param parent the parent builder
      */
-    public InMemoryStoreBuilder(final FeatureSwitcherModuleBuilder parent) {
+    public InMemoryDaoBuilder(final FeatureSwitcherModuleBuilder parent) {
         this.parent = parent;
-    }
-
-    /**
-     * Specify the {@link FeatureAdder}.
-     *
-     * @param featureAdder feature adder, not null
-     * @return this
-     */
-    public InMemoryStoreBuilder featureAdder(final FeatureAdder featureAdder) {
-        Objects.requireNonNull(featureAdder, "featureAdder");
-        this.featureAdder = featureAdder;
-        return this;
     }
 
     /**
@@ -49,7 +34,7 @@ public class InMemoryStoreBuilder {
      * @param featureConfigurations an array with the default feature
      * @return this
      */
-    public InMemoryStoreBuilder withDefault(final FeatureConfiguration... featureConfigurations) {
+    public InMemoryDaoBuilder withDefault(final FeatureConfiguration... featureConfigurations) {
         Objects.requireNonNull(featureConfigurations, "featureConfigurations");
         this.featureConfigurations = Arrays.copyOf(featureConfigurations, featureConfigurations.length);
         return this;
@@ -61,7 +46,6 @@ public class InMemoryStoreBuilder {
      * @return the parent
      */
     public FeatureSwitcherModuleBuilder buildManager() {
-        final var featureStore = new InMemoryFeatureManager(featureAdder, featureConfigurations);
-        return parent.featureConfigurationStore(featureStore);
+        return parent.featureConfigurationStore(new InMemoryFeatureDao(featureConfigurations));
     }
 }

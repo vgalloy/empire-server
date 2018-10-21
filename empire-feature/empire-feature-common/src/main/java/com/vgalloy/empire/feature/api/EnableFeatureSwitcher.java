@@ -15,9 +15,9 @@ import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfigura
  *
  * @author Vincent Galloy
  */
+@Configuration
 @Import(FeatureSwitcherSpringConfiguration.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Configuration
 public @interface EnableFeatureSwitcher {
 }

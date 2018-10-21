@@ -4,8 +4,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.config.FeatureSwitcherModuleConfiguration;
+import com.vgalloy.empire.feature.internal.common.aspect.FeatureAspect;
 
 /**
  * Created by Vincent Galloy on 12/10/18.
@@ -24,18 +26,42 @@ public class FeatureSwitcherSpringConfiguration {
     @Bean
     public FeatureSwitcherModuleConfiguration featureSwitcherModuleConfiguration() {
         return FeatureSwitcherModuleConfiguration.builder()
-            .inMemoryFeatureManager().buildManager()
+            .inMemoryFeatureDao().buildManager()
             .build();
     }
 
     /**
-     * Build feature store.
+     * Build feature dao.
      *
      * @param configuration the module configuration
-     * @return the feature store
+     * @return the bean
+     */
+    @ConditionalOnMissingBean(FeatureDao.class)
+    @Bean
+    public FeatureDao featureDao(final FeatureSwitcherModuleConfiguration configuration) {
+        return configuration.getFeatureDao();
+    }
+
+    /**
+     * Build feature manager.
+     *
+     * @param configuration the module configuration, not null
+     * @return the bean
+     */
+    @ConditionalOnMissingBean(FeatureManager.class)
+    @Bean
+    public FeatureManager featureManager(final FeatureSwitcherModuleConfiguration configuration) {
+        return configuration.getFeatureManager();
+    }
+
+    /**
+     * Build Spring bean.
+     *
+     * @param featureManager the featureManager
+     * @return the bean
      */
     @Bean
-    public FeatureManager featureConfigurationStore(final FeatureSwitcherModuleConfiguration configuration) {
-        return configuration.getFeatureManager();
+    public FeatureAspect featureAspect(final FeatureManager featureManager) {
+        return new FeatureAspect(featureManager);
     }
 }

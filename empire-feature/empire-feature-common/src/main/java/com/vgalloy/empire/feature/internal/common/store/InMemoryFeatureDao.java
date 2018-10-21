@@ -6,11 +6,9 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import com.vgalloy.empire.feature.api.FeatureAdder;
-import com.vgalloy.empire.feature.api.FeatureManager;
+import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 
 /**
@@ -18,20 +16,16 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
  *
  * @author Vincent Galloy
  */
-@Service
-public class InMemoryFeatureManager implements FeatureManager {
+public class InMemoryFeatureDao implements FeatureDao {
 
-    private final FeatureAdder featureAdder;
     private final Map<String, FeatureConfiguration> map = new ConcurrentHashMap<>();
 
     /**
      * Constructor.
      *
-     * @param featureAdder          not null
-     * @param featureConfigurations not null
+     * @param featureConfigurations the initial configuration, not null
      */
-    public InMemoryFeatureManager(final FeatureAdder featureAdder, final FeatureConfiguration... featureConfigurations) {
-        this.featureAdder = featureAdder;
+    public InMemoryFeatureDao(final FeatureConfiguration... featureConfigurations) {
         for (final var featureConfiguration : featureConfigurations) {
             map.put(featureConfiguration.getName(), featureConfiguration);
         }
@@ -40,13 +34,7 @@ public class InMemoryFeatureManager implements FeatureManager {
     @Override
     public Optional<FeatureConfiguration> getById(final String featureId) {
         Objects.requireNonNull(featureId);
-        final var featureConfiguration = map.get(featureId);
-        if (Objects.nonNull(featureConfiguration)) {
-            return Optional.of(featureConfiguration);
-        }
-        final var newFeature = featureAdder.addFeature(featureId);
-        newFeature.ifPresent(this::add);
-        return newFeature;
+        return Optional.ofNullable(map.get(featureId));
     }
 
     @Override

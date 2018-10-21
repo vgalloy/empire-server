@@ -13,10 +13,12 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vgalloy.empire.feature.api.EnableFeatureSwitcher;
+import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
+import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -51,14 +53,20 @@ public class FeatureRestControllerIT {
     @SpringBootConfiguration
     @EnableAutoConfiguration
     public static class Config {
+
         @Bean
-        public FeatureManager featureConfigurationStore() {
-            return new InMemoryFeatureManager(FeatureAdderNoop.INSTANCE, new FeatureConfiguration(FEATURE_NAME, true));
+        FeatureDao featureDao() {
+            return new InMemoryFeatureDao(new FeatureConfiguration(FEATURE_NAME, true));
         }
 
         @Bean
-        public FeatureRestController FeatureRestController(final FeatureManager featureManager) {
-            return new FeatureRestController(featureManager);
+        FeatureManager featureConfigurationStore(final FeatureDao featureDao) {
+            return new StandardFeatureManager(FeatureAdderNoop.INSTANCE, featureDao);
+        }
+
+        @Bean
+        FeatureRestController FeatureRestController(final FeatureDao featureDao) {
+            return new FeatureRestController(featureDao);
         }
     }
 }

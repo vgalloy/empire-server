@@ -5,7 +5,6 @@ import java.util.Objects;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.springframework.stereotype.Component;
 
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.api.FeatureMethod;
@@ -16,7 +15,6 @@ import com.vgalloy.empire.feature.api.FeatureMethod;
  * @author Vincent Galloy
  */
 @Aspect
-@Component
 public class FeatureAspect {
 
     private final FeatureManager featureManager;
@@ -41,8 +39,7 @@ public class FeatureAspect {
     @Around("@annotation(featureMethod)")
     public Object logExecutionTime(final ProceedingJoinPoint joinPoint, final FeatureMethod featureMethod) throws Throwable {
         final var name = featureMethod.value();
-        final var featureConfiguration = this.featureManager.getById(name);
-        if (featureConfiguration.isPresent() && featureConfiguration.get().isEnable()) {
+        if (this.featureManager.isEnable(name)) {
             return joinPoint.proceed();
         }
         return null;

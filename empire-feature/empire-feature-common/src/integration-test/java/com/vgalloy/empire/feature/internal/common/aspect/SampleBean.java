@@ -1,4 +1,4 @@
-package com.vgalloy.empire.feature.internal.common.store;
+package com.vgalloy.empire.feature.internal.common.aspect;
 
 import com.vgalloy.empire.feature.api.FeatureMethod;
 

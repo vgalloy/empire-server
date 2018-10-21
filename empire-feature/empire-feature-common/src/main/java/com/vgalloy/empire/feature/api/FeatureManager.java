@@ -1,10 +1,5 @@
 package com.vgalloy.empire.feature.api;
 
-import java.util.Collection;
-import java.util.Optional;
-
-import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
-
 /**
  * Created by Vincent Galloy on 11/10/18.
  *
@@ -13,33 +8,10 @@ import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 public interface FeatureManager {
 
     /**
-     * Return corresponding feature.
+     * Is the feature currently enable.
      *
-     * @param featureId not null
-     * @return {@link Optional#empty()} is no feature are present.
+     * @param featureId the feature if
+     * @return true if the feature must be execute
      */
-    Optional<FeatureConfiguration> getById(String featureId);
-
-    /**
-     * Update the corresponding feature configuration.
-     *
-     * @param featureConfiguration the feature configuration, not null
-     * @return the updated feature configuration, not null
-     */
-    FeatureConfiguration update(FeatureConfiguration featureConfiguration);
-
-    /**
-     * Create the corresponding feature configuration.
-     *
-     * @param featureConfiguration the feature configuration, not null
-     * @return the updated feature configuration, not null
-     */
-    FeatureConfiguration add(FeatureConfiguration featureConfiguration);
-
-    /**
-     * Get all the feature in the store.
-     *
-     * @return all the feature as a collection, not null
-     */
-    Collection<FeatureConfiguration> getAll();
+    boolean isEnable(String featureId);
 }

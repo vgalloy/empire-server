@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureManager;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -17,18 +17,18 @@ public final class FeatureSwitcherModuleBuilderTest {
     public void inMemoryBuilder() {
         // WHEN
         final var configuration = FeatureSwitcherModuleConfiguration.builder()
-            .inMemoryFeatureManager()
+            .inMemoryFeatureDao()
             .buildManager()
             .build();
 
         // THEN
-        Assert.assertTrue(configuration.getFeatureManager() instanceof InMemoryFeatureManager);
+        Assert.assertTrue(configuration.getFeatureDao() instanceof InMemoryFeatureDao);
     }
 
     @Test
     public void noBuildThrowException() {
         // WHEN / THEN
-        Assertions.assertThatThrownBy(() -> FeatureSwitcherModuleConfiguration.builder()
-            .build()).isInstanceOf(NullPointerException.class).hasMessage("No feature configuration store");
+        Assertions.assertThatThrownBy(() -> FeatureSwitcherModuleConfiguration.builder().build())
+            .isInstanceOf(NullPointerException.class).hasMessage("No feature dao defined");
     }
 }
