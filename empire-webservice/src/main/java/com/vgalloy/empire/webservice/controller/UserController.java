@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,6 @@ import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.exception.NotFoundResourceException;
 import com.vgalloy.empire.webservice.mapper.UserMapper;
-import com.vgalloy.empire.webservice.resource.LinkWithMethod;
 import com.vgalloy.empire.webservice.resource.ResourceData;
 import com.vgalloy.empire.webservice.resource.ResourceList;
 
@@ -46,18 +44,21 @@ public class UserController {
     private final UserService userService;
     private final UserMapper userMapper;
     private final EmpireService empireService;
+    private final ControllerLinker controllerLinker;
 
     /**
      * Constructor.
      *
-     * @param userService   the user service
-     * @param userMapper    the user mapper
-     * @param empireService the empire service
+     * @param userService      the user service
+     * @param userMapper       the user mapper
+     * @param empireService    the empire service
+     * @param controllerLinker controllerLinker
      */
-    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService) {
+    public UserController(final UserService userService, final UserMapper userMapper, final EmpireService empireService, final ControllerLinker controllerLinker) {
         this.userService = Objects.requireNonNull(userService);
         this.userMapper = Objects.requireNonNull(userMapper);
         this.empireService = Objects.requireNonNull(empireService);
+        this.controllerLinker = Objects.requireNonNull(controllerLinker);
     }
 
     /**
@@ -149,10 +150,7 @@ public class UserController {
      */
     private ResourceData<UserDto> buildResource(final UUID userId, final UserDto userDto) {
         final var resource = new ResourceData<>(userId, userDto);
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(userId)).withSelfRel());
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(userId, userDto)));
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).delete(userId)));
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getEmpiresByUser(userId)));
+        controllerLinker.addLink(resource);
         return resource;
     }
 }
