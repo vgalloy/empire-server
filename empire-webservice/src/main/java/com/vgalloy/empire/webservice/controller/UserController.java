@@ -150,7 +150,7 @@ public class UserController {
      */
     private ResourceData<UserDto> buildResource(final UUID userId, final UserDto userDto) {
         final var resource = new ResourceData<>(userId, userDto);
-        controllerLinker.addLink(resource);
+        controllerLinker.addUserLink(resource);
         return resource;
     }
 }

@@ -9,7 +9,6 @@ import java.util.stream.Stream;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.hateoas.MediaTypes;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -26,7 +25,6 @@ import com.vgalloy.empire.service.model.order.OrderType;
 import com.vgalloy.empire.service.spi.dao.EmpireDao;
 import com.vgalloy.empire.webservice.dto.EmpireDto;
 import com.vgalloy.empire.webservice.mapper.EmpireMapper;
-import com.vgalloy.empire.webservice.resource.LinkWithMethod;
 import com.vgalloy.empire.webservice.resource.ResourceData;
 import com.vgalloy.empire.webservice.resource.ResourceList;
 
@@ -44,18 +42,21 @@ public class EmpireController {
     private final EmpireMapper empireMapper;
     private final EmpireService empireService;
     private final EmpireDao empireDao;
+    private final ControllerLinker controllerLinker;
 
     /**
      * Constructor.
      *
-     * @param empireMapper  the empireMapper
-     * @param empireService the empireService
-     * @param empireDao     the empireDao
+     * @param empireMapper     the empireMapper
+     * @param empireService    the empireService
+     * @param empireDao        the empireDao
+     * @param controllerLinker the linker
      */
-    public EmpireController(final EmpireMapper empireMapper, final EmpireService empireService, final EmpireDao empireDao) {
+    public EmpireController(final EmpireMapper empireMapper, final EmpireService empireService, final EmpireDao empireDao, final ControllerLinker controllerLinker) {
         this.empireMapper = Objects.requireNonNull(empireMapper);
         this.empireService = Objects.requireNonNull(empireService);
         this.empireDao = Objects.requireNonNull(empireDao);
+        this.controllerLinker = Objects.requireNonNull(controllerLinker);
     }
 
     /**
@@ -130,10 +131,7 @@ public class EmpireController {
      */
     private ResourceData<EmpireDto> buildResource(final UUID empireId, final EmpireDto empireDto) {
         final var resource = new ResourceData<>(empireId, empireDto);
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getById(empireId)).withSelfRel());
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getOrdersTypes()));
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).nextRound(empireId)));
-        resource.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).updateOrder(empireId, null)));
+        controllerLinker.addEmpireLink(resource);
         return resource;
     }
 }
