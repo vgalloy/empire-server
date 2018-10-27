@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,8 +25,14 @@ public class LinkWithMethodTest {
 
     public static class SampleImpl implements Sample {
 
-        @RequestMapping("test")
+        @GetMapping("test")
         Sample test() {
+            return new SampleImpl();
+        }
+
+
+        @RequestMapping("all")
+        Sample all() {
             return new SampleImpl();
         }
 
@@ -43,14 +50,14 @@ public class LinkWithMethodTest {
     @Test
     public void objectWithNoRequestMapping() {
         // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
+        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).all();
 
         // WHEN
-        final LinkWithMethod result = LinkWithMethod.linkTo(proxy);
+        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
         // THEN
-        Assert.assertNotNull(result.getMethods());
-        Assert.assertEquals(RequestMethod.values().length, result.getMethods().length);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(RequestMethod.values().length, result.length);
     }
 
     @Test
@@ -59,7 +66,7 @@ public class LinkWithMethodTest {
         final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
         // WHEN
-        final Link result = LinkWithMethod.linkTo(proxy).withSelfRel();
+        final Link result = LinkWithMethod.self(proxy).withSelfRel();
 
         // THEN
         Assert.assertEquals(LinkWithMethod.class, result.getClass());
@@ -71,7 +78,7 @@ public class LinkWithMethodTest {
         final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
         // WHEN
-        final Link result = LinkWithMethod.linkTo(proxy).withHref("TOTO");
+        final Link result = LinkWithMethod.self(proxy).withHref("TOTO");
 
         // THEN
         Assert.assertEquals(LinkWithMethod.class, result.getClass());
@@ -84,12 +91,12 @@ public class LinkWithMethodTest {
         final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test2();
 
         // WHEN
-        final LinkWithMethod result = LinkWithMethod.linkTo(proxy);
+        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
         // THEN
-        Assert.assertNotNull(result.getMethods());
-        Assert.assertEquals(1, result.getMethods().length);
-        Assert.assertEquals(RequestMethod.PUT, result.getMethods()[0]);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1, result.length);
+        Assert.assertEquals(RequestMethod.PUT, result[0].getMethod());
     }
 
     @Test
@@ -98,11 +105,11 @@ public class LinkWithMethodTest {
         final Sample proxy = ControllerLinkBuilder.methodOn(Sample.class).test3();
 
         // WHEN
-        final LinkWithMethod result = LinkWithMethod.linkTo(proxy);
+        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
         // THEN
-        Assert.assertNotNull(result.getMethods());
-        Assert.assertEquals(1, result.getMethods().length);
-        Assert.assertEquals(RequestMethod.POST, result.getMethods()[0]);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1, result.length);
+        Assert.assertEquals(RequestMethod.POST, result[0].getMethod());
     }
 }

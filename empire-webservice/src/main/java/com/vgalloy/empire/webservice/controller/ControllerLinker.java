@@ -19,7 +19,7 @@ public class ControllerLinker {
      */
     @FeatureMethod("feature.hypermedia.link")
     public void addUserLink(final ResourceData<UserDto> resourceData) {
-        resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getById(resourceData.getUuid())).withSelfRel());
+        resourceData.add(LinkWithMethod.self(ControllerLinkBuilder.methodOn(UserController.class).getById(resourceData.getUuid())));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).update(resourceData.getUuid(), resourceData.getResource())));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).delete(resourceData.getUuid())));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(UserController.class).getEmpiresByUser(resourceData.getUuid())));
@@ -32,7 +32,7 @@ public class ControllerLinker {
      */
     @FeatureMethod("feature.hypermedia.link")
     public void addEmpireLink(final ResourceData<EmpireDto> resourceData) {
-        resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getById(resourceData.getUuid())).withSelfRel());
+        resourceData.add(LinkWithMethod.self(ControllerLinkBuilder.methodOn(EmpireController.class).getById(resourceData.getUuid())));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).getOrdersTypes()));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).nextRound(resourceData.getUuid())));
         resourceData.add(LinkWithMethod.linkTo(ControllerLinkBuilder.methodOn(EmpireController.class).updateOrder(resourceData.getUuid(), null)));
