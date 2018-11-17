@@ -2,5 +2,6 @@ target/
 /.idea/
 /.gradle/
 build/
+node_modules/
 *.iml
 out/

@@ -79,6 +79,11 @@
             </dependency>
             <dependency>
                 <groupId>com.vgalloy</groupId>
+                <artifactId>empire-feature-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.vgalloy</groupId>
                 <artifactId>empire-feature-web</artifactId>
                 <version>${project.version}</version>
             </dependency>

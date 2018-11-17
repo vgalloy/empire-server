@@ -15,10 +15,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class FeatureWebConfigurer implements WebMvcConfigurer {
 
-  @Override
-  public void addResourceHandlers(final ResourceHandlerRegistry registry) {
-    registry
-        .addResourceHandler(WebConstant.FEATURE_WEB + "/**")
-        .addResourceLocations("classpath:/static/feature/");
-  }
+    private static final String FEATURE_RESOURCE_LOCATION = "/static/feature/";
+    private static final String REACT_JS = "static/js/";
+
+    @Override
+    public void addResourceHandlers(final ResourceHandlerRegistry registry) {
+        registry
+            .addResourceHandler("/static/js/**")
+            .addResourceLocations("classpath:" + FEATURE_RESOURCE_LOCATION + REACT_JS);
+        registry
+            .addResourceHandler(WebConstant.FEATURE_WEB + "/**")
+            .addResourceLocations("classpath:" + FEATURE_RESOURCE_LOCATION);
+    }
 }
