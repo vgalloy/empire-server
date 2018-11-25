@@ -43,13 +43,13 @@ node {
 
     stage('Maven clean install') {
         sh '''
-                 docker container run \
-                     --rm \
-                     -v empire-m2-volume:/root/.m2 \
-                     -v empire-source-volume:/src/maven \
-                     -w /src/maven/empire-server \
-                    openjdk:11.0.1-oracle ./mvnw clean install
-             '''
+            docker container run \
+                --rm \
+                -v empire-m2-volume:/root/.m2 \
+                -v empire-source-volume:/src/maven \
+                -w /src/maven/empire-server \
+                openjdk:11.0.1-oracle ./mvnw clean install
+        '''
     }
 
     stage('Gradle build') {

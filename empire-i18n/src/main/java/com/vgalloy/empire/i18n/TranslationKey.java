@@ -52,7 +52,7 @@ public class TranslationKey implements Comparable<TranslationKey> {
     }
 
     /**
-     * True if the getKey representing the default value for the code.
+     * True if the key representing the default value for the code.
      *
      * @return true if the {@link #locale()} is empty
      */
@@ -62,11 +62,11 @@ public class TranslationKey implements Comparable<TranslationKey> {
 
     /**
      * According to BCP 47 specification {@link Locale} is divided into
-     * several part. This method return a {@link TranslationKey getKey} with the
+     * several part. This method return a {@link TranslationKey key} with the
      * parent of the current locale.
      * Example : 'fr_FR' will be 'fr'
      *
-     * @return a new instance of {@link TranslationKey getKey} will the parent locale
+     * @return a new instance of {@link TranslationKey key} will the parent locale
      */
     public TranslationKey getParent() {
         if (isDefault()) {
@@ -80,9 +80,9 @@ public class TranslationKey implements Comparable<TranslationKey> {
     }
 
     /**
-     * Return the current getKey and all parent order ascending.
-     * The first element of the list must this the current getKey and the last
-     * must be the {@link #isDefault() default} getKey.
+     * Return the current key and all parent order ascending.
+     * The first element of the list must this the current key and the last
+     * must be the {@link #isDefault() default} key.
      *
      * @return the list of all parent
      */

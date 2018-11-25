@@ -15,12 +15,12 @@ public class Translation {
     /**
      * Constructor.
      *
-     * @param key   the getKey
+     * @param key   the key
      * @param value the value
      */
     public Translation(final TranslationKey key, final String value) {
-        this.key = Objects.requireNonNull(key, "getKey");
-        this.value = Objects.requireNonNull(value, "getValue");
+        this.key = Objects.requireNonNull(key, "key");
+        this.value = Objects.requireNonNull(value, "value");
     }
 
     /**
