@@ -24,15 +24,14 @@ ext {
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
-    checkstyleVersion = '8.13'
-    pmdVersion = '6.8.0'
-    findbugsVersion = '3.0.1'
+    checkstyleVersion = '8.14'
+    pmdVersion = '6.9.0'
     jacocoVersion = '0.8.2'
 
     springBootVersion = '2.0.6.RELEASE'
     springFoxVersion = '2.9.2'
     junitVersion = '4.12'
-    mockitoVersion = '2.23.0'
+    mockitoVersion = '2.23.4'
 }
 
 allprojects {

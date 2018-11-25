@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.vgalloy.empire.feature.api.EnableFeatureSwitcher;
@@ -26,8 +25,7 @@ import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
  * @author Vincent Galloy
  */
 @RunWith(SpringRunner.class)
-@Import(FeatureRestControllerIT.Config.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = FeatureRestControllerIT.Config.class)
 public class FeatureRestControllerIT {
 
     private static final String FEATURE_NAME = "web.feature";
