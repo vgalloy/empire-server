@@ -20,7 +20,7 @@ buildTimer {
 }
 
 ext {
-    javaVersion = '10'
+    javaVersion = '11'
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
