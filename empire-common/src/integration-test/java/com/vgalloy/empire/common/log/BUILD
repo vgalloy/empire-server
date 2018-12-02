@@ -1,12 +1,11 @@
 package(default_visibility = ["//visibility:public"])
 
-java_library(
+java_test(
     name = "logger_aspect_it",
     srcs = ["LoggerAspectIT.java"],
+    test_class = "com.vgalloy.empire.common.log.LoggerAspectIT",
     deps = [
         "//empire-common/src/main/java:src",
-        #        "@org_springframework_boot_spring_boot_starter_test//jar",
-        #        "@org_mockito_mockito_core//jar",
         "@artifact_repo_test//:compile",
     ],
 )
