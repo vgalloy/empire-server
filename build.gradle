@@ -24,8 +24,8 @@ ext {
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
-    checkstyleVersion = '8.14'
-    pmdVersion = '6.9.0'
+    checkstyleVersion = '8.15'
+    pmdVersion = '6.10.0'
     jacocoVersion = '0.8.2'
 
     springBootVersion = '2.0.6.RELEASE'

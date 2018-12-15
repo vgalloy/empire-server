@@ -34,11 +34,11 @@
 
         <!-- Checkstyle -->
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>8.14</checkstyle.version>
+        <checkstyle.version>8.15</checkstyle.version>
 
         <!-- PMD -->
         <maven-pmd-plugin.version>3.11.0</maven-pmd-plugin.version>
-        <pmd.version>6.9.0</pmd.version>
+        <pmd.version>6.10.0</pmd.version>
 
         <!-- Dependencies-->
         <slf4j-api.version>1.7.25</slf4j-api.version>
