@@ -6,16 +6,16 @@ import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 11/10/18.
@@ -23,37 +23,37 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Vincent Galloy
  */
 @SpringBootTest(classes = FeatureAspectIT.Config.class)
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class FeatureAspectIT {
 
   @Autowired private SampleBean sampleBean;
 
   @Test
-  public void applyFeatureDisableShouldBeUsed() {
+  void applyFeatureDisableShouldBeUsed() {
     // WHEN
     sampleBean.featureEnable();
 
     // THEN
-    Assert.assertTrue(sampleBean.isUsed());
+    Assertions.assertTrue(sampleBean.isUsed());
   }
 
   @Test
-  public void applyFeatureDisableShouldNotBeUsed() {
+  void applyFeatureDisableShouldNotBeUsed() {
     // WHEN
     sampleBean.featureDisable();
 
     // THEN
-    Assert.assertFalse(sampleBean.isUsed());
+    Assertions.assertFalse(sampleBean.isUsed());
   }
 
   @Test
-  public void applyFeatureMissingShouldNotBeUsed() {
+  void applyFeatureMissingShouldNotBeUsed() {
     // WHEN
     sampleBean.featureMissing();
 
     // THEN
-    Assert.assertFalse(sampleBean.isUsed());
+    Assertions.assertFalse(sampleBean.isUsed());
   }
 
   @Configuration

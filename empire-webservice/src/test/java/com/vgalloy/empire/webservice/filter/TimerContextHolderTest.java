@@ -1,9 +1,9 @@
 package com.vgalloy.empire.webservice.filter;
 
 import java.time.Duration;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 19/10/18.
@@ -12,22 +12,22 @@ import org.junit.Test;
  */
 public final class TimerContextHolderTest {
 
-  @Before
+  @BeforeEach
   public void init() {
     TimerContextHolder.reset();
   }
 
   @Test
-  public void noTimerDefined() {
+  void noTimerDefined() {
     // WHEN
     final var result = TimerContextHolder.getTimerDuration();
 
     // THEN
-    Assert.assertFalse(result.isPresent());
+    Assertions.assertFalse(result.isPresent());
   }
 
   @Test
-  public void correctTimeCount() {
+  void correctTimeCount() {
     // GIVEN
     final var beforeStart = System.currentTimeMillis();
     TimerContextHolder.start();
@@ -42,7 +42,7 @@ public final class TimerContextHolderTest {
     final var afterResult = System.currentTimeMillis();
 
     // THEN
-    Assert.assertTrue(result <= afterResult - beforeStart);
-    Assert.assertTrue(afterStart - beforeResult <= result);
+    Assertions.assertTrue(result <= afterResult - beforeStart);
+    Assertions.assertTrue(afterStart - beforeResult <= result);
   }
 }

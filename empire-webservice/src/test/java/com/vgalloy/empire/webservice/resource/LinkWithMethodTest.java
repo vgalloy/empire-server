@@ -1,7 +1,7 @@
 package com.vgalloy.empire.webservice.resource;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +47,7 @@ public class LinkWithMethodTest {
   }
 
   @Test
-  public void objectWithNoRequestMapping() {
+  void objectWithNoRequestMapping() {
     // GIVEN
     final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).all();
 
@@ -55,12 +55,12 @@ public class LinkWithMethodTest {
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
     // THEN
-    Assert.assertNotNull(result);
-    Assert.assertEquals(RequestMethod.values().length, result.length);
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals(RequestMethod.values().length, result.length);
   }
 
   @Test
-  public void selfMaintainCorrectType() {
+  void selfMaintainCorrectType() {
     // GIVEN
     final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
@@ -68,11 +68,11 @@ public class LinkWithMethodTest {
     final Link result = LinkWithMethod.self(proxy).withSelfRel();
 
     // THEN
-    Assert.assertEquals(LinkWithMethod.class, result.getClass());
+    Assertions.assertEquals(LinkWithMethod.class, result.getClass());
   }
 
   @Test
-  public void changeHref() {
+  void changeHref() {
     // GIVEN
     final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
@@ -80,12 +80,12 @@ public class LinkWithMethodTest {
     final Link result = LinkWithMethod.self(proxy).withHref("TOTO");
 
     // THEN
-    Assert.assertEquals(LinkWithMethod.class, result.getClass());
-    Assert.assertEquals("TOTO", result.getHref());
+    Assertions.assertEquals(LinkWithMethod.class, result.getClass());
+    Assertions.assertEquals("TOTO", result.getHref());
   }
 
   @Test
-  public void aliasFor() {
+  void aliasFor() {
     // GIVEN
     final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test2();
 
@@ -93,13 +93,13 @@ public class LinkWithMethodTest {
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
     // THEN
-    Assert.assertNotNull(result);
-    Assert.assertEquals(1, result.length);
-    Assert.assertEquals(RequestMethod.PUT, result[0].getMethod());
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals(1, result.length);
+    Assertions.assertEquals(RequestMethod.PUT, result[0].getMethod());
   }
 
   @Test
-  public void findInterface() {
+  void findInterface() {
     // GIVEN
     final Sample proxy = ControllerLinkBuilder.methodOn(Sample.class).test3();
 
@@ -107,8 +107,8 @@ public class LinkWithMethodTest {
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
     // THEN
-    Assert.assertNotNull(result);
-    Assert.assertEquals(1, result.length);
-    Assert.assertEquals(RequestMethod.POST, result[0].getMethod());
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals(1, result.length);
+    Assertions.assertEquals(RequestMethod.POST, result[0].getMethod());
   }
 }

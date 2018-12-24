@@ -7,23 +7,23 @@ import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
  *
  * @author Vincent Galloy
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = FeatureRestControllerIT.Config.class)
@@ -34,7 +34,7 @@ public class FeatureRestControllerIT {
   @Autowired private TestRestTemplate restTemplate;
 
   @Test
-  public void getOneFeature() {
+  void getOneFeature() {
     // GIVEN
     final String nonExistingUrl = WebConstant.FEATURE_API + "/features/" + FEATURE_NAME;
 
@@ -43,9 +43,9 @@ public class FeatureRestControllerIT {
         restTemplate.getForObject(nonExistingUrl, FeatureConfiguration.class);
 
     // THEN
-    Assert.assertNotNull(result);
-    Assert.assertEquals(FEATURE_NAME, result.getName());
-    Assert.assertTrue(result.isEnable());
+    Assertions.assertNotNull(result);
+    Assertions.assertEquals(FEATURE_NAME, result.getName());
+    Assertions.assertTrue(result.isEnable());
   }
 
   @EnableFeatureSwitcher

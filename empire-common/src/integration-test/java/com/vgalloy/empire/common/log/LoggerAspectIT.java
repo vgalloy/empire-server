@@ -1,8 +1,8 @@
 package com.vgalloy.empire.common.log;
 
 import com.vgalloy.empire.common.LogLevel;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.slf4j.ILoggerFactory;
 import org.slf4j.Logger;
@@ -11,15 +11,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 01/05/18.
  *
  * @author Vincent Galloy
  */
+@ExtendWith(SpringExtension.class)
 @Import(LoggerAspectIT.Config.class)
-@RunWith(SpringRunner.class)
 public final class LoggerAspectIT {
 
   private static final Logger LOGGER = BDDMockito.mock(Logger.class);
@@ -29,12 +29,12 @@ public final class LoggerAspectIT {
   public static class SimpleClass {
 
     @FullLog
-    public int add(final int a, final int b) {
+    int add(final int a, final int b) {
       return a + b;
     }
 
     @FullLog(LogLevel.ERROR)
-    public int minus(final int a, final int b) {
+    int minus(final int a, final int b) {
       return a - b;
     }
   }
@@ -68,7 +68,7 @@ public final class LoggerAspectIT {
   }
 
   @Test
-  public void addWithTraceLevel() {
+  void addWithTraceLevel() {
     // WHEN
     simpleClass.add(1, 2);
 
@@ -78,7 +78,7 @@ public final class LoggerAspectIT {
   }
 
   @Test
-  public void minusWithErrorLevel() {
+  void minusWithErrorLevel() {
     // WHEN
     simpleClass.minus(1, 2);
 

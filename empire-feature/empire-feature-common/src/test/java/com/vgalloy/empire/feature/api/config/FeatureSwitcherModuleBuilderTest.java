@@ -1,9 +1,8 @@
 package com.vgalloy.empire.feature.api.config;
 
 import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -13,20 +12,23 @@ import org.junit.Test;
 public final class FeatureSwitcherModuleBuilderTest {
 
   @Test
-  public void inMemoryBuilder() {
+  void inMemoryBuilder() {
     // WHEN
     final var configuration =
         FeatureSwitcherModuleConfiguration.builder().inMemoryFeatureDao().buildManager().build();
 
     // THEN
-    Assert.assertTrue(configuration.getFeatureDao() instanceof InMemoryFeatureDao);
+    Assertions.assertTrue(configuration.getFeatureDao() instanceof InMemoryFeatureDao);
   }
 
   @Test
-  public void noBuildThrowException() {
-    // WHEN / THEN
-    Assertions.assertThatThrownBy(() -> FeatureSwitcherModuleConfiguration.builder().build())
-        .isInstanceOf(NullPointerException.class)
-        .hasMessage("No feature dao defined");
+  void noBuildThrowException() {
+    // WHEN
+    final var exception =
+        Assertions.assertThrows(
+            NullPointerException.class, () -> FeatureSwitcherModuleConfiguration.builder().build());
+
+    // THEN
+    Assertions.assertEquals("No feature dao defined", exception.getMessage());
   }
 }

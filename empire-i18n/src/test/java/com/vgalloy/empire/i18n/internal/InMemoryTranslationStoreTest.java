@@ -4,8 +4,8 @@ import com.vgalloy.empire.i18n.Translation;
 import com.vgalloy.empire.i18n.TranslationKey;
 import com.vgalloy.empire.i18n.TranslationStore;
 import java.util.Locale;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 07/04/18.
@@ -15,7 +15,7 @@ import org.junit.Test;
 public final class InMemoryTranslationStoreTest {
 
   @Test
-  public void noTranslation() {
+  void noTranslation() {
     // GIVEN
     final var translationDao = new InMemoryTranslationStore();
     final var key = new TranslationKey("CODE", Locale.CANADA);
@@ -24,12 +24,12 @@ public final class InMemoryTranslationStoreTest {
     final var translation = translationDao.translate(key);
 
     // THEN
-    Assert.assertTrue(translation.getKey().isDefault());
-    Assert.assertEquals("CODE", translation.getValue());
+    Assertions.assertTrue(translation.getKey().isDefault());
+    Assertions.assertEquals("CODE", translation.getValue());
   }
 
   @Test
-  public void oneTranslation() {
+  void oneTranslation() {
     // GIVEN
     final TranslationStore translationDao = new InMemoryTranslationStore();
     final var key = new TranslationKey("CODE", Locale.CANADA);
@@ -39,14 +39,14 @@ public final class InMemoryTranslationStoreTest {
     final Translation translation = translationDao.translate(key);
 
     // THEN
-    Assert.assertFalse(translation.getKey().isDefault());
-    Assert.assertEquals(Locale.CANADA, translation.getKey().locale());
-    Assert.assertEquals("CODE", translation.getKey().code());
-    Assert.assertEquals("RESULT", translation.getValue());
+    Assertions.assertFalse(translation.getKey().isDefault());
+    Assertions.assertEquals(Locale.CANADA, translation.getKey().locale());
+    Assertions.assertEquals("CODE", translation.getKey().code());
+    Assertions.assertEquals("RESULT", translation.getValue());
   }
 
   @Test
-  public void franceDefineFrench() {
+  void franceDefineFrench() {
     // GIVEN
     final TranslationStore translationDao = new InMemoryTranslationStore();
     final var key = new TranslationKey("CODE", Locale.FRANCE);
@@ -57,14 +57,14 @@ public final class InMemoryTranslationStoreTest {
         translationDao.translate(new TranslationKey("CODE", Locale.FRENCH));
 
     // THEN
-    Assert.assertFalse(translation.getKey().isDefault());
-    Assert.assertEquals(Locale.FRENCH, translation.getKey().locale());
-    Assert.assertEquals("CODE", translation.getKey().code());
-    Assert.assertEquals("RESULT", translation.getValue());
+    Assertions.assertFalse(translation.getKey().isDefault());
+    Assertions.assertEquals(Locale.FRENCH, translation.getKey().locale());
+    Assertions.assertEquals("CODE", translation.getKey().code());
+    Assertions.assertEquals("RESULT", translation.getValue());
   }
 
   @Test
-  public void franceUseFrench() {
+  void franceUseFrench() {
     // GIVEN
     final TranslationStore translationDao = new InMemoryTranslationStore();
     final var key = new TranslationKey("CODE", Locale.FRENCH);
@@ -75,14 +75,14 @@ public final class InMemoryTranslationStoreTest {
         translationDao.translate(new TranslationKey("CODE", Locale.FRANCE));
 
     // THEN
-    Assert.assertFalse(translation.getKey().isDefault());
-    Assert.assertEquals(Locale.FRENCH, translation.getKey().locale());
-    Assert.assertEquals("CODE", translation.getKey().code());
-    Assert.assertEquals("RESULT", translation.getValue());
+    Assertions.assertFalse(translation.getKey().isDefault());
+    Assertions.assertEquals(Locale.FRENCH, translation.getKey().locale());
+    Assertions.assertEquals("CODE", translation.getKey().code());
+    Assertions.assertEquals("RESULT", translation.getValue());
   }
 
   @Test
-  public void addIfMissingDoesNotOverridePreviousValue() {
+  void addIfMissingDoesNotOverridePreviousValue() {
     // GIVEN
     final TranslationStore translationDao = new InMemoryTranslationStore();
     final var frCA = new TranslationKey("CODE", Locale.CANADA_FRENCH);
@@ -95,14 +95,14 @@ public final class InMemoryTranslationStoreTest {
         translationDao.translate(new TranslationKey("CODE", new Locale("fr", "ze")));
 
     // THEN
-    Assert.assertFalse(translation.getKey().isDefault());
-    Assert.assertEquals(Locale.FRENCH, translation.getKey().locale());
-    Assert.assertEquals("CODE", translation.getKey().code());
-    Assert.assertEquals("fr_CA", translation.getValue());
+    Assertions.assertFalse(translation.getKey().isDefault());
+    Assertions.assertEquals(Locale.FRENCH, translation.getKey().locale());
+    Assertions.assertEquals("CODE", translation.getKey().code());
+    Assertions.assertEquals("fr_CA", translation.getValue());
   }
 
   @Test
-  public void addForceOverridePreviousValue() {
+  void addForceOverridePreviousValue() {
     // GIVEN
     final TranslationStore translationDao = new InMemoryTranslationStore();
     final var frCA = new TranslationKey("CODE", Locale.CANADA_FRENCH);
@@ -115,9 +115,9 @@ public final class InMemoryTranslationStoreTest {
         translationDao.translate(new TranslationKey("CODE", new Locale("fr", "ze")));
 
     // THEN
-    Assert.assertFalse(translation.getKey().isDefault());
-    Assert.assertEquals(Locale.FRENCH, translation.getKey().locale());
-    Assert.assertEquals("CODE", translation.getKey().code());
-    Assert.assertEquals("fr_FR", translation.getValue());
+    Assertions.assertFalse(translation.getKey().isDefault());
+    Assertions.assertEquals(Locale.FRENCH, translation.getKey().locale());
+    Assertions.assertEquals("CODE", translation.getKey().code());
+    Assertions.assertEquals("fr_FR", translation.getValue());
   }
 }

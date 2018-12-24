@@ -8,10 +8,8 @@ import com.vgalloy.empire.feature.internal.operation.MinusOperation;
 import com.vgalloy.empire.feature.internal.operation.Operation;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.springframework.context.ApplicationContext;
 
@@ -22,10 +20,8 @@ import org.springframework.context.ApplicationContext;
  */
 public final class FeatureStoreImplTest {
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
-
   @Test
-  public void correctCaseWithParameter() {
+  void correctCaseWithParameter() {
     // GIVEN
     final var applicationProperties = new ApplicationProperties();
     final var applicationContext = BDDMockito.mock(ApplicationContext.class);
@@ -42,12 +38,12 @@ public final class FeatureStoreImplTest {
     final var operation = featureStore.loadFeature(Operation.class);
 
     // THEN
-    Assert.assertNotNull(operation);
-    Assert.assertEquals(AddOperation.class, operation.getClass());
+    Assertions.assertNotNull(operation);
+    Assertions.assertEquals(AddOperation.class, operation.getClass());
   }
 
   @Test
-  public void correctCaseWithClassName() {
+  void correctCaseWithClassName() {
     // GIVEN
     final var applicationProperties = new ApplicationProperties();
     final var applicationContext = BDDMockito.mock(ApplicationContext.class);
@@ -64,28 +60,30 @@ public final class FeatureStoreImplTest {
     final var operation = featureStore.loadFeature(Operation.class);
 
     // THEN
-    Assert.assertNotNull(operation);
-    Assert.assertEquals(MinusOperation.class, operation.getClass());
+    Assertions.assertNotNull(operation);
+    Assertions.assertEquals(MinusOperation.class, operation.getClass());
   }
 
   @Test
-  public void notAFeatureClass() {
+  void notAFeatureClass() {
     // GIVEN
     final var applicationProperties = new ApplicationProperties();
     final var applicationContext = BDDMockito.mock(ApplicationContext.class);
     final var featureStore = new FeatureStoreImpl(applicationContext, applicationProperties);
 
     // EXCEPTION
-    expectedException.expect(IllegalArgumentException.class);
-    expectedException.expectMessage(
-        "com.vgalloy.empire.feature.internal.operation.FakeOperation is not annotated with @Feature");
+    final var exception =
+        Assertions.assertThrows(
+            IllegalArgumentException.class, () -> featureStore.loadFeature(FakeOperation.class));
 
-    // WHEN
-    featureStore.loadFeature(FakeOperation.class);
+    // THEN
+    Assertions.assertEquals(
+        "com.vgalloy.empire.feature.internal.operation.FakeOperation is not annotated with @Feature",
+        exception.getMessage());
   }
 
   @Test
-  public void noClassAvailable() {
+  void noClassAvailable() {
     // GIVEN
     final var applicationProperties = new ApplicationProperties();
     final var applicationContext = BDDMockito.mock(ApplicationContext.class);
@@ -96,11 +94,15 @@ public final class FeatureStoreImplTest {
     operationMap.put(AddOperation.class.getName(), new AddOperation());
 
     // EXCEPTION
-    expectedException.expect(IllegalStateException.class);
-    expectedException.expectMessage(
-        "No @Implementation with value : com.vgalloy.empire.feature.internal.operation.MinusOperation");
+    final var exception =
+        Assertions.assertThrows(
+            IllegalStateException.class,
+            () ->
+                featureStore.loadFeature(Operation.class, MinusOperation.class.getCanonicalName()));
 
     // WHEN
-    featureStore.loadFeature(Operation.class, MinusOperation.class.getCanonicalName());
+    Assertions.assertEquals(
+        "No @Implementation with value : com.vgalloy.empire.feature.internal.operation.MinusOperation",
+        exception.getMessage());
   }
 }

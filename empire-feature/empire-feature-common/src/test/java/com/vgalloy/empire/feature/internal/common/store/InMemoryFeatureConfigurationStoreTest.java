@@ -6,8 +6,8 @@ import com.vgalloy.empire.feature.internal.common.FeatureAdderEnabler;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
 import java.util.Optional;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
@@ -17,7 +17,7 @@ import org.junit.Test;
 public final class InMemoryFeatureConfigurationStoreTest {
 
   @Test
-  public void noFeatureAdded() {
+  void noFeatureAdded() {
     // GIVEN
     final FeatureDao featureDao = new InMemoryFeatureDao();
     final FeatureManager store = new StandardFeatureManager(FeatureAdderNoop.INSTANCE, featureDao);
@@ -27,11 +27,11 @@ public final class InMemoryFeatureConfigurationStoreTest {
     final Optional<FeatureConfiguration> result = featureDao.getById("Noop");
 
     // THEN
-    Assert.assertFalse(result.isPresent());
+    Assertions.assertFalse(result.isPresent());
   }
 
   @Test
-  public void featureAddAndEnable() {
+  void featureAddAndEnable() {
     // GIVEN
     final FeatureDao featureDao = new InMemoryFeatureDao();
     final FeatureManager store = new StandardFeatureManager(new FeatureAdderEnabler(), featureDao);
@@ -41,7 +41,7 @@ public final class InMemoryFeatureConfigurationStoreTest {
     final Optional<FeatureConfiguration> result = featureDao.getById("Noop");
 
     // THEN
-    Assert.assertTrue(result.isPresent());
-    Assert.assertTrue(result.get().isEnable());
+    Assertions.assertTrue(result.isPresent());
+    Assertions.assertTrue(result.get().isEnable());
   }
 }

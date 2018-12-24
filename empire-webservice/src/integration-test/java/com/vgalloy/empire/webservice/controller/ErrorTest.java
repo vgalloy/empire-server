@@ -2,23 +2,23 @@ package com.vgalloy.empire.webservice.controller;
 
 import com.vgalloy.empire.webservice.ServerConfig;
 import com.vgalloy.empire.webservice.dto.ErrorDto;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 08/05/18.
  *
  * @author Vincent Galloy
  */
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @Import(ServerConfig.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class ErrorTest {
@@ -26,7 +26,7 @@ public class ErrorTest {
   @Autowired private TestRestTemplate restTemplate;
 
   @Test
-  public void error404() {
+  void error404() {
     // GIVEN
     final String nonExistingUrl = "/azeaz";
 
@@ -35,9 +35,9 @@ public class ErrorTest {
         restTemplate.getForEntity(nonExistingUrl, ErrorDto.class);
 
     // THEN
-    Assert.assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
-    Assert.assertNotNull(result.getBody());
-    Assert.assertEquals(HttpStatus.NOT_FOUND.value(), result.getBody().getCode());
-    Assert.assertEquals(HttpStatus.NOT_FOUND.getReasonPhrase(), result.getBody().getMessage());
+    Assertions.assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
+    Assertions.assertNotNull(result.getBody());
+    Assertions.assertEquals(HttpStatus.NOT_FOUND.value(), result.getBody().getCode());
+    Assertions.assertEquals(HttpStatus.NOT_FOUND.getReasonPhrase(), result.getBody().getMessage());
   }
 }

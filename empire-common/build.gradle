@@ -1,5 +1,7 @@
 dependencies {
     compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: "$springBootVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
     testCompile group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
 }

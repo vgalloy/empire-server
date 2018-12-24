@@ -1,8 +1,7 @@
 package com.vgalloy.empire.service.model;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  * Created by Vincent Galloy on 20/08/17.
@@ -11,14 +10,9 @@ import org.junit.rules.ExpectedException;
  */
 public final class EmpireIdTest {
 
-  @Rule public ExpectedException expectedException = ExpectedException.none();
-
   @Test
-  public void simple() {
-    // EXCEPTION
-    expectedException.expect(NullPointerException.class);
-
-    // WHEN
-    EmpireId.of(null);
+  void simple() {
+    // WHEN / THEN
+    Assertions.assertThrows(NullPointerException.class, () -> EmpireId.of(null));
   }
 }

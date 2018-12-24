@@ -5,16 +5,16 @@ import com.vgalloy.empire.feature.internal.common.ApplicationProperties;
 import com.vgalloy.empire.feature.internal.common.FeatureStoreImpl;
 import com.vgalloy.empire.feature.internal.sample.Operation;
 import com.vgalloy.empire.feature.internal.sample.TestConfig;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 07/10/18.
@@ -22,19 +22,19 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @author Vincent Galloy
  */
 @SpringBootTest(classes = FeatureStoreImplIT.Config.class)
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 public class FeatureStoreImplIT {
 
   @Autowired private FeatureStore featureStore;
 
   @Test
-  public void operation() {
+  void operation() {
     // WHEN
     final Operation operation = featureStore.loadFeature(Operation.class);
 
     // THEN
-    Assert.assertNotNull(operation);
-    Assert.assertEquals(3, operation.apply(1, 2));
+    Assertions.assertNotNull(operation);
+    Assertions.assertEquals(3, operation.apply(1, 2));
   }
 
   @Configuration

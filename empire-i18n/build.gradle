@@ -1,4 +1,5 @@
 dependencies {
     compile project(':empire-common')
-    testCompile group: 'junit', name: 'junit', version: "$junitVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
