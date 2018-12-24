@@ -10,9 +10,14 @@ plugins {
     // dependencyUpdates
     id 'com.github.ben-manes.versions' version '0.20.0'
     id 'net.researchgate.release' version '2.7.0'
+    id 'com.github.sherter.google-java-format' version '0.8'
 }
 
 apply plugin: 'net.jokubasdargis.build-timer'
+
+googleJavaFormat {
+    toolVersion = '1.6'
+}
 
 buildTimer {
     reportAbove = 100L
@@ -68,6 +73,10 @@ allprojects {
         configFile = rootProject.file("$qualityConfigurationPath/checkstyle/checkstyle.xml")
         checkstyleTest.enabled = false
         checkstyleIntegrationTest.enabled = false
+    }
+
+    tasks.withType(Checkstyle) {
+        dependsOn ':googleJavaFormat'
     }
 
     pmd {

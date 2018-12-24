@@ -21,6 +21,10 @@
 
         <!-- PMD -->
         <maven-pmd-plugin.configuration.location>quality/pmd/pmd.xml</maven-pmd-plugin.configuration.location>
+
+        <!-- Google formatter -->
+        <fmt-maven-plugin.version>2.6.0</fmt-maven-plugin.version>
+        <google-java-format.version>1.6</google-java-format.version>
     </properties>
 
     <modules>
@@ -52,6 +56,26 @@
                     </compilerArgs>
                     <failOnWarning>false</failOnWarning>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.coveo</groupId>
+                <artifactId>fmt-maven-plugin</artifactId>
+                <version>${fmt-maven-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.google.googlejavaformat</groupId>
+                        <artifactId>google-java-format</artifactId>
+                        <version>${google-java-format.version}</version>
+                    </dependency>
+                </dependencies>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

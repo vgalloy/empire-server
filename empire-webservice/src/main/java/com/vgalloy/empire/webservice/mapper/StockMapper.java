@@ -8,5 +8,4 @@ import com.vgalloy.empire.webservice.dto.StockDto;
  *
  * @author Vincent Galloy
  */
-public interface StockMapper extends Mapper<Stock, StockDto> {
-}
+public interface StockMapper extends Mapper<Stock, StockDto> {}

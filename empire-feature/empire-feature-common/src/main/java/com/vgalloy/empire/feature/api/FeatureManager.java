@@ -7,11 +7,11 @@ package com.vgalloy.empire.feature.api;
  */
 public interface FeatureManager {
 
-    /**
-     * Is the feature currently enable.
-     *
-     * @param featureId the feature if
-     * @return true if the feature must be execute
-     */
-    boolean isEnable(String featureId);
+  /**
+   * Is the feature currently enable.
+   *
+   * @param featureId the feature if
+   * @return true if the feature must be execute
+   */
+  boolean isEnable(String featureId);
 }

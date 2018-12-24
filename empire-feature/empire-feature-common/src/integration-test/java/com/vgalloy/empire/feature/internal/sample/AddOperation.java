@@ -10,8 +10,8 @@ import com.vgalloy.empire.feature.api.Implementation;
 @Implementation("add")
 public class AddOperation implements Operation {
 
-    @Override
-    public int apply(final int a, final int b) {
-        return a + b;
-    }
+  @Override
+  public int apply(final int a, final int b) {
+    return a + b;
+  }
 }

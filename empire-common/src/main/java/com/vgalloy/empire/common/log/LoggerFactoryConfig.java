@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LoggerFactoryConfig {
 
-    /**
-     * Inject the slf4j logger factory into the spring context.
-     *
-     * @return the factory
-     */
-    @Bean
-    public ILoggerFactory loggerFactory() {
-        return LoggerFactory.getILoggerFactory();
-    }
+  /**
+   * Inject the slf4j logger factory into the spring context.
+   *
+   * @return the factory
+   */
+  @Bean
+  public ILoggerFactory loggerFactory() {
+    return LoggerFactory.getILoggerFactory();
+  }
 }

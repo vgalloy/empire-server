@@ -2,7 +2,6 @@ package com.vgalloy.empire.webservice.filter;
 
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
-
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -21,28 +20,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class RequestTimerFilter implements Filter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
+  private static final Logger LOGGER =
+      LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    @Override
-    public void init(final FilterConfig filterConfig) throws ServletException {
-        // Tumbleweed
-    }
+  @Override
+  public void init(final FilterConfig filterConfig) throws ServletException {
+    // Tumbleweed
+  }
 
-    @Override
-    public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain) throws IOException, ServletException {
-        TimerContextHolder.start();
-        try {
-            filterChain.doFilter(servletRequest, servletResponse);
-        } finally {
-            if (LOGGER.isInfoEnabled()) {
-                TimerContextHolder.getTimerDuration()
-                    .ifPresent(executionTime -> LOGGER.info("Total execution time : {} ms", executionTime.toMillis()));
-            }
-        }
+  @Override
+  public void doFilter(
+      final ServletRequest servletRequest,
+      final ServletResponse servletResponse,
+      final FilterChain filterChain)
+      throws IOException, ServletException {
+    TimerContextHolder.start();
+    try {
+      filterChain.doFilter(servletRequest, servletResponse);
+    } finally {
+      if (LOGGER.isInfoEnabled()) {
+        TimerContextHolder.getTimerDuration()
+            .ifPresent(
+                executionTime ->
+                    LOGGER.info("Total execution time : {} ms", executionTime.toMillis()));
+      }
     }
+  }
 
-    @Override
-    public void destroy() {
-        // Tumbleweed
-    }
+  @Override
+  public void destroy() {
+    // Tumbleweed
+  }
 }

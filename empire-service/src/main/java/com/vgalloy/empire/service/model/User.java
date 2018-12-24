@@ -9,64 +9,63 @@ import java.util.Objects;
  */
 public final class User {
 
-    private final UserId id;
-    private final String login;
-    private final String password;
+  private final UserId id;
+  private final String login;
+  private final String password;
 
-    /**
-     * Constructor.
-     * Private to avoid non managed instantiation
-     *
-     * @param id       the user id (must be unique)
-     * @param login    the login
-     * @param password the password
-     */
-    private User(final UserId id, final String login, final String password) {
-        this.id = Objects.requireNonNull(id);
-        this.login = Objects.requireNonNull(login);
-        this.password = Objects.requireNonNull(password);
-    }
+  /**
+   * Constructor. Private to avoid non managed instantiation
+   *
+   * @param id the user id (must be unique)
+   * @param login the login
+   * @param password the password
+   */
+  private User(final UserId id, final String login, final String password) {
+    this.id = Objects.requireNonNull(id);
+    this.login = Objects.requireNonNull(login);
+    this.password = Objects.requireNonNull(password);
+  }
 
-    /**
-     * Build a {@link User}.
-     *
-     * @param login    the login
-     * @param password the password
-     * @return the user
-     */
-    public static User of(final String login, final String password) {
-        final UserId id = UserId.newInstance();
-        Objects.requireNonNull(login);
-        Objects.requireNonNull(password);
+  /**
+   * Build a {@link User}.
+   *
+   * @param login the login
+   * @param password the password
+   * @return the user
+   */
+  public static User of(final String login, final String password) {
+    final UserId id = UserId.newInstance();
+    Objects.requireNonNull(login);
+    Objects.requireNonNull(password);
 
-        return new User(id, login, password);
-    }
+    return new User(id, login, password);
+  }
 
-    /**
-     * Build a {@link User}.
-     *
-     * @param userId   the user id
-     * @param login    the login
-     * @param password the password
-     * @return the user
-     */
-    public static User of(final UserId userId, final String login, final String password) {
-        Objects.requireNonNull(userId);
-        Objects.requireNonNull(login);
-        Objects.requireNonNull(password);
+  /**
+   * Build a {@link User}.
+   *
+   * @param userId the user id
+   * @param login the login
+   * @param password the password
+   * @return the user
+   */
+  public static User of(final UserId userId, final String login, final String password) {
+    Objects.requireNonNull(userId);
+    Objects.requireNonNull(login);
+    Objects.requireNonNull(password);
 
-        return new User(userId, login, password);
-    }
+    return new User(userId, login, password);
+  }
 
-    public UserId getId() {
-        return id;
-    }
+  public UserId getId() {
+    return id;
+  }
 
-    public String getLogin() {
-        return login;
-    }
+  public String getLogin() {
+    return login;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getPassword() {
+    return password;
+  }
 }

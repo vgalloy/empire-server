@@ -51,8 +51,18 @@
         <module name="AnnotationUseStyle"/>
         <module name="MissingOverride"/>
         <module name="MissingDeprecated"/>
+        <!--<module name="AnnotationLocation">-->
+            <!--<property name="allowSamelineSingleParameterlessAnnotation" value="false"/>-->
+        <!--</module>-->
         <module name="AnnotationLocation">
-            <property name="allowSamelineSingleParameterlessAnnotation" value="false"/>
+            <property name="id" value="AnnotationLocationMostCases"/>
+            <property name="tokens"
+                      value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF"/>
+        </module>
+        <module name="AnnotationLocation">
+            <property name="id" value="AnnotationLocationVariables"/>
+            <property name="tokens" value="VARIABLE_DEF"/>
+            <property name="allowSamelineMultipleAnnotations" value="true"/>
         </module>
 
         <!-- Checks for one variable declaration per line -->
@@ -105,7 +115,12 @@
         <module name="ParenPad"/>
         <module name="TypecastParenPad"/>
         <module name="WhitespaceAfter"/>
-        <module name="WhitespaceAround"/>
+        <module name="WhitespaceAround">
+            <property name="allowEmptyConstructors" value="true"/>
+            <property name="allowEmptyMethods" value="true"/>
+            <property name="allowEmptyTypes" value="true"/>
+            <property name="allowEmptyLoops" value="true"/>
+        </module>
         <module name="OneStatementPerLine"/>
 
         <!-- Checks that each top-level class, interfaces or enum resides in a source file of its own -->
@@ -140,9 +155,7 @@
         <module name="RedundantImport"/>
         <module name="UnusedImports"/>
         <module name="CustomImportOrder">
-            <property name="standardPackageRegExp" value="^java\."/>
-            <property name="specialImportsRegExp" value="^com.vgalloy\."/>
-            <property name="customImportOrderRules" value="STATIC###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE###SPECIAL_IMPORTS"/>
+            <property name="customImportOrderRules" value="STATIC###THIRD_PARTY_PACKAGE"/>
             <property name="sortImportsInGroupAlphabetically" value="true"/>
             <property name="separateLineBetweenGroups" value="true"/>
         </module>
@@ -174,13 +187,13 @@
 
         <!-- Check code indentation -->
         <module name="Indentation">
-            <property name="basicOffset" value="4"/>
+            <property name="basicOffset" value="2"/>
             <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
+            <property name="caseIndent" value="2"/>
             <property name="throwsIndent" value="4"/>
             <property name="lineWrappingIndentation" value="4"/>
-            <property name="arrayInitIndent" value="4"/>
-            <property name="forceStrictCondition" value="true"/>
+            <property name="arrayInitIndent" value="2"/>
+            <!--<property name="forceStrictCondition" value="true"/>-->
         </module>
 
         <!-- Checks comment indent on code -->

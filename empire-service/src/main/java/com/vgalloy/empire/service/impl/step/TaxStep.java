@@ -8,10 +8,10 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum TaxStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        return empire.gold(empire.getGold() + empire.getPopulation() * empire.getTax() / 1_000);
-    }
+  @Override
+  public Empire apply(final Empire empire) {
+    return empire.gold(empire.getGold() + empire.getPopulation() * empire.getTax() / 1_000);
+  }
 }

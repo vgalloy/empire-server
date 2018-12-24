@@ -20,47 +20,46 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public final class NotNullApiAspectIT {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+  @Rule public ExpectedException expectedException = ExpectedException.none();
 
-    @Autowired
-    private SimpleClass simpleClass;
+  @Autowired private SimpleClass simpleClass;
 
-    @NotNullApi
-    public static class SimpleClass {
+  @NotNullApi
+  public static class SimpleClass {
 
-        public Integer add(final Integer a, final Integer b) {
-            return 1;
-        }
+    public Integer add(final Integer a, final Integer b) {
+      return 1;
+    }
+  }
+
+  @Configuration
+  @EnableAspectJAutoProxy
+  public static class Config {
+
+    @Bean
+    public SimpleClass simpleClass() {
+      return new SimpleClass();
     }
 
-    @Configuration
-    @EnableAspectJAutoProxy
-    public static class Config {
-
-        @Bean
-        public SimpleClass simpleClass() {
-            return new SimpleClass();
-        }
-
-        @Bean
-        public NotNullApiAspect notNullApiAspect() {
-            return new NotNullApiAspect();
-        }
+    @Bean
+    public NotNullApiAspect notNullApiAspect() {
+      return new NotNullApiAspect();
     }
+  }
 
-    @Test
-    public void notNullParameter() {
-        simpleClass.add(1, 2);
+  @Test
+  public void notNullParameter() {
+    simpleClass.add(1, 2);
 
-        // WHEN
-        // no exception occurred
-    }
+    // WHEN
+    // no exception occurred
+  }
 
-    @Test
-    public void withNullParameter() {
-        expectedException.expect(NullPointerException.class);
-        expectedException.expectMessage("com.vgalloy.empire.common.nullable.NotNullApiAspectIT$SimpleClass#add is mark as @NotNullApi and received 'null' for parameter arg0");
-        simpleClass.add(null, 1);
-    }
+  @Test
+  public void withNullParameter() {
+    expectedException.expect(NullPointerException.class);
+    expectedException.expectMessage(
+        "com.vgalloy.empire.common.nullable.NotNullApiAspectIT$SimpleClass#add is mark as @NotNullApi and received 'null' for parameter arg0");
+    simpleClass.add(null, 1);
+  }
 }

@@ -17,99 +17,98 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 public class LinkWithMethodTest {
 
-    public interface Sample {
+  public interface Sample {
 
-        @PostMapping("post")
-        Sample test3();
+    @PostMapping("post")
+    Sample test3();
+  }
+
+  public static class SampleImpl implements Sample {
+
+    @GetMapping("test")
+    Sample test() {
+      return new SampleImpl();
     }
 
-    public static class SampleImpl implements Sample {
-
-        @GetMapping("test")
-        Sample test() {
-            return new SampleImpl();
-        }
-
-
-        @RequestMapping("all")
-        Sample all() {
-            return new SampleImpl();
-        }
-
-        @PutMapping("OK")
-        Sample test2() {
-            return new SampleImpl();
-        }
-
-        @Override
-        public Sample test3() {
-            return new SampleImpl();
-        }
+    @RequestMapping("all")
+    Sample all() {
+      return new SampleImpl();
     }
 
-    @Test
-    public void objectWithNoRequestMapping() {
-        // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).all();
-
-        // WHEN
-        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
-
-        // THEN
-        Assert.assertNotNull(result);
-        Assert.assertEquals(RequestMethod.values().length, result.length);
+    @PutMapping("OK")
+    Sample test2() {
+      return new SampleImpl();
     }
 
-    @Test
-    public void selfMaintainCorrectType() {
-        // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
-
-        // WHEN
-        final Link result = LinkWithMethod.self(proxy).withSelfRel();
-
-        // THEN
-        Assert.assertEquals(LinkWithMethod.class, result.getClass());
+    @Override
+    public Sample test3() {
+      return new SampleImpl();
     }
+  }
 
-    @Test
-    public void changeHref() {
-        // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
+  @Test
+  public void objectWithNoRequestMapping() {
+    // GIVEN
+    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).all();
 
-        // WHEN
-        final Link result = LinkWithMethod.self(proxy).withHref("TOTO");
+    // WHEN
+    final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
 
-        // THEN
-        Assert.assertEquals(LinkWithMethod.class, result.getClass());
-        Assert.assertEquals("TOTO", result.getHref());
-    }
+    // THEN
+    Assert.assertNotNull(result);
+    Assert.assertEquals(RequestMethod.values().length, result.length);
+  }
 
-    @Test
-    public void aliasFor() {
-        // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test2();
+  @Test
+  public void selfMaintainCorrectType() {
+    // GIVEN
+    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
-        // WHEN
-        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
+    // WHEN
+    final Link result = LinkWithMethod.self(proxy).withSelfRel();
 
-        // THEN
-        Assert.assertNotNull(result);
-        Assert.assertEquals(1, result.length);
-        Assert.assertEquals(RequestMethod.PUT, result[0].getMethod());
-    }
+    // THEN
+    Assert.assertEquals(LinkWithMethod.class, result.getClass());
+  }
 
-    @Test
-    public void findInterface() {
-        // GIVEN
-        final Sample proxy = ControllerLinkBuilder.methodOn(Sample.class).test3();
+  @Test
+  public void changeHref() {
+    // GIVEN
+    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
 
-        // WHEN
-        final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
+    // WHEN
+    final Link result = LinkWithMethod.self(proxy).withHref("TOTO");
 
-        // THEN
-        Assert.assertNotNull(result);
-        Assert.assertEquals(1, result.length);
-        Assert.assertEquals(RequestMethod.POST, result[0].getMethod());
-    }
+    // THEN
+    Assert.assertEquals(LinkWithMethod.class, result.getClass());
+    Assert.assertEquals("TOTO", result.getHref());
+  }
+
+  @Test
+  public void aliasFor() {
+    // GIVEN
+    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test2();
+
+    // WHEN
+    final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
+
+    // THEN
+    Assert.assertNotNull(result);
+    Assert.assertEquals(1, result.length);
+    Assert.assertEquals(RequestMethod.PUT, result[0].getMethod());
+  }
+
+  @Test
+  public void findInterface() {
+    // GIVEN
+    final Sample proxy = ControllerLinkBuilder.methodOn(Sample.class).test3();
+
+    // WHEN
+    final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
+
+    // THEN
+    Assert.assertNotNull(result);
+    Assert.assertEquals(1, result.length);
+    Assert.assertEquals(RequestMethod.POST, result[0].getMethod());
+  }
 }

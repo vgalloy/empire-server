@@ -7,32 +7,32 @@ package com.vgalloy.empire.i18n;
  */
 public interface TranslationStore {
 
-    /**
-     * Translate the given translationCode.
-     *
-     * @param translationKey the translationKey, not null
-     * @return the value
-     */
-    Translation translate(TranslationKey translationKey);
+  /**
+   * Translate the given translationCode.
+   *
+   * @param translationKey the translationKey, not null
+   * @return the value
+   */
+  Translation translate(TranslationKey translationKey);
 
-    /**
-     * Add a value to the store.
-     *
-     * @param translation the value
-     */
-    void createOrUpdateExact(Translation translation);
+  /**
+   * Add a value to the store.
+   *
+   * @param translation the value
+   */
+  void createOrUpdateExact(Translation translation);
 
-    /**
-     * Add a value to the store.
-     *
-     * @param translation the value
-     */
-    void createOrUpdateRecursivelyIfMissing(Translation translation);
+  /**
+   * Add a value to the store.
+   *
+   * @param translation the value
+   */
+  void createOrUpdateRecursivelyIfMissing(Translation translation);
 
-    /**
-     * Add a value to the store.
-     *
-     * @param translation the value
-     */
-    void createOrUpdateRecursivelyForce(Translation translation);
+  /**
+   * Add a value to the store.
+   *
+   * @param translation the value
+   */
+  void createOrUpdateRecursivelyForce(Translation translation);
 }

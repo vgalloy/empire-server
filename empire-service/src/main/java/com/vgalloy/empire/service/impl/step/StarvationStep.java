@@ -8,16 +8,17 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum StarvationStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        final long virtualRemainingStock = empire.getStock().getCurrent() - empire.getPopulation();
-        final long realRemainingStock = Math.max(0, virtualRemainingStock);
-        final long missingFood = realRemainingStock - virtualRemainingStock;
-        final long starvingPeople = missingFood * 20 / 100;
+  @Override
+  public Empire apply(final Empire empire) {
+    final long virtualRemainingStock = empire.getStock().getCurrent() - empire.getPopulation();
+    final long realRemainingStock = Math.max(0, virtualRemainingStock);
+    final long missingFood = realRemainingStock - virtualRemainingStock;
+    final long starvingPeople = missingFood * 20 / 100;
 
-        return empire.stock(empire.getStock().resource(realRemainingStock))
-            .population(empire.getPopulation() - starvingPeople);
-    }
+    return empire
+        .stock(empire.getStock().resource(realRemainingStock))
+        .population(empire.getPopulation() - starvingPeople);
+  }
 }

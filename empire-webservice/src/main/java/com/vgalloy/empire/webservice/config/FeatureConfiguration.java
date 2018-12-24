@@ -8,5 +8,4 @@ import com.vgalloy.empire.feature.web.EnableWebFeatureSwitcher;
  * @author Vincent Galloy
  */
 @EnableWebFeatureSwitcher
-public class FeatureConfiguration {
-}
+public class FeatureConfiguration {}

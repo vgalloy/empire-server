@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Feature {
 
-    /**
-     * The key of the feature. Must be define in application.properties
-     *
-     * @return the key of the feature. Let it empty for full qualify name
-     */
-    String value() default "";
+  /**
+   * The key of the feature. Must be define in application.properties
+   *
+   * @return the key of the feature. Let it empty for full qualify name
+   */
+  String value() default "";
 }

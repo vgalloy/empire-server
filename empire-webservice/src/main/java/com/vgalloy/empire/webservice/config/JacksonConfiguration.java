@@ -13,14 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class JacksonConfiguration {
 
-    /**
-     * Create Jackson mapper bean.
-     *
-     * @return the bean
-     */
-    @Bean
-    public ObjectMapper objectMapper() {
-        return new ObjectMapper()
-            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
-    }
+  /**
+   * Create Jackson mapper bean.
+   *
+   * @return the bean
+   */
+  @Bean
+  public ObjectMapper objectMapper() {
+    return new ObjectMapper().setSerializationInclusion(JsonInclude.Include.NON_NULL);
+  }
 }

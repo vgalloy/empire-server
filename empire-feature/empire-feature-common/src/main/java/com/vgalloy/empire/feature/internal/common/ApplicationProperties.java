@@ -1,7 +1,6 @@
 package com.vgalloy.empire.feature.internal.common;
 
 import java.util.Map;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
@@ -18,13 +17,13 @@ import org.springframework.context.annotation.PropertySource;
 @ConfigurationProperties
 public class ApplicationProperties {
 
-    private Map<String, String> features;
+  private Map<String, String> features;
 
-    public Map<String, String> getFeatures() {
-        return features;
-    }
+  public Map<String, String> getFeatures() {
+    return features;
+  }
 
-    public void setFeatures(final Map<String, String> features) {
-        this.features = features;
-    }
+  public void setFeatures(final Map<String, String> features) {
+    this.features = features;
+  }
 }

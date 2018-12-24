@@ -10,5 +10,5 @@ import com.vgalloy.empire.feature.api.Feature;
 @Feature("operation")
 public interface Operation {
 
-    int apply(int a, int b);
+  int apply(int a, int b);
 }

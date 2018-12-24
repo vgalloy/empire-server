@@ -9,35 +9,35 @@ import java.util.Objects;
  */
 public class Translation {
 
-    private final TranslationKey key;
-    private final String value;
+  private final TranslationKey key;
+  private final String value;
 
-    /**
-     * Constructor.
-     *
-     * @param key   the key
-     * @param value the value
-     */
-    public Translation(final TranslationKey key, final String value) {
-        this.key = Objects.requireNonNull(key, "key");
-        this.value = Objects.requireNonNull(value, "value");
-    }
+  /**
+   * Constructor.
+   *
+   * @param key the key
+   * @param value the value
+   */
+  public Translation(final TranslationKey key, final String value) {
+    this.key = Objects.requireNonNull(key, "key");
+    this.value = Objects.requireNonNull(value, "value");
+  }
 
-    /**
-     * The code.
-     *
-     * @return the code, not null
-     */
-    public final TranslationKey getKey() {
-        return key;
-    }
+  /**
+   * The code.
+   *
+   * @return the code, not null
+   */
+  public final TranslationKey getKey() {
+    return key;
+  }
 
-    /**
-     * The result of the value.
-     *
-     * @return the value
-     */
-    public final String getValue() {
-        return value;
-    }
+  /**
+   * The result of the value.
+   *
+   * @return the value
+   */
+  public final String getValue() {
+    return value;
+  }
 }

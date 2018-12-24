@@ -9,28 +9,28 @@ import java.util.function.Function;
  * @author Vincent Galloy
  */
 public enum OrderType {
-    CHANGE_TAX(ChangeTaxOrder::of),
-    BUY_FOOD(BuyFoodOrder::new),
-    BUY_GRANARY(BuyGranaryOrder::new);
+  CHANGE_TAX(ChangeTaxOrder::of),
+  BUY_FOOD(BuyFoodOrder::new),
+  BUY_GRANARY(BuyGranaryOrder::new);
 
-    private final Function<Long, Order> generator;
+  private final Function<Long, Order> generator;
 
-    /**
-     * Constructor.
-     *
-     * @param generator the order generator
-     */
-    OrderType(final Function<Long, Order> generator) {
-        this.generator = Objects.requireNonNull(generator);
-    }
+  /**
+   * Constructor.
+   *
+   * @param generator the order generator
+   */
+  OrderType(final Function<Long, Order> generator) {
+    this.generator = Objects.requireNonNull(generator);
+  }
 
-    /**
-     * Build an {@link Order} with the type.
-     *
-     * @param number the value for the order
-     * @return a new Order
-     */
-    public Order build(final Long number) {
-        return generator.apply(number);
-    }
+  /**
+   * Build an {@link Order} with the type.
+   *
+   * @param number the value for the order
+   * @return a new Order
+   */
+  public Order build(final Long number) {
+    return generator.apply(number);
+  }
 }

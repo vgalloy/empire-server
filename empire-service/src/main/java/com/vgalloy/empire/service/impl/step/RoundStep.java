@@ -8,10 +8,10 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum RoundStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        return empire.round(empire.getRound().nextRound());
-    }
+  @Override
+  public Empire apply(final Empire empire) {
+    return empire.round(empire.getRound().nextRound());
+  }
 }

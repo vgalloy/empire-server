@@ -7,7 +7,7 @@ package com.vgalloy.empire.feature.web;
  */
 public class WebConstant {
 
-    public static final String FEATURE_BASE_URI = "/feature";
-    public static final String FEATURE_WEB = FEATURE_BASE_URI + "/web";
-    public static final String FEATURE_API = FEATURE_BASE_URI + "/api";
+  public static final String FEATURE_BASE_URI = "/feature";
+  public static final String FEATURE_WEB = FEATURE_BASE_URI + "/web";
+  public static final String FEATURE_API = FEATURE_BASE_URI + "/api";
 }

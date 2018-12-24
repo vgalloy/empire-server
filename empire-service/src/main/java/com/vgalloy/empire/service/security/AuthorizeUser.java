@@ -8,5 +8,4 @@ import org.springframework.security.access.prepost.PreAuthorize;
  * @author Vincent Galloy
  */
 @PreAuthorize("hasRole('USER')")
-public @interface AuthorizeUser {
-}
+public @interface AuthorizeUser {}

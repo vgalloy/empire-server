@@ -1,10 +1,9 @@
 package com.vgalloy.empire.feature.web;
 
+import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-
-import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfiguration;
 
 /**
  * Created by Vincent Galloy on 12/10/18.
@@ -14,5 +13,4 @@ import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfigura
 @Import(FeatureSwitcherSpringConfiguration.class)
 @ComponentScan
 @Configuration
-public class FeatureSwitcherWebConfiguration {
-}
+public class FeatureSwitcherWebConfiguration {}

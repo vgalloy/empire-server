@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Implementation {
 
-    /**
-     * The value of the implementation.
-     *
-     * @return the value reference this implementation. Let it empty for full qualify name
-     */
-    String value() default "";
+  /**
+   * The value of the implementation.
+   *
+   * @return the value reference this implementation. Let it empty for full qualify name
+   */
+  String value() default "";
 }

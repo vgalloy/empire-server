@@ -9,24 +9,25 @@ import javax.validation.constraints.NotEmpty;
  */
 public class UserDto implements Dto {
 
-    @NotEmpty(message = "Invalid user login")
-    private String login;
-    @NotEmpty(message = "Invalid user password")
-    private String password;
+  @NotEmpty(message = "Invalid user login")
+  private String login;
 
-    public String getLogin() {
-        return login;
-    }
+  @NotEmpty(message = "Invalid user password")
+  private String password;
 
-    public void setLogin(final String login) {
-        this.login = login;
-    }
+  public String getLogin() {
+    return login;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setLogin(final String login) {
+    this.login = login;
+  }
 
-    public void setPassword(final String password) {
-        this.password = password;
-    }
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(final String password) {
+    this.password = password;
+  }
 }

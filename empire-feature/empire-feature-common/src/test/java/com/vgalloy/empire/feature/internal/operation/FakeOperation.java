@@ -7,5 +7,5 @@ package com.vgalloy.empire.feature.internal.operation;
  */
 public interface FakeOperation {
 
-    int process(int a, int b);
+  int process(int a, int b);
 }

@@ -8,11 +8,10 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum PlayerInstructionStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        return empire.getPlayerInstructions()
-            .apply(empire);
-    }
+  @Override
+  public Empire apply(final Empire empire) {
+    return empire.getPlayerInstructions().apply(empire);
+  }
 }

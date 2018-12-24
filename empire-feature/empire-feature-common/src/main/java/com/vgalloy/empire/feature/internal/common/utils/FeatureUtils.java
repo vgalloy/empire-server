@@ -10,25 +10,22 @@ import java.util.function.Function;
  */
 public final class FeatureUtils {
 
-    /**
-     * Constructor.
-     * Private to avoid instantiation
-     */
-    private FeatureUtils() {
-        throw new AssertionError();
-    }
+  /** Constructor. Private to avoid instantiation */
+  private FeatureUtils() {
+    throw new AssertionError();
+  }
 
-    /**
-     * Utility function to convert a simple consumer into a mapper.
-     *
-     * @param consumer the consumer
-     * @param <T>      the generic type of the object
-     * @return the map function
-     */
-    public static <T> Function<T, T> peekToMap(final Consumer<T> consumer) {
-        return object -> {
-            consumer.accept(object);
-            return object;
-        };
-    }
+  /**
+   * Utility function to convert a simple consumer into a mapper.
+   *
+   * @param consumer the consumer
+   * @param <T> the generic type of the object
+   * @return the map function
+   */
+  public static <T> Function<T, T> peekToMap(final Consumer<T> consumer) {
+    return object -> {
+      consumer.accept(object);
+      return object;
+    };
+  }
 }

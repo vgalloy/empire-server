@@ -8,11 +8,11 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum PopulationStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        final long newPopulation = empire.getPopulation() * (500 - empire.getTax()) / 5000;
-        return empire.population(empire.getPopulation() + newPopulation);
-    }
+  @Override
+  public Empire apply(final Empire empire) {
+    final long newPopulation = empire.getPopulation() * (500 - empire.getTax()) / 5000;
+    return empire.population(empire.getPopulation() + newPopulation);
+  }
 }

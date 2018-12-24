@@ -10,20 +10,20 @@ import java.util.UUID;
  */
 public class NotFoundResourceException extends RuntimeException {
 
-    private static final long serialVersionUID = 1758689475032606727L;
+  private static final long serialVersionUID = 1758689475032606727L;
 
-    private final UUID id;
+  private final UUID id;
 
-    /**
-     * Constructor.
-     *
-     * @param id the id of the non existing resources
-     */
-    public NotFoundResourceException(final UUID id) {
-        this.id = Objects.requireNonNull(id);
-    }
+  /**
+   * Constructor.
+   *
+   * @param id the id of the non existing resources
+   */
+  public NotFoundResourceException(final UUID id) {
+    this.id = Objects.requireNonNull(id);
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public UUID getId() {
+    return id;
+  }
 }

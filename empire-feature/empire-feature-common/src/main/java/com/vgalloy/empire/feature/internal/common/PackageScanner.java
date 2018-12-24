@@ -11,27 +11,27 @@ import java.util.List;
  */
 public class PackageScanner {
 
-    private final List<String> packages = new ArrayList<>();
+  private final List<String> packages = new ArrayList<>();
 
-    /**
-     * Add a package to scan.
-     *
-     * @param packages one or several package
-     */
-    public void addPackage(final String... packages) {
-        this.packages.addAll(Arrays.asList(packages));
-    }
+  /**
+   * Add a package to scan.
+   *
+   * @param packages one or several package
+   */
+  public void addPackage(final String... packages) {
+    this.packages.addAll(Arrays.asList(packages));
+  }
 
-    /**
-     * The list of package to scan.
-     *
-     * @return the packages, not null, not empty
-     */
-    public List<String> getPackage() {
-        if (packages.isEmpty()) {
-            return new ArrayList<>();
-        }
-        // TODO immutable
-        return packages;
+  /**
+   * The list of package to scan.
+   *
+   * @return the packages, not null, not empty
+   */
+  public List<String> getPackage() {
+    if (packages.isEmpty()) {
+      return new ArrayList<>();
     }
+    // TODO immutable
+    return packages;
+  }
 }

@@ -8,5 +8,4 @@ import com.vgalloy.empire.webservice.dto.RoundDto;
  *
  * @author Vincent Galloy
  */
-public interface RoundMapper extends Mapper<Round, RoundDto> {
-}
+public interface RoundMapper extends Mapper<Round, RoundDto> {}

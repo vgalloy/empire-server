@@ -11,13 +11,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class TestConfig {
 
-    @Bean
-    public Operation addOperation() {
-        return new AddOperation();
-    }
+  @Bean
+  public Operation addOperation() {
+    return new AddOperation();
+  }
 
-    @Bean
-    public Operation minusOperation() {
-        return new MinusOperation();
-    }
+  @Bean
+  public Operation minusOperation() {
+    return new MinusOperation();
+  }
 }

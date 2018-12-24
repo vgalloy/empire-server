@@ -1,16 +1,14 @@
 package com.vgalloy.empire.service.impl;
 
+import com.vgalloy.empire.service.spi.dao.UserDao;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import com.vgalloy.empire.service.spi.dao.UserDao;
 
 /**
  * Created by Vincent Galloy on 30/08/17.
@@ -20,30 +18,36 @@ import com.vgalloy.empire.service.spi.dao.UserDao;
 @Service
 class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserDao userDao;
+  private final UserDao userDao;
 
-    /**
-     * Constructor.
-     *
-     * @param userDao the user dao
-     */
-    UserDetailsServiceImpl(final UserDao userDao) {
-        this.userDao = Objects.requireNonNull(userDao);
-    }
+  /**
+   * Constructor.
+   *
+   * @param userDao the user dao
+   */
+  UserDetailsServiceImpl(final UserDao userDao) {
+    this.userDao = Objects.requireNonNull(userDao);
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        Objects.requireNonNull(username);
+  @Override
+  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+    Objects.requireNonNull(username);
 
-        final var users = userDao.getByLogin(username).stream()
+    final var users =
+        userDao
+            .getByLogin(username)
+            .stream()
             .filter(user -> user.getLogin().equals(username))
             .collect(Collectors.toList());
 
-        if (users.isEmpty()) {
-            throw new UsernameNotFoundException(username);
-        }
-        final var user = users.get(0);
-
-        return new org.springframework.security.core.userdetails.User(user.getPassword(), user.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+    if (users.isEmpty()) {
+      throw new UsernameNotFoundException(username);
     }
+    final var user = users.get(0);
+
+    return new org.springframework.security.core.userdetails.User(
+        user.getPassword(),
+        user.getPassword(),
+        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));
+  }
 }

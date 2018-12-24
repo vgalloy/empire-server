@@ -9,8 +9,8 @@ import com.vgalloy.empire.feature.api.Implementation;
  */
 @Implementation
 public class MinusOperation implements Operation {
-    @Override
-    public int process(final int a, final int b) {
-        return a - b;
-    }
+  @Override
+  public int process(final int a, final int b) {
+    return a - b;
+  }
 }

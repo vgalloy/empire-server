@@ -7,31 +7,31 @@ package com.vgalloy.empire.webservice.dto;
  */
 public final class StockDto implements Dto {
 
-    private Long current;
-    private Long granary;
-    private Long max;
+  private Long current;
+  private Long granary;
+  private Long max;
 
-    public Long getCurrent() {
-        return current;
-    }
+  public Long getCurrent() {
+    return current;
+  }
 
-    public void setCurrent(final Long current) {
-        this.current = current;
-    }
+  public void setCurrent(final Long current) {
+    this.current = current;
+  }
 
-    public Long getGranary() {
-        return granary;
-    }
+  public Long getGranary() {
+    return granary;
+  }
 
-    public void setGranary(final Long granary) {
-        this.granary = granary;
-    }
+  public void setGranary(final Long granary) {
+    this.granary = granary;
+  }
 
-    public Long getMax() {
-        return max;
-    }
+  public Long getMax() {
+    return max;
+  }
 
-    public void setMax(final Long max) {
-        this.max = max;
-    }
+  public void setMax(final Long max) {
+    this.max = max;
+  }
 }

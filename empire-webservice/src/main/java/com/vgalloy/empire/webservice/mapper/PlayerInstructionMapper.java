@@ -8,5 +8,4 @@ import com.vgalloy.empire.webservice.dto.PlayerInstructionDto;
  *
  * @author Vincent Galloy
  */
-public interface PlayerInstructionMapper extends Mapper<PlayerInstructions, PlayerInstructionDto> {
-}
+public interface PlayerInstructionMapper extends Mapper<PlayerInstructions, PlayerInstructionDto> {}

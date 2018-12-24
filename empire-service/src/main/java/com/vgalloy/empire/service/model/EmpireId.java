@@ -10,62 +10,59 @@ import java.util.UUID;
  */
 public final class EmpireId {
 
-    private final UUID id;
+  private final UUID id;
 
-    /**
-     * Constructor.
-     * Private to avoid non managed instantiation
-     *
-     * @param id the id of empire
-     */
-    private EmpireId(final UUID id) {
-        this.id = Objects.requireNonNull(id);
-    }
+  /**
+   * Constructor. Private to avoid non managed instantiation
+   *
+   * @param id the id of empire
+   */
+  private EmpireId(final UUID id) {
+    this.id = Objects.requireNonNull(id);
+  }
 
-    /**
-     * Build a new empire id.
-     *
-     * @param empireId the empire id as string
-     * @return a new instance of empire id
-     */
-    public static EmpireId of(final UUID empireId) {
-        return new EmpireId(empireId);
-    }
+  /**
+   * Build a new empire id.
+   *
+   * @param empireId the empire id as string
+   * @return a new instance of empire id
+   */
+  public static EmpireId of(final UUID empireId) {
+    return new EmpireId(empireId);
+  }
 
-    /**
-     * Build a new empire id.
-     *
-     * @return a new instance of empire id
-     */
-    public static EmpireId newInstance() {
-        return new EmpireId(UUID.randomUUID());
-    }
+  /**
+   * Build a new empire id.
+   *
+   * @return a new instance of empire id
+   */
+  public static EmpireId newInstance() {
+    return new EmpireId(UUID.randomUUID());
+  }
 
-    public UUID getId() {
-        return id;
-    }
+  public UUID getId() {
+    return id;
+  }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final EmpireId empireId = (EmpireId) o;
-        return Objects.equals(id, empireId.id);
+  @Override
+  public boolean equals(final Object o) {
+    if (this == o) {
+      return true;
     }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    final EmpireId empireId = (EmpireId) o;
+    return Objects.equals(id, empireId.id);
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
 
-    @Override
-    public String toString() {
-        return "EmpireId{" +
-            "id='" + id + '\'' +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return "EmpireId{" + "id='" + id + '\'' + '}';
+  }
 }

@@ -8,27 +8,28 @@ import com.vgalloy.empire.service.model.Empire;
  * @author Vincent Galloy
  */
 public enum HarvestStep implements Step {
-    INSTANCE;
+  INSTANCE;
 
-    @Override
-    public Empire apply(final Empire empire) {
-        int value;
-        switch (empire.getRound().getCurrentDate().getMonth()) {
-            case JULY:
-                value = 4;
-                break;
-            case AUGUST:
-                value = 6;
-                break;
-            case SEPTEMBER:
-                value = 4;
-                break;
-            default:
-                value = 0;
-                break;
-        }
-        final long harvesting = value * empire.getPopulation();
-        final long newStock = Math.min(empire.getStock().getMax(), empire.getStock().getCurrent() + harvesting);
-        return empire.stock(empire.getStock().resource(newStock));
+  @Override
+  public Empire apply(final Empire empire) {
+    int value;
+    switch (empire.getRound().getCurrentDate().getMonth()) {
+      case JULY:
+        value = 4;
+        break;
+      case AUGUST:
+        value = 6;
+        break;
+      case SEPTEMBER:
+        value = 4;
+        break;
+      default:
+        value = 0;
+        break;
     }
+    final long harvesting = value * empire.getPopulation();
+    final long newStock =
+        Math.min(empire.getStock().getMax(), empire.getStock().getCurrent() + harvesting);
+    return empire.stock(empire.getStock().resource(newStock));
+  }
 }

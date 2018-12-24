@@ -11,15 +11,14 @@ import org.junit.rules.ExpectedException;
  */
 public final class EmpireIdTest {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+  @Rule public ExpectedException expectedException = ExpectedException.none();
 
-    @Test
-    public void simple() {
-        // EXCEPTION
-        expectedException.expect(NullPointerException.class);
+  @Test
+  public void simple() {
+    // EXCEPTION
+    expectedException.expect(NullPointerException.class);
 
-        // WHEN
-        EmpireId.of(null);
-    }
+    // WHEN
+    EmpireId.of(null);
+  }
 }

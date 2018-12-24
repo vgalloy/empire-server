@@ -9,24 +9,25 @@ import com.vgalloy.empire.service.model.Empire;
  */
 final class BuyGranaryOrder implements Order {
 
-    private static final double GRANARY_UNIT_PRICE = 0.1;
-    private final long amount;
+  private static final double GRANARY_UNIT_PRICE = 0.1;
+  private final long amount;
 
-    /**
-     * Constructor.
-     *
-     * @param amount the amount
-     */
-    BuyGranaryOrder(final long amount) {
-        this.amount = amount;
-    }
+  /**
+   * Constructor.
+   *
+   * @param amount the amount
+   */
+  BuyGranaryOrder(final long amount) {
+    this.amount = amount;
+  }
 
-    @Override
-    public Empire apply(final Empire empire) {
-        final var maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / GRANARY_UNIT_PRICE));
-        final var buy = Math.min(amount, maxAllowed);
-        final var totalPrice = Math.round(Math.ceil(1.0 * buy * GRANARY_UNIT_PRICE));
-        return empire.gold(empire.getGold() - totalPrice)
-            .stock(empire.getStock().granary(empire.getStock().getGranary() + buy));
-    }
+  @Override
+  public Empire apply(final Empire empire) {
+    final var maxAllowed = Math.round(Math.floor(1.0 * empire.getGold() / GRANARY_UNIT_PRICE));
+    final var buy = Math.min(amount, maxAllowed);
+    final var totalPrice = Math.round(Math.ceil(1.0 * buy * GRANARY_UNIT_PRICE));
+    return empire
+        .gold(empire.getGold() - totalPrice)
+        .stock(empire.getStock().granary(empire.getStock().getGranary() + buy));
+  }
 }

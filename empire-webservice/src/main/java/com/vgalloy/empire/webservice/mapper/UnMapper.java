@@ -9,11 +9,11 @@ import com.vgalloy.empire.webservice.dto.Dto;
  */
 public interface UnMapper<R, T extends Dto> {
 
-    /**
-     * Extract the business object from a Dto one.
-     *
-     * @param dto the dto object
-     * @return the business
-     */
-    R unmap(T dto);
+  /**
+   * Extract the business object from a Dto one.
+   *
+   * @param dto the dto object
+   * @return the business
+   */
+  R unmap(T dto);
 }

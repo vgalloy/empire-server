@@ -14,10 +14,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface FeatureMethod {
 
-    /**
-     * The feature name. Used as id.
-     *
-     * @return the feature name/id
-     */
-    String value() default "";
+  /**
+   * The feature name. Used as id.
+   *
+   * @return the feature name/id
+   */
+  String value() default "";
 }

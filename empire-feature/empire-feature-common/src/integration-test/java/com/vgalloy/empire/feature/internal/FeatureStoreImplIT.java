@@ -1,5 +1,10 @@
 package com.vgalloy.empire.feature.internal;
 
+import com.vgalloy.empire.feature.api.FeatureStore;
+import com.vgalloy.empire.feature.internal.common.ApplicationProperties;
+import com.vgalloy.empire.feature.internal.common.FeatureStoreImpl;
+import com.vgalloy.empire.feature.internal.sample.Operation;
+import com.vgalloy.empire.feature.internal.sample.TestConfig;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,12 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.vgalloy.empire.feature.api.FeatureStore;
-import com.vgalloy.empire.feature.internal.common.ApplicationProperties;
-import com.vgalloy.empire.feature.internal.common.FeatureStoreImpl;
-import com.vgalloy.empire.feature.internal.sample.Operation;
-import com.vgalloy.empire.feature.internal.sample.TestConfig;
-
 /**
  * Created by Vincent Galloy on 07/10/18.
  *
@@ -26,26 +25,27 @@ import com.vgalloy.empire.feature.internal.sample.TestConfig;
 @RunWith(SpringRunner.class)
 public class FeatureStoreImplIT {
 
-    @Autowired
-    private FeatureStore featureStore;
+  @Autowired private FeatureStore featureStore;
 
-    @Test
-    public void operation() {
-        // WHEN
-        final Operation operation = featureStore.loadFeature(Operation.class);
+  @Test
+  public void operation() {
+    // WHEN
+    final Operation operation = featureStore.loadFeature(Operation.class);
 
-        // THEN
-        Assert.assertNotNull(operation);
-        Assert.assertEquals(3, operation.apply(1, 2));
+    // THEN
+    Assert.assertNotNull(operation);
+    Assert.assertEquals(3, operation.apply(1, 2));
+  }
+
+  @Configuration
+  @Import({ApplicationProperties.class, TestConfig.class})
+  public static class Config {
+
+    @Bean
+    public FeatureStore featureStore(
+        final ApplicationContext applicationContext,
+        final ApplicationProperties applicationProperties) {
+      return new FeatureStoreImpl(applicationContext, applicationProperties);
     }
-
-    @Configuration
-    @Import({ApplicationProperties.class, TestConfig.class})
-    public static class Config {
-
-        @Bean
-        public FeatureStore featureStore(final ApplicationContext applicationContext, final ApplicationProperties applicationProperties) {
-            return new FeatureStoreImpl(applicationContext, applicationProperties);
-        }
-    }
+  }
 }
