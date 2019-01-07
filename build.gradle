@@ -130,7 +130,7 @@ allprojects {
         if (integrationTestReport.exists()) {
             reportFiles.add(integrationTestReport)
         }
-        executionData = files(reportFiles)
+        executionData.from = reportFiles
     }
 
     integrationTest.mustRunAfter test
