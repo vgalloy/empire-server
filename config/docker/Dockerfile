@@ -6,7 +6,7 @@ EXPOSE 8080
 
 COPY target/empire-server.jar empire-server.jar
 
-ADD https://search.maven.org/remotecontent?filepath=co/elastic/apm/elastic-apm-agent/1.2.0/elastic-apm-agent-1.2.0.jar /server/elastic-apm-agent-1.2.0.jar
+ADD http://central.maven.org/maven2/co/elastic/apm/elastic-apm-agent/1.2.0/elastic-apm-agent-1.2.0.jar /server/elastic-apm-agent-1.2.0.jar
 
 CMD ["java", \
     "-javaagent:elastic-apm-agent-1.2.0.jar", \
