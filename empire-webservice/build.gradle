@@ -1,5 +1,6 @@
 plugins {
     id 'org.springframework.boot' version '2.0.6.RELEASE'
+    id 'com.google.cloud.tools.jib' version '0.10.1'
 }
 
 apply plugin: 'org.springframework.boot'
@@ -21,3 +22,14 @@ dependencies {
 bootJar {
     archiveName = 'empire-server.jar'
 }
+
+jib {
+    from {
+        image = 'openjdk:11.0.1-oracle'
+    }
+    to {
+        image = 'empire-server'
+    }
+}
+
+build.dependsOn jibBuildTar

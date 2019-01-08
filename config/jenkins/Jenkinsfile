@@ -47,6 +47,7 @@ node {
                 --rm \
                 -v empire-m2-volume:/root/.m2 \
                 -v empire-source-volume:/src/maven \
+                -v /var/run/docker.sock:/var/run/docker.sock \
                 -w /src/maven/empire-server \
                 openjdk:11.0.1-oracle ./mvnw clean install
         '''
@@ -59,6 +60,7 @@ node {
                 -v empire-m2-volume:/root/.m2 \
                 -v empire-gradle-volume:/root/.gradle \
                 -v empire-source-volume:/home/gradle \
+                -v /var/run/docker.sock:/var/run/docker.sock \
                 -w /home/gradle/empire-server \
                 openjdk:11.0.1-oracle ./gradlew build
         '''
