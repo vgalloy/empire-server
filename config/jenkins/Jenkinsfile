@@ -73,7 +73,7 @@ node {
                 -v empire-source-volume:/home/ \
                 -w /home/empire-server \
                 -v /var/run/docker.sock:/var/run/docker.sock \
-                docker load -i empire-webservice/build/jib-image.tar
+                docker load -i empire-webservice/target/jib-image.tar
             docker tag empire-server:latest registry.vgalloy.com/empire-server:latest
         '''
     }

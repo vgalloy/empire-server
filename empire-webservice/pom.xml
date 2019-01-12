@@ -130,6 +130,7 @@
                             <jvmFlag>-Delastic.apm.application_packages=com.vgalloy</jvmFlag>
                             <jvmFlag>-Delastic.apm.server_urls=https://apm.vgalloy.com</jvmFlag>
                             <jvmFlag>-Delastic.apm.verify_server_cert=false</jvmFlag>
+                            <jvmFlag>-Delastic.apm.service_version=${project.version}</jvmFlag>
                         </jvmFlags>
                     </container>
                     <to>
