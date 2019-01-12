@@ -72,19 +72,9 @@ node {
                 --rm \
                 -v empire-source-volume:/home/ \
                 -w /home/empire-server \
-                ubuntu mkdir -p target
-            docker container run \
-                --rm \
-                -v empire-source-volume:/home/ \
-                -w /home/empire-server \
-                ubuntu cp empire-webservice/build/libs/empire-server.jar target/empire-server.jar
-            docker container run \
-                --rm \
-                -v empire-source-volume:/home/ \
-                -w /home/empire-server \
                 -v /var/run/docker.sock:/var/run/docker.sock \
-                docker build -f config/docker/Dockerfile -t registry.vgalloy.com/empire-server:1.$BUILD_NUMBER .
-            docker tag registry.vgalloy.com/empire-server:1.$BUILD_NUMBER registry.vgalloy.com/empire-server:latest
+                docker load -i empire-webservice/build/jib-image.tar
+            docker tag empire-server:latest registry.vgalloy.com/empire-server:latest
         '''
     }
 
@@ -92,7 +82,6 @@ node {
         withCredentials([usernamePassword(credentialsId: 'docker_credential', usernameVariable: 'DOCKER_LOGIN', passwordVariable: 'DOCKER_PASSWORD')]) {
             sh '''
                 docker login registry.vgalloy.com -p $DOCKER_PASSWORD -u $DOCKER_LOGIN
-                docker push registry.vgalloy.com/empire-server:1.$BUILD_NUMBER
                 docker push registry.vgalloy.com/empire-server:latest
                 docker logout registry.vgalloy.com
             '''

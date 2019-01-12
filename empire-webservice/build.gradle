@@ -5,6 +5,10 @@ plugins {
 
 apply plugin: 'org.springframework.boot'
 
+configurations {
+    apmAgent
+}
+
 dependencies {
     compile project(':empire-service')
     compile project(':empire-persistence')
@@ -17,19 +21,38 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
     testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    apmAgent 'co.elastic.apm:elastic-apm-agent:1.2.0'
 }
 
 bootJar {
-    archiveName = 'empire-server.jar'
+    archiveBaseName = 'empire-server'
+    archiveVersion = ''
+}
+
+task copyAgent(type: Copy) {
+    from configurations.apmAgent
+    into "$buildDir/agents"
 }
 
 jib {
     from {
         image = 'openjdk:11.0.1-oracle'
     }
+    extraDirectory = file("$buildDir/agents")
     to {
         image = 'empire-server'
     }
+    container {
+        ports = ['8081']
+        jvmFlags = [
+            '-javaagent:/elastic-apm-agent-1.2.0.jar',
+            '-Delastic.apm.service_name=empire-server',
+            '-Delastic.apm.application_packages=com.vgalloy',
+            '-Delastic.apm.server_urls=https://apm.vgalloy.com',
+            '-Delastic.apm.verify_server_cert=false'
+        ]
+    }
 }
 
+jibBuildTar.dependsOn copyAgent
 build.dependsOn jibBuildTar
