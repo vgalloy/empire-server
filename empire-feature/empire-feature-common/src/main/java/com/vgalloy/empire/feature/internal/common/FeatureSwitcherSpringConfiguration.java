@@ -1,10 +1,13 @@
 package com.vgalloy.empire.feature.internal.common;
 
+import com.vgalloy.empire.feature.api.FeatureAdder;
 import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
-import com.vgalloy.empire.feature.api.config.FeatureSwitcherModuleConfiguration;
 import com.vgalloy.empire.feature.internal.common.aspect.FeatureAspect;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
+import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
+import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -16,49 +19,59 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FeatureSwitcherSpringConfiguration {
 
-  /**
-   * Create a default module configuration if doesn't exist.
-   *
-   * @return default configuration
-   */
-  @ConditionalOnMissingBean(FeatureSwitcherModuleConfiguration.class)
-  @Bean
-  public FeatureSwitcherModuleConfiguration featureSwitcherModuleConfiguration() {
-    return FeatureSwitcherModuleConfiguration.builder().inMemoryFeatureDao().buildManager().build();
-  }
+  private final FeatureDao featureDao;
+  private final FeatureAdder featureAdder;
+  private final FeatureManager featureManager;
 
   /**
-   * Build feature dao.
+   * Constructor.
    *
-   * @param configuration the module configuration
-   * @return the bean
+   * @param featureDao the featureDao
+   * @param featureAdder the featureAdder
+   * @param featureManager the featureManager
    */
-  @ConditionalOnMissingBean(FeatureDao.class)
-  @Bean
-  public FeatureDao featureDao(final FeatureSwitcherModuleConfiguration configuration) {
-    return configuration.getFeatureDao();
-  }
+  public FeatureSwitcherSpringConfiguration(
+      @Autowired(required = false) final FeatureDao featureDao,
+      @Autowired(required = false) final FeatureAdder featureAdder,
+      @Autowired(required = false) final FeatureManager featureManager) {
+    if (Objects.isNull(featureDao)) {
+      this.featureDao = new InMemoryFeatureDao();
+    } else {
+      this.featureDao = featureDao;
+    }
 
-  /**
-   * Build feature manager.
-   *
-   * @param configuration the module configuration, not null
-   * @return the bean
-   */
-  @ConditionalOnMissingBean(FeatureManager.class)
-  @Bean
-  public FeatureManager featureManager(final FeatureSwitcherModuleConfiguration configuration) {
-    return configuration.getFeatureManager();
+    if (Objects.isNull(featureAdder)) {
+      this.featureAdder = new FeatureAdderEnabler();
+    } else {
+      this.featureAdder = featureAdder;
+    }
+
+    if (Objects.isNull(featureManager)) {
+      this.featureManager = new StandardFeatureManager(this.featureAdder, this.featureDao);
+    } else {
+      this.featureManager = featureManager;
+    }
   }
 
   /**
    * Build Spring bean.
    *
-   * @param featureManager the featureManager
    * @return the bean
    */
   @Bean
-  public FeatureAspect featureAspect(final FeatureManager featureManager) {
+  public FeatureAspect featureAspect() {
     return new FeatureAspect(featureManager);
+  }
+
+  public FeatureDao getFeatureDao() {
+    return featureDao;
+  }
+
+  public FeatureAdder getFeatureAdder() {
+    return featureAdder;
+  }
+
+  public FeatureManager getFeatureManager() {
+    return featureManager;
   }
 }

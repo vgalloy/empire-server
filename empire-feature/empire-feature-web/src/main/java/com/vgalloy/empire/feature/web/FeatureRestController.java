@@ -2,6 +2,7 @@ package com.vgalloy.empire.feature.web;
 
 import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
+import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfiguration;
 import com.vgalloy.empire.feature.web.exception.WebNotFoundException;
 import java.util.Collection;
 import java.util.Objects;
@@ -29,10 +30,11 @@ public class FeatureRestController {
   /**
    * Constructor.
    *
-   * @param featureDao feature dao, not null
+   * @param featureSwitcherSpringConfiguration base feature configuration, not null
    */
-  public FeatureRestController(final FeatureDao featureDao) {
-    this.featureDao = Objects.requireNonNull(featureDao);
+  public FeatureRestController(
+      final FeatureSwitcherSpringConfiguration featureSwitcherSpringConfiguration) {
+    this.featureDao = Objects.requireNonNull(featureSwitcherSpringConfiguration.getFeatureDao());
   }
 
   /**

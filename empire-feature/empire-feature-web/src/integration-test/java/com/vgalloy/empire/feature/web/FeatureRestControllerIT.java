@@ -5,6 +5,7 @@ import com.vgalloy.empire.feature.api.FeatureDao;
 import com.vgalloy.empire.feature.api.FeatureManager;
 import com.vgalloy.empire.feature.internal.common.FeatureAdderNoop;
 import com.vgalloy.empire.feature.internal.common.FeatureConfiguration;
+import com.vgalloy.empire.feature.internal.common.FeatureSwitcherSpringConfiguration;
 import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
 import org.junit.jupiter.api.Assertions;
@@ -64,8 +65,9 @@ public class FeatureRestControllerIT {
     }
 
     @Bean
-    FeatureRestController FeatureRestController(final FeatureDao featureDao) {
-      return new FeatureRestController(featureDao);
+    FeatureRestController featureRestController(
+        final FeatureSwitcherSpringConfiguration configuration) {
+      return new FeatureRestController(configuration);
     }
   }
 }
