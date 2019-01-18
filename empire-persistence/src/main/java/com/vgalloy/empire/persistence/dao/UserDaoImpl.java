@@ -35,9 +35,7 @@ final class UserDaoImpl implements UserDao {
 
   @Override
   public Optional<User> findByLoginAndPassword(final String login, final String password) {
-    return users
-        .values()
-        .stream()
+    return users.values().stream()
         .filter(user -> user.getLogin().equals(login) && user.getPassword().equals(password))
         .findFirst();
   }
@@ -56,8 +54,7 @@ final class UserDaoImpl implements UserDao {
 
   @Override
   public List<User> getByLogin(final String login) {
-    return getAll()
-        .stream()
+    return getAll().stream()
         .filter(user -> user.getLogin().equals(login))
         .collect(Collectors.toList());
   }

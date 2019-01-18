@@ -35,8 +35,7 @@ final class ImplementationExtractor<T> {
     Objects.requireNonNull(implementationKey, "implementationKey");
 
     final var features =
-        implementation
-            .stream()
+        implementation.stream()
             .filter(impl -> this.filterImplementation(implementationKey, impl))
             .collect(Collectors.toList());
 

@@ -12,6 +12,8 @@
 
     <properties>
         <agent-directory>${project.build.directory}/agents</agent-directory>
+        <elasticsearch-agent.version>1.3.0</elasticsearch-agent.version>
+        <jib-maven-plugin.version>1.0.0</jib-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -83,7 +85,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <id>unpack</id>
@@ -96,7 +97,7 @@
                                 <artifactItem>
                                     <groupId>co.elastic.apm</groupId>
                                     <artifactId>elastic-apm-agent</artifactId>
-                                    <version>1.2.0</version>
+                                    <version>${elasticsearch-agent.version}</version>
                                     <type>jar</type>
                                     <outputDirectory>${agent-directory}</outputDirectory>
                                 </artifactItem>
@@ -108,7 +109,7 @@
             <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
-                <version>0.10.1</version>
+                <version>${jib-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -125,7 +126,7 @@
                     <container>
                         <ports>8081</ports>
                         <jvmFlags>
-                            <jvmFlag>-javaagent:/elastic-apm-agent-1.2.0.jar</jvmFlag>
+                            <jvmFlag>-javaagent:/elastic-apm-agent-${elasticsearch-agent.version}.jar</jvmFlag>
                             <jvmFlag>-Delastic.apm.service_name=empire-server</jvmFlag>
                             <jvmFlag>-Delastic.apm.application_packages=com.vgalloy</jvmFlag>
                             <jvmFlag>-Delastic.apm.server_urls=https://apm.vgalloy.com</jvmFlag>

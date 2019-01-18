@@ -24,7 +24,7 @@
 
         <!-- Google formatter -->
         <fmt-maven-plugin.version>2.6.0</fmt-maven-plugin.version>
-        <google-java-format.version>1.6</google-java-format.version>
+        <google-java-format.version>1.7</google-java-format.version>
     </properties>
 
     <modules>
@@ -267,7 +267,7 @@
             <!--
                 Mojo Version Checker
                 Checks dependencies version : ./mvnw versions:display-dependency-updates
-                Checks plugin  version : ./mvnw versions:display-plugin-updates
+                Checks plugins version : ./mvnw versions:display-plugin-updates
             -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>

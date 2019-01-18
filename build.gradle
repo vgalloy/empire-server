@@ -16,7 +16,7 @@ plugins {
 apply plugin: 'net.jokubasdargis.build-timer'
 
 googleJavaFormat {
-    toolVersion = '1.6'
+    toolVersion = '1.7'
 }
 
 buildTimer {
@@ -29,11 +29,11 @@ ext {
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
-    checkstyleVersion = '8.15'
+    checkstyleVersion = '8.16'
     pmdVersion = '6.10.0'
     jacocoVersion = '0.8.2'
 
-    springBootVersion = '2.0.6.RELEASE'
+    springBootVersion = '2.1.2.RELEASE'
     springFoxVersion = '2.9.2'
     junitVersion = '5.3.1'
     mockitoVersion = '2.23.4'
@@ -101,7 +101,7 @@ allprojects {
     tasks.withType(Test) {
         useJUnitPlatform()
         testLogging {
-            events "passed", "skipped", "failed"
+//            events "passed", "skipped", "failed"
         }
     }
 

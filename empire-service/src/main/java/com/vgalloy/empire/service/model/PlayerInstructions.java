@@ -56,9 +56,7 @@ public final class PlayerInstructions {
    * @return a new empire build
    */
   public Empire apply(final Empire empire) {
-    return orders
-        .entrySet()
-        .stream()
+    return orders.entrySet().stream()
         .map(entry -> entry.getKey().build(entry.getValue()))
         .reduce((o1, o2) -> Order.class.cast(o1.andThen(o2)))
         .map(o -> o.apply(empire))

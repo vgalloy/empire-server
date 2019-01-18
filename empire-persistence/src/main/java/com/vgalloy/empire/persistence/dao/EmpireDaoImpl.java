@@ -32,8 +32,7 @@ final class EmpireDaoImpl implements EmpireDao {
 
   @Override
   public Empire getEmpireById(final EmpireId empireId) {
-    return empires
-        .stream()
+    return empires.stream()
         .filter(e -> e.getEmpireId().equals(empireId))
         .findFirst()
         .orElseThrow(() -> new IllegalArgumentException("No empire for the id : " + empireId));

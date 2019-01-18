@@ -90,9 +90,7 @@ public class UserController {
   public ResourceList<UUID> getEmpiresByUser(
       @PathVariable @Valid @NotNull(message = USER_ID_MUST_BE_NOT_NULL) final UUID userId) {
     final var ids =
-        empireService
-            .getEmpireIdByUserId(UserId.of(userId))
-            .stream()
+        empireService.getEmpireIdByUserId(UserId.of(userId)).stream()
             .map(EmpireId::getId)
             .collect(Collectors.toList());
     return new ResourceList<>(ids);

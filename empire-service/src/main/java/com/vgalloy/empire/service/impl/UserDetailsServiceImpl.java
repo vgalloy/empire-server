@@ -34,9 +34,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
     Objects.requireNonNull(username);
 
     final var users =
-        userDao
-            .getByLogin(username)
-            .stream()
+        userDao.getByLogin(username).stream()
             .filter(user -> user.getLogin().equals(username))
             .collect(Collectors.toList());
 
