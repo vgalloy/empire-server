@@ -9,7 +9,7 @@ buildscript {
 plugins {
     // dependencyUpdates
     id 'com.github.ben-manes.versions' version '0.20.0'
-    id 'net.researchgate.release' version '2.7.0'
+    id 'net.researchgate.release' version '2.8.0'
     id 'com.github.sherter.google-java-format' version '0.8'
 }
 
@@ -29,14 +29,14 @@ ext {
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
-    checkstyleVersion = '8.16'
-    pmdVersion = '6.10.0'
+    checkstyleVersion = '8.17'
+    pmdVersion = '6.11.0'
     jacocoVersion = '0.8.2'
 
     springBootVersion = '2.1.2.RELEASE'
     springFoxVersion = '2.9.2'
     junitVersion = '5.3.1'
-    mockitoVersion = '2.23.4'
+    mockitoVersion = '2.24.0'
 }
 
 allprojects {
