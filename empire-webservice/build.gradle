@@ -52,7 +52,7 @@ jib {
             '-Delastic.apm.application_packages=com.vgalloy',
             '-Delastic.apm.server_urls=https://apm.vgalloy.com',
             '-Delastic.apm.verify_server_cert=false',
-//            "-Delastic.apm.service_version=$project.version"
+            '-Delastic.apm.service_version=' + "$project.version"
         ]
     }
 }
