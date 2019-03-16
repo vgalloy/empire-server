@@ -12,8 +12,8 @@
 
     <properties>
         <agent-directory>${project.build.directory}/agents</agent-directory>
-        <elasticsearch-agent.version>1.3.0</elasticsearch-agent.version>
-        <jib-maven-plugin.version>1.0.0</jib-maven-plugin.version>
+        <elasticsearch-agent.version>1.4.0</elasticsearch-agent.version>
+        <jib-maven-plugin.version>1.0.2</jib-maven-plugin.version>
     </properties>
 
     <dependencies>

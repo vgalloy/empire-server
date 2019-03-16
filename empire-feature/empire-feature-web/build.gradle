@@ -2,7 +2,6 @@ dependencies {
     compile project(':empire-feature:empire-feature-common')
     compile "org.springframework.boot:spring-boot-starter-web:$springBootVersion"
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
-    testCompile group: 'org.mockito', name: 'mockito-core', version: "$mockitoVersion"
     testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
