@@ -38,7 +38,7 @@ task copyAgent(type: Copy) {
 
 jib {
     from {
-        image = 'openjdk:11.0.1-oracle'
+        image = 'gcr.io/distroless/java:11'
     }
     extraDirectory = file("$buildDir/agents")
     to {

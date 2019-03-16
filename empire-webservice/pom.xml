@@ -120,7 +120,7 @@
                 </executions>
                 <configuration>
                     <from>
-                        <image>openjdk:11.0.1-oracle</image>
+                        <image>gcr.io/distroless/java:11</image>
                     </from>
                     <extraDirectory>${agent-directory}</extraDirectory>
                     <container>
