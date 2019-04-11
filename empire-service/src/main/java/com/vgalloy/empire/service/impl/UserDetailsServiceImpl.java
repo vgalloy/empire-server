@@ -30,7 +30,7 @@ class UserDetailsServiceImpl implements UserDetailsService {
   }
 
   @Override
-  public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
+  public UserDetails loadUserByUsername(final String username) {
     Objects.requireNonNull(username);
 
     final var users =
