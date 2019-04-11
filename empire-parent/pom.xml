@@ -15,15 +15,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <!-- Maven -->
-        <maven.version>3.6.0</maven.version>
+        <maven.version>3.6.1</maven.version>
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
         <maven-dependency-plugin.version>3.1.1</maven-dependency-plugin.version>
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
-        <maven-surefire-plugin.version>2.22.1</maven-surefire-plugin.version>
-        <maven-failsafe-plugin.version>2.22.1</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+        <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-deploy-plugin.version>2.8.2</maven-deploy-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
@@ -35,18 +35,18 @@
 
         <!-- Checkstyle -->
         <maven-checkstyle-plugin.version>3.0.0</maven-checkstyle-plugin.version>
-        <checkstyle.version>8.18</checkstyle.version>
+        <checkstyle.version>8.20</checkstyle.version>
 
         <!-- PMD -->
-        <maven-pmd-plugin.version>3.11.0</maven-pmd-plugin.version>
-        <pmd.version>6.13.0</pmd.version>
+        <maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
+        <pmd.version>6.14.0</pmd.version>
 
         <!-- Dependencies-->
         <slf4j-api.version>1.7.25</slf4j-api.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
         <springfox.version>2.9.2</springfox.version>
-        <junit.version>5.4.1</junit.version>
+        <junit.version>5.4.2</junit.version>
     </properties>
 
     <dependencyManagement>
