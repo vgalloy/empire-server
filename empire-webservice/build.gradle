@@ -11,6 +11,8 @@ configurations {
     apmAgent
 }
 
+def elasticsearchApmAgentVersion = '1.6.1'
+
 dependencies {
     compile project(':empire-service')
     compile project(':empire-persistence')
@@ -23,7 +25,7 @@ dependencies {
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: "$springBootVersion"
     testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    apmAgent 'co.elastic.apm:elastic-apm-agent:1.5.0'
+    apmAgent "co.elastic.apm:elastic-apm-agent:$elasticsearchApmAgentVersion"
 }
 
 bootJar {
@@ -47,7 +49,7 @@ jib {
     container {
         ports = ['8081']
         jvmFlags = [
-            '-javaagent:/elastic-apm-agent-1.4.0.jar',
+            '-javaagent:/elastic-apm-agent-' + "$elasticsearchApmAgentVersion" + '.jar',
             '-Delastic.apm.service_name=empire-server',
             '-Delastic.apm.application_packages=com.vgalloy',
             '-Delastic.apm.server_urls=https://apm.vgalloy.com',

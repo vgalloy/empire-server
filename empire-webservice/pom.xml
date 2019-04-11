@@ -12,7 +12,7 @@
 
     <properties>
         <agent-directory>${project.build.directory}/agents</agent-directory>
-        <elasticsearch-agent.version>1.5.0</elasticsearch-agent.version>
+        <elasticsearch-agent.version>1.6.1</elasticsearch-agent.version>
         <jib-maven-plugin.version>1.0.2</jib-maven-plugin.version>
     </properties>
 
