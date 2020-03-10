@@ -29,7 +29,7 @@ ext {
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
-    checkstyleVersion = '8.20'
+    checkstyleVersion = '8.30'
     pmdVersion = '6.14.0'
     jacocoVersion = '0.8.5'
 
