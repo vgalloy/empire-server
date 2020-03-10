@@ -39,7 +39,7 @@
 
         <!-- PMD -->
         <maven-pmd-plugin.version>3.12.0</maven-pmd-plugin.version>
-        <pmd.version>6.14.0</pmd.version>
+        <pmd.version>6.21.0</pmd.version>
 
         <!-- Dependencies-->
         <slf4j-api.version>1.7.25</slf4j-api.version>

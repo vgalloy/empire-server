@@ -40,8 +40,6 @@
         <exclude name="DataflowAnomalyAnalysis"/>
         <exclude name="BeanMembersShouldSerialize"/>
         <exclude name="AvoidFieldNameMatchingMethodName"/>
-        <!-- Create an error -->
-        <exclude name="InvalidSlf4jMessageFormat"/>
         <exclude name="AvoidDuplicateLiterals"/>
     </rule>
     <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals" >
