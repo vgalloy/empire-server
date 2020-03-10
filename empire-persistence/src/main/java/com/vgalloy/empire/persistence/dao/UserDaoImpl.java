@@ -4,10 +4,10 @@ import com.vgalloy.empire.service.model.User;
 import com.vgalloy.empire.service.model.UserId;
 import com.vgalloy.empire.service.spi.dao.UserDao;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 final class UserDaoImpl implements UserDao {
 
-  private final Map<UserId, User> users = new HashMap<>();
+  private final Map<UserId, User> users = new ConcurrentHashMap<>();
 
   @Override
   public Optional<User> getById(final UserId userId) {
