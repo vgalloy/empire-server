@@ -1,0 +1,28 @@
+{
+  "_metadata": {
+    "executionTime": EXECUTION_TIME
+  },
+  "_id": "a91b1d64-aff6-4587-ac5c-6a58822b5b75",
+  "resource": {
+    "login": "login",
+    "password": "password"
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost:PORT/users/a91b1d64-aff6-4587-ac5c-6a58822b5b75",
+      "method": "GET"
+    },
+    "update": {
+      "href": "http://localhost:PORT/users/a91b1d64-aff6-4587-ac5c-6a58822b5b75",
+      "method": "PUT"
+    },
+    "delete": {
+      "href": "http://localhost:PORT/users/a91b1d64-aff6-4587-ac5c-6a58822b5b75",
+      "method": "DELETE"
+    },
+    "getEmpiresByUser": {
+      "href": "http://localhost:PORT/users/a91b1d64-aff6-4587-ac5c-6a58822b5b75/empires",
+      "method": "GET"
+    }
+  }
+}
