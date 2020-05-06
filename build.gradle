@@ -25,7 +25,7 @@ buildTimer {
 }
 
 ext {
-    javaVersion = '11'
+    javaVersion = JavaVersion.VERSION_11
     encoding = 'UTF-8'
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
@@ -52,8 +52,8 @@ allprojects {
     }
 
     configurations {
-        integrationTestCompile.extendsFrom testCompile
-        integrationTestRuntime.extendsFrom testRuntime
+        integrationTestCompileClasspath.extendsFrom testCompileClasspath
+        integrationTestRuntimeClasspath.extendsFrom testRuntimeClasspath
     }
 
     sourceSets {

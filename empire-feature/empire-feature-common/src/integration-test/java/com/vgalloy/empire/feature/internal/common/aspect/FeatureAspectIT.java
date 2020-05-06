@@ -8,14 +8,12 @@ import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 11/10/18.

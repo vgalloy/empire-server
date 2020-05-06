@@ -10,14 +10,12 @@ import com.vgalloy.empire.feature.internal.common.store.InMemoryFeatureDao;
 import com.vgalloy.empire.feature.internal.common.store.StandardFeatureManager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.context.annotation.Bean;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * Created by Vincent Galloy on 13/10/18.
