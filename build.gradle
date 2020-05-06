@@ -17,10 +17,6 @@ plugins {
 
 apply plugin: 'net.jokubasdargis.build-timer'
 
-googleJavaFormat {
-    toolVersion = '1.7'
-}
-
 buildTimer {
     reportAbove = 100L
     sort = BuildTimerPluginExtension.SortOrder.DESC
@@ -54,10 +50,21 @@ configure (getSubprojects()) { project ->
     apply plugin: 'checkstyle'
     apply plugin: 'pmd'
     apply plugin: 'jacoco'
+    apply plugin: 'com.github.sherter.google-java-format'
 
     configurations {
         integrationTestCompileClasspath.extendsFrom testCompileClasspath
         integrationTestRuntimeClasspath.extendsFrom testRuntimeClasspath
+    }
+
+    googleJavaFormat {
+        toolVersion = '1.7'
+    }
+
+    tasks.getByName('verifyGoogleJavaFormat').enabled(false)
+
+    tasks.withType(Checkstyle) {
+        dependsOn 'googleJavaFormat'
     }
 
     sourceSets {
@@ -76,10 +83,6 @@ configure (getSubprojects()) { project ->
         configFile = rootProject.file("$qualityConfigurationPath/checkstyle/checkstyle.xml")
         checkstyleTest.enabled = false
         checkstyleIntegrationTest.enabled = false
-    }
-
-    tasks.withType(Checkstyle) {
-        dependsOn ':googleJavaFormat'
     }
 
     pmd {
