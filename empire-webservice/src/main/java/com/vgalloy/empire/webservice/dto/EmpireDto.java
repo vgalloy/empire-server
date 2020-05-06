@@ -5,7 +5,7 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public final class EmpireDto implements Dto {
+public final class EmpireDto implements JsonDto {
 
   private PlayerInstructionDto playerInstruction;
   private RoundDto round;

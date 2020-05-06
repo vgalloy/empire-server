@@ -5,7 +5,7 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public final class RoundDto implements Dto {
+public final class RoundDto implements JsonDto {
 
   private Integer year;
   private String month;

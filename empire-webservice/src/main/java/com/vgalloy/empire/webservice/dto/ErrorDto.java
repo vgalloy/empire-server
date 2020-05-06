@@ -9,7 +9,7 @@ import java.util.Objects;
  *
  * @author Vincent Galloy
  */
-public final class ErrorDto implements Dto {
+public final class ErrorDto implements JsonDto {
 
   private final int code;
   private final String message;

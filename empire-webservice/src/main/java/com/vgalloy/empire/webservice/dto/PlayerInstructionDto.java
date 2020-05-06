@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Vincent Galloy
  */
-public final class PlayerInstructionDto implements Dto {
+public final class PlayerInstructionDto implements JsonDto {
 
   private Map<OrderType, Long> orders;
 

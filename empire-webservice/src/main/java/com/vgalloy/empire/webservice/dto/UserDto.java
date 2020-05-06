@@ -7,7 +7,7 @@ import javax.validation.constraints.NotEmpty;
  *
  * @author Vincent Galloy
  */
-public class UserDto implements Dto {
+public class UserDto implements JsonDto {
 
   @NotEmpty(message = "Invalid user login")
   private String login;

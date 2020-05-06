@@ -5,7 +5,7 @@ package com.vgalloy.empire.webservice.dto;
  *
  * @author Vincent Galloy
  */
-public final class StockDto implements Dto {
+public final class StockDto implements JsonDto {
 
   private Long current;
   private Long granary;
