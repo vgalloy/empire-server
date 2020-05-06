@@ -28,7 +28,7 @@ ext {
 
     qualityConfigurationPath = 'empire-configuration/src/main/resources/quality'
     checkstyleVersion = '8.30'
-    pmdVersion = '6.21.0'
+    pmdVersion = '6.23.0'
     jacocoVersion = '0.8.5'
 
     springBootVersion = '2.1.4.RELEASE'
