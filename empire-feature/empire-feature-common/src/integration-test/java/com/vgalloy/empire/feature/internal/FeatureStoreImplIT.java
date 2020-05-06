@@ -22,7 +22,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author Vincent Galloy
  */
 @SpringBootTest(classes = FeatureStoreImplIT.Config.class)
-@ExtendWith(SpringExtension.class)
 public class FeatureStoreImplIT {
 
   @Autowired private FeatureStore featureStore;

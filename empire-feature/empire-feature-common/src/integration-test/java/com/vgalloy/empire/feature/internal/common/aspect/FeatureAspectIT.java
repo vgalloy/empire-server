@@ -23,7 +23,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  * @author Vincent Galloy
  */
 @SpringBootTest(classes = FeatureAspectIT.Config.class)
-@ExtendWith(SpringExtension.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class FeatureAspectIT {
 

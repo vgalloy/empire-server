@@ -29,7 +29,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  *
  * @author Vincent Galloy
  */
-@ExtendWith(SpringExtension.class)
 @SpringBootTest(
     classes = ServerConfig.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
