@@ -1,3 +1,5 @@
 dependencies {
+    api platform(project(':empire-platform'))
+
     api project(':empire-service')
 }

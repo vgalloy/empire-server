@@ -1,0 +1,20 @@
+plugins {
+    id 'java-platform'
+}
+
+ext {
+    springBootVersion = '2.1.4.RELEASE'
+    springFoxVersion = '2.9.2'
+}
+
+javaPlatform {
+    allowDependencies()
+}
+
+dependencies {
+    api platform("org.springframework.boot:spring-boot-dependencies:$springBootVersion")
+    constraints{
+        api "io.springfox:springfox-swagger-ui:$springFoxVersion"
+        api "io.springfox:springfox-swagger2:$springFoxVersion"
+    }
+}
