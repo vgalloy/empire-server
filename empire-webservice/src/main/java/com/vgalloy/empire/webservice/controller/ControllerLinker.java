@@ -5,7 +5,7 @@ import com.vgalloy.empire.webservice.dto.EmpireDto;
 import com.vgalloy.empire.webservice.dto.UserDto;
 import com.vgalloy.empire.webservice.resource.LinkWithMethod;
 import com.vgalloy.empire.webservice.resource.ResourceData;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,17 +20,17 @@ public class ControllerLinker {
   public void addUserLink(final ResourceData<UserDto> resourceData) {
     resourceData.add(
         LinkWithMethod.self(
-            ControllerLinkBuilder.methodOn(UserController.class).getById(resourceData.getUuid())));
+            WebMvcLinkBuilder.methodOn(UserController.class).getById(resourceData.getUuid())));
     resourceData.add(
         LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(UserController.class)
+            WebMvcLinkBuilder.methodOn(UserController.class)
                 .update(resourceData.getUuid(), resourceData.getResource())));
     resourceData.add(
         LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(UserController.class).delete(resourceData.getUuid())));
+            WebMvcLinkBuilder.methodOn(UserController.class).delete(resourceData.getUuid())));
     resourceData.add(
         LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(UserController.class)
+            WebMvcLinkBuilder.methodOn(UserController.class)
                 .getEmpiresByUser(resourceData.getUuid())));
   }
 
@@ -43,18 +43,15 @@ public class ControllerLinker {
   public void addEmpireLink(final ResourceData<EmpireDto> resourceData) {
     resourceData.add(
         LinkWithMethod.self(
-            ControllerLinkBuilder.methodOn(EmpireController.class)
-                .getById(resourceData.getUuid())));
+            WebMvcLinkBuilder.methodOn(EmpireController.class).getById(resourceData.getUuid())));
+    resourceData.add(
+        LinkWithMethod.linkTo(WebMvcLinkBuilder.methodOn(EmpireController.class).getOrdersTypes()));
     resourceData.add(
         LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(EmpireController.class).getOrdersTypes()));
+            WebMvcLinkBuilder.methodOn(EmpireController.class).nextRound(resourceData.getUuid())));
     resourceData.add(
         LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(EmpireController.class)
-                .nextRound(resourceData.getUuid())));
-    resourceData.add(
-        LinkWithMethod.linkTo(
-            ControllerLinkBuilder.methodOn(EmpireController.class)
+            WebMvcLinkBuilder.methodOn(EmpireController.class)
                 .updateOrder(resourceData.getUuid(), null)));
   }
 }

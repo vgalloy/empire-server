@@ -5,8 +5,9 @@ import java.util.Arrays;
 import java.util.Objects;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.core.DummyInvocationUtils;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.core.DummyInvocationUtils;
+import org.springframework.hateoas.server.core.LastInvocationAware;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,7 +57,7 @@ public final class LinkWithMethod extends Link {
   public static LinkWithMethod[] linkTo(final Object invocationValue) {
     final var method = extractMethod(invocationValue);
     final var methodName = method.getName();
-    final var link = ControllerLinkBuilder.linkTo(invocationValue).withRel(methodName);
+    final var link = WebMvcLinkBuilder.linkTo(invocationValue).withRel(methodName);
     final var requestMapping = AnnotationUtils.findAnnotation(method, RequestMapping.class);
     final var requestMethods = getRequestMethod(requestMapping);
     return Arrays.stream(requestMethods)
@@ -97,9 +98,9 @@ public final class LinkWithMethod extends Link {
    * @return the method
    */
   private static Method extractMethod(final Object invocationValue) {
-    Assert.isInstanceOf(DummyInvocationUtils.LastInvocationAware.class, invocationValue);
-    final var invocations = (DummyInvocationUtils.LastInvocationAware) invocationValue;
-    final var invocation = invocations.getLastInvocation();
+    final LastInvocationAware lastInvocationAware =
+        DummyInvocationUtils.getLastInvocationAware(invocationValue);
+    final var invocation = lastInvocationAware.getLastInvocation();
     return invocation.getMethod();
   }
 }

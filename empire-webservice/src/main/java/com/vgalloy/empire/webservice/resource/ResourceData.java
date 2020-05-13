@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import java.util.Objects;
 import java.util.UUID;
-import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.RepresentationModel;
 
 /**
  * Created by Vincent Galloy on 17/10/18.
@@ -12,7 +12,7 @@ import org.springframework.hateoas.ResourceSupport;
  * @author Vincent Galloy
  */
 @JsonPropertyOrder({"_metadata", "_id", "resource"})
-public class ResourceData<T> extends ResourceSupport {
+public class ResourceData<T> extends RepresentationModel<ResourceData<T>> {
 
   private final ResourceMetadata metaData;
   private final UUID uuid;

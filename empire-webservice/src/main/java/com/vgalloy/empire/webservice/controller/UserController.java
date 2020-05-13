@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 @NotNullApi
 @Validated
 @RestController
-@RequestMapping(value = "users", produces = MediaTypes.HAL_JSON_UTF8_VALUE)
+@RequestMapping(value = "users", produces = MediaTypes.HAL_JSON_VALUE)
 public class UserController {
 
   private static final String USER_ID_MUST_BE_NOT_NULL = "User id can't be null";

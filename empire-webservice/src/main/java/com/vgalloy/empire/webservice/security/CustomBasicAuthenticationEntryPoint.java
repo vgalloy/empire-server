@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vgalloy.empire.webservice.dto.ErrorDto;
 import java.io.IOException;
 import java.util.Objects;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
@@ -37,7 +36,7 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
       final HttpServletRequest request,
       final HttpServletResponse response,
       final AuthenticationException authException)
-      throws IOException, ServletException {
+      throws IOException {
     response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
     response.addHeader("WWW-Authenticate", "Basic realm=" + getRealmName());
     response.addHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE);
@@ -51,7 +50,7 @@ final class CustomBasicAuthenticationEntryPoint extends BasicAuthenticationEntry
   }
 
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() {
     setRealmName("EMPIRE_REALM");
     super.afterPropertiesSet();
   }

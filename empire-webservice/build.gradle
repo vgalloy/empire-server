@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.1.4.RELEASE'
+    id 'org.springframework.boot' version '2.2.7.RELEASE'
     id 'com.google.cloud.tools.jib' version '2.2.0'
 }
 
@@ -17,11 +17,10 @@ dependencies {
     api project(':empire-service')
     api project(':empire-persistence')
     api project(':empire-feature:empire-feature-web')
+    api 'org.springdoc:springdoc-openapi-ui'
     api 'org.springframework.boot:spring-boot-starter-web'
     api 'org.springframework.boot:spring-boot-starter-security'
     api 'org.springframework.boot:spring-boot-starter-hateoas'
-    api 'io.springfox:springfox-swagger-ui'
-    api 'io.springfox:springfox-swagger2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'

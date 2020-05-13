@@ -3,7 +3,7 @@ package com.vgalloy.empire.webservice.resource;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ControllerLinkBuilder;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -49,7 +49,7 @@ public class LinkWithMethodTest {
   @Test
   void objectWithNoRequestMapping() {
     // GIVEN
-    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).all();
+    final Sample proxy = WebMvcLinkBuilder.methodOn(SampleImpl.class).all();
 
     // WHEN
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
@@ -62,7 +62,7 @@ public class LinkWithMethodTest {
   @Test
   void selfMaintainCorrectType() {
     // GIVEN
-    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
+    final Sample proxy = WebMvcLinkBuilder.methodOn(SampleImpl.class).test();
 
     // WHEN
     final Link result = LinkWithMethod.self(proxy).withSelfRel();
@@ -74,7 +74,7 @@ public class LinkWithMethodTest {
   @Test
   void changeHref() {
     // GIVEN
-    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test();
+    final Sample proxy = WebMvcLinkBuilder.methodOn(SampleImpl.class).test();
 
     // WHEN
     final Link result = LinkWithMethod.self(proxy).withHref("TOTO");
@@ -87,7 +87,7 @@ public class LinkWithMethodTest {
   @Test
   void aliasFor() {
     // GIVEN
-    final Sample proxy = ControllerLinkBuilder.methodOn(SampleImpl.class).test2();
+    final Sample proxy = WebMvcLinkBuilder.methodOn(SampleImpl.class).test2();
 
     // WHEN
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
@@ -101,7 +101,7 @@ public class LinkWithMethodTest {
   @Test
   void findInterface() {
     // GIVEN
-    final Sample proxy = ControllerLinkBuilder.methodOn(Sample.class).test3();
+    final Sample proxy = WebMvcLinkBuilder.methodOn(Sample.class).test3();
 
     // WHEN
     final LinkWithMethod[] result = LinkWithMethod.linkTo(proxy);
