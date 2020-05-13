@@ -13,7 +13,7 @@
     <properties>
         <agent-directory>${project.build.directory}/agents</agent-directory>
         <elasticsearch-agent.version>1.6.1</elasticsearch-agent.version>
-        <jib-maven-plugin.version>1.0.2</jib-maven-plugin.version>
+        <jib-maven-plugin.version>2.2.0</jib-maven-plugin.version>
     </properties>
 
     <dependencies>
@@ -122,7 +122,9 @@
                     <from>
                         <image>gcr.io/distroless/java:11</image>
                     </from>
-                    <extraDirectory>${agent-directory}</extraDirectory>
+                    <extraDirectories>
+                        <paths>${agent-directory}</paths>
+                    </extraDirectories>
                     <container>
                         <ports>8081</ports>
                         <jvmFlags>
