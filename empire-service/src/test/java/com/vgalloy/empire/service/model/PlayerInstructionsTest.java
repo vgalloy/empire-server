@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Vincent Galloy
  */
-public final class PlayerInstructionsTest {
+final class PlayerInstructionsTest {
 
   @Test
   void addOrder() {

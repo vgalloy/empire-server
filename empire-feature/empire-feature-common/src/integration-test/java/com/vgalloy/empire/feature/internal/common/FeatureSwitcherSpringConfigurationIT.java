@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @Import(FeatureSwitcherSpringConfigurationIT.Config.class)
 @ExtendWith(SpringExtension.class)
-public class FeatureSwitcherSpringConfigurationIT {
+class FeatureSwitcherSpringConfigurationIT {
 
   @Autowired private ApplicationContext applicationContext;
 
@@ -32,7 +32,7 @@ public class FeatureSwitcherSpringConfigurationIT {
 
   @EnableFeatureSwitcher
   @SpringBootConfiguration
-  public static class Config {
+  static class Config {
 
     @Bean
     public FeatureDao featureDao() {

@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Import;
  * @author Vincent Galloy
  */
 @SpringBootTest(classes = FeatureStoreImplIT.Config.class)
-public class FeatureStoreImplIT {
+class FeatureStoreImplIT {
 
   @Autowired private FeatureStore featureStore;
 
@@ -36,7 +36,7 @@ public class FeatureStoreImplIT {
 
   @Configuration
   @Import({ApplicationProperties.class, TestConfig.class})
-  public static class Config {
+  static class Config {
 
     @Bean
     public FeatureStore featureStore(

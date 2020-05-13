@@ -17,7 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @Import(NotNullApiAspectIT.Config.class)
 @ExtendWith(SpringExtension.class)
-public final class NotNullApiAspectIT {
+final class NotNullApiAspectIT {
 
   @Autowired private SimpleClass simpleClass;
 
@@ -31,7 +31,7 @@ public final class NotNullApiAspectIT {
 
   @Configuration
   @EnableAspectJAutoProxy
-  public static class Config {
+  static class Config {
 
     @Bean
     public SimpleClass simpleClass() {

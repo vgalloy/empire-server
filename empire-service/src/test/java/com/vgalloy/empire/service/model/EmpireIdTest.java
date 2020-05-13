@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Vincent Galloy
  */
-public final class EmpireIdTest {
+final class EmpireIdTest {
 
   @Test
   void simple() {

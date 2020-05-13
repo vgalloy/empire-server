@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Bean;
 @SpringBootTest(
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     classes = FeatureRestControllerIT.Config.class)
-public class FeatureRestControllerIT {
+class FeatureRestControllerIT {
 
   private static final String FEATURE_NAME = "web.feature";
 

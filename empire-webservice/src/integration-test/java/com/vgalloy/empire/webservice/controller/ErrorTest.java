@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 @SpringBootTest(
     classes = ServerConfig.class,
     webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ErrorTest {
+class ErrorTest {
 
   @Autowired private TestRestTemplate restTemplate;
 

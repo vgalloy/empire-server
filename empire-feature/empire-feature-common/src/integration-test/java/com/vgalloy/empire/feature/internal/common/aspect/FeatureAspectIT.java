@@ -22,7 +22,7 @@ import org.springframework.test.annotation.DirtiesContext;
  */
 @SpringBootTest(classes = FeatureAspectIT.Config.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class FeatureAspectIT {
+class FeatureAspectIT {
 
   @Autowired private SampleBean sampleBean;
 
@@ -55,7 +55,7 @@ public class FeatureAspectIT {
 
   @Configuration
   @EnableAspectJAutoProxy
-  public static class Config {
+  static class Config {
 
     @Bean
     FeatureDao featureDao() {

@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Vincent Galloy
  */
-public final class InMemoryTranslationStoreTest {
+final class InMemoryTranslationStoreTest {
 
   @Test
   void noTranslation() {

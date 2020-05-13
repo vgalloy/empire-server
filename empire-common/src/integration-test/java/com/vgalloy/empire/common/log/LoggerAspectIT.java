@@ -20,7 +20,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
  */
 @ExtendWith(SpringExtension.class)
 @Import(LoggerAspectIT.Config.class)
-public final class LoggerAspectIT {
+final class LoggerAspectIT {
 
   private static final Logger LOGGER = BDDMockito.mock(Logger.class);
 
@@ -49,7 +49,7 @@ public final class LoggerAspectIT {
 
   @EnableAspectJAutoProxy
   @Configuration
-  public static class Config {
+  static class Config {
 
     @Bean
     public SimpleClass simpleClass() {

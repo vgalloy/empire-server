@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  *
  * @author Vincent Galloy
  */
-public final class TranslationKeyTest {
+final class TranslationKeyTest {
 
   @Test
   void notDefault() {
