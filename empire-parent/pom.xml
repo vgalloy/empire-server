@@ -42,7 +42,7 @@
         <pmd.version>6.23.0</pmd.version>
 
         <!-- Dependencies-->
-        <spring-boot.version>2.3.0.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.1.RELEASE</spring-boot.version>
         <springdoc.version>1.4.0</springdoc.version>
     </properties>
 
